@@ -1634,30 +1634,31 @@ async function checkOrefAlert() {
   try {
     const res = await fetch(OREF_URL, { cache: 'no-store' });
     const text = await res.text();
-    if (!text || text.trim() === '' || text.trim() === 'null') {
-      hideAlert(); return;
+    if (!text || text.trim() === '' || text.trim() === '[]' || text.trim() === 'null') {
+      hideAlert(); lastAlertId = null; return;
     }
     const data = JSON.parse(text);
-    if (data && data.id) {
-      // סינון לפי עיר
-      if (selectedCity !== 'הכל') {
-        const areas = data.data || [];
-        const relevant = areas.some(area => {
-          const a = area.trim();
-          const c = selectedCity.trim();
-          return a === c || a.includes(c) || c.includes(a);
-        });
-        if (!relevant) {
-          hideAlert(); return;
-        }
-      }
-      if (data.id !== lastAlertId) {
-        lastAlertId = data.id;
-        const areas = data.data ? data.data.join(' • ') : '';
-        showAlert(data.title || '🚨 אזעקה', areas);
-      }
-    } else {
-      hideAlert();
+
+    // פורמט חדש: מערך [{id, title, data:[...]}, ...]
+    // פורמט ישן: {id, title, data:[...]}
+    const alert = Array.isArray(data) ? data[0] : data;
+    if (!alert || !alert.id) { hideAlert(); lastAlertId = null; return; }
+
+    // סינון לפי עיר
+    if (selectedCity !== 'הכל') {
+      const areas = alert.data || [];
+      const relevant = areas.some(area => {
+        const a = area.trim();
+        const c = selectedCity.trim();
+        return a === c || a.includes(c) || c.includes(a);
+      });
+      if (!relevant) { hideAlert(); return; }
+    }
+
+    if (alert.id !== lastAlertId) {
+      lastAlertId = alert.id;
+      const areas = alert.data ? alert.data.join(' • ') : '';
+      showAlert(alert.title || '🚨 אזעקה', areas);
     }
   } catch(e) { /* שקט בשגיאות רשת */ }
 }
