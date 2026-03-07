@@ -1638,15 +1638,25 @@ async function checkOrefAlert() {
       hideAlert(); return;
     }
     const data = JSON.parse(text);
-    if (data && data.id && data.id !== lastAlertId) {
+    if (data && data.id) {
       // סינון לפי עיר
-      if (selectedCity !== 'הכל' && data.data && !data.data.some(a => a.includes(selectedCity) || selectedCity.includes(a))) {
-        return; // לא רלוונטי לאזור שלי
+      if (selectedCity !== 'הכל') {
+        const areas = data.data || [];
+        const relevant = areas.some(area => {
+          const a = area.trim();
+          const c = selectedCity.trim();
+          return a === c || a.includes(c) || c.includes(a);
+        });
+        if (!relevant) {
+          hideAlert(); return;
+        }
       }
-      lastAlertId = data.id;
-      const areas = data.data ? data.data.join(' • ') : '';
-      showAlert(data.title || '🚨 אזעקה', areas);
-    } else if (!data || !data.id) {
+      if (data.id !== lastAlertId) {
+        lastAlertId = data.id;
+        const areas = data.data ? data.data.join(' • ') : '';
+        showAlert(data.title || '🚨 אזעקה', areas);
+      }
+    } else {
       hideAlert();
     }
   } catch(e) { /* שקט בשגיאות רשת */ }
