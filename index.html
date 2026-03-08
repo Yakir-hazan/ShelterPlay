@@ -2059,8 +2059,49 @@ function updateLocationBtn() {
 }
 
 function startAlertPolling() {
+  // בדוק אם יש אזעקה שמורה מרענון קודם
+  restoreAlertFromStorage();
   checkOrefAlert();
   alertPolling = setInterval(checkOrefAlert, 10000);
+}
+
+function restoreAlertFromStorage() {
+  try {
+    const saved = localStorage.getItem('mamad_alert');
+    if (!saved) return;
+    const { title, areas, timestamp, instruction } = JSON.parse(saved);
+    const elapsed = Date.now() - timestamp;
+    const tenMin = 10 * 60 * 1000;
+    const sevenMin = 7 * 60 * 1000;
+    if (elapsed >= tenMin) { localStorage.removeItem('mamad_alert'); return; }
+
+    // שחזר התראה
+    const chip = document.getElementById('alertChip');
+    const inner = chip.querySelector('div');
+    inner.innerHTML = `<span style="width:8px;height:8px;background:#ff6b6b;border-radius:50%;display:inline-block;animation:alertBlink 1.2s ease-in-out infinite"></span>
+      🚨 ${title}${areas ? ' — ' + areas : ''}`;
+    chip.style.display = 'flex';
+
+    const instrEl = document.getElementById('alertInstruction');
+    const instrLabel = document.getElementById('alertInstructionLabel');
+    instrEl.style.display = 'flex';
+
+    const remaining7 = sevenMin - elapsed;
+    if (remaining7 <= 0) {
+      instrLabel.textContent = '🛡️ הישארו במרחב המוגן עד לקבלת הודעה מפיקוד העורף';
+    } else {
+      instrLabel.textContent = '🏃 היכנסו למרחב המוגן עכשיו!';
+      alertInstructionTimeout = setTimeout(() => {
+        instrLabel.textContent = '🛡️ הישארו במרחב המוגן עד לקבלת הודעה מפיקוד העורף';
+      }, remaining7);
+    }
+
+    const remainingHide = tenMin - elapsed;
+    alertHideTimeout = setTimeout(() => {
+      hideAlert();
+      localStorage.removeItem('mamad_alert');
+    }, remainingHide);
+  } catch(e) {}
 }
 
 async function checkOrefAlert() {
@@ -2102,6 +2143,13 @@ function showAlert(title, areas) {
     🚨 ${title}${areas ? ' — ' + areas : ''}`;
   chip.style.display = 'flex';
 
+  // שמור ב-localStorage
+  try {
+    localStorage.setItem('mamad_alert', JSON.stringify({
+      title, areas, timestamp: Date.now()
+    }));
+  } catch(e) {}
+
   // הצג באנר הוראה
   const instrEl = document.getElementById('alertInstruction');
   const instrText = document.getElementById('alertInstructionLabel');
@@ -2131,6 +2179,7 @@ function hideAlert() {
   if (alertInstructionTimeout) { clearTimeout(alertInstructionTimeout); alertInstructionTimeout = null; }
   document.getElementById('alertChip').style.display = 'none';
   document.getElementById('alertInstruction').style.display = 'none';
+  try { localStorage.removeItem('mamad_alert'); } catch(e) {}
 }
 
 function playAlertSound() {
