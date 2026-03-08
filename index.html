@@ -531,6 +531,17 @@
     </div>
   </div>
 
+  <!-- באנר הוראה -->
+  <div id="alertInstruction" style="display:none;margin-top:8px;justify-content:center">
+    <div id="alertInstructionText" style="
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(255,159,67,0.15);
+      border:1px solid rgba(255,159,67,0.4);
+      border-radius:50px; padding:8px 18px;
+      font-size:13px; font-weight:700; color:#ff9f43;
+    ">🏃 היכנסו למרחב המוגן עכשיו!</div>
+  </div>
+
   <div id="monitorBadge" style="display:flex;justify-content:center;margin-top:14px">
     <div style="
       display:inline-flex; align-items:center; gap:7px;
@@ -2036,12 +2047,33 @@ async function checkOrefAlert() {
   } catch(e) { /* שקט בשגיאות רשת */ }
 }
 
+let alertHideTimeout = null;
+let alertInstructionTimeout = null;
+
 function showAlert(title, areas) {
   const chip = document.getElementById('alertChip');
   const inner = chip.querySelector('div');
   inner.innerHTML = `<span style="width:8px;height:8px;background:#ff6b6b;border-radius:50%;display:inline-block;animation:alertBlink 1.2s ease-in-out infinite"></span>
     🚨 ${title}${areas ? ' — ' + areas : ''}`;
   chip.style.display = 'flex';
+
+  // הצג באנר הוראה
+  const instrEl = document.getElementById('alertInstruction');
+  const instrText = document.getElementById('alertInstructionText');
+  instrText.textContent = '🏃 היכנסו למרחב המוגן עכשיו!';
+  instrEl.style.display = 'flex';
+
+  // אחרי 7 דקות — החלף כיתוב
+  if (alertInstructionTimeout) clearTimeout(alertInstructionTimeout);
+  alertInstructionTimeout = setTimeout(() => {
+    instrText.textContent = '🛡️ הישארו במרחב המוגן עד לקבלת הודעה מפיקוד העורף';
+  }, 7 * 60 * 1000);
+
+  // בטל timeout קודם אם יש
+  if (alertHideTimeout) clearTimeout(alertHideTimeout);
+  // הסתר הכל אחרי 10 דקות
+  alertHideTimeout = setTimeout(() => { hideAlert(); }, 10 * 60 * 1000);
+
   // הפעל טיימר אוטומטי
   if (!timerRunning && timerSeconds === 600) { toggleTimer(); }
   // הפעל צליל אזעקה
@@ -2051,7 +2083,10 @@ function showAlert(title, areas) {
 
 function hideAlert() {
   lastAlertId = null;
+  if (alertHideTimeout) { clearTimeout(alertHideTimeout); alertHideTimeout = null; }
+  if (alertInstructionTimeout) { clearTimeout(alertInstructionTimeout); alertInstructionTimeout = null; }
   document.getElementById('alertChip').style.display = 'none';
+  document.getElementById('alertInstruction').style.display = 'none';
 }
 
 function playAlertSound() {
