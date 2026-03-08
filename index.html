@@ -542,40 +542,27 @@
   </div>
 
   <!-- כפתור שיתוף -->
-  <div style="display:flex;justify-content:center;margin-top:10px">
-    <button onclick="shareApp()" style="
-      display:inline-flex; align-items:center; gap:7px;
-      background:rgba(0,212,170,0.1);
-      border:1px solid rgba(0,212,170,0.25);
-      border-radius:50px; padding:7px 16px;
-      font-size:12px; font-weight:700; color:#00d4aa;
-      cursor:pointer; font-family:inherit;
-    ">🔗 שתף עם המשפחה</button>
-  </div>
 
-  <!-- כפתור הוספה למסך הבית -->
-  <div id="installBanner" style="display:none;justify-content:center;margin-top:10px">
-    <button id="installBtn" onclick="installApp()" style="
-      display:inline-flex; align-items:center; gap:7px;
-      background:rgba(254,211,48,0.12);
-      border:1px solid rgba(254,211,48,0.35);
-      border-radius:50px; padding:7px 16px;
-      font-size:12px; font-weight:700; color:#fed330;
-      cursor:pointer; font-family:inherit;
-    ">📲 הוסף למסך הבית</button>
-  </div>
+</div>
 
-  <!-- הוראות iOS -->
-  <div id="iosBanner" style="display:none;justify-content:center;margin-top:10px">
-    <button onclick="showIosInstructions()" style="
-      display:inline-flex; align-items:center; gap:7px;
-      background:rgba(254,211,48,0.12);
-      border:1px solid rgba(254,211,48,0.35);
-      border-radius:50px; padding:7px 16px;
-      font-size:12px; font-weight:700; color:#fed330;
-      cursor:pointer; font-family:inherit;
-    ">📲 הוסף למסך הבית</button>
-  </div>
+<!-- כפתורי שיתוף והתקנה — קבועים למעלה שמאל -->
+<div style="position:fixed;top:14px;left:14px;z-index:1000;display:flex;gap:8px">
+  <button onclick="shareApp()" title="שתף את האתר" style="
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(0,212,170,0.15);
+    border:1.5px solid rgba(0,212,170,0.35);
+    color:#00d4aa;font-size:18px;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(8px);
+  ">🔗</button>
+  <button id="installBtn" onclick="handleInstall()" title="הוסף למסך הבית" style="
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(254,211,48,0.15);
+    border:1.5px solid rgba(254,211,48,0.35);
+    color:#fed330;font-size:18px;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(8px);
+  ">📲</button>
 </div>
 
 <!-- מודל הוראות iOS -->
@@ -1037,7 +1024,97 @@
 
 </div><!-- /main-card -->
 
+<!-- FOOTER -->
+<div style="text-align:center;padding:18px 0 4px;font-size:12px;color:var(--muted)">
+  האתר נוצר ועוצב מהלב ❤️ על ידי <span style="color:var(--text);font-weight:700">Yakir Hazan</span>
+</div>
+<div style="text-align:center;padding:0 0 16px;font-size:12px;display:flex;justify-content:center;gap:20px">
+  <button onclick="openModal('modal-about')" style="background:none;border:none;color:var(--primary);font-size:12px;cursor:pointer;font-family:inherit;padding:4px">אודות האתר</button>
+  <span style="color:var(--border)">|</span>
+  <button onclick="openModal('modal-privacy')" style="background:none;border:none;color:var(--primary);font-size:12px;cursor:pointer;font-family:inherit;padding:4px">מדיניות פרטיות</button>
+  <span style="color:var(--border)">|</span>
+  <button onclick="openModal('modal-terms')" style="background:none;border:none;color:var(--primary);font-size:12px;cursor:pointer;font-family:inherit;padding:4px">תנאי שימוש</button>
+</div>
+
+<!-- MODAL: אודות -->
+<div id="modal-about" onclick="if(event.target===this)closeModal('modal-about')" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);align-items:flex-end;">
+  <div style="background:#1a2236;border-radius:24px 24px 0 0;padding:28px 24px 40px;width:100%;max-height:80vh;overflow-y:auto;border-top:1px solid rgba(255,255,255,0.1)">
+    <div style="font-size:32px;text-align:center;margin-bottom:12px">🛡️</div>
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:16px;text-align:center">אודות האתר</h3>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">הממ"ד שלנו</strong> הוא אתר חינמי שנוצר מתוך רצון לעזור למשפחות ישראליות לעבור את הזמן בממ"ד בצורה טובה יותר — בשלווה, עם חיוך, ובבטחה.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      האתר מציע משחקים, פעילויות, צלילי הרגעה, ומערכת התראות בזמן אמת המחוברת לפיקוד העורף.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px">
+      האתר פותח ועוצב מהלב ❤️ על ידי <strong style="color:var(--text)">Yakir Hazan</strong>, ללא מטרת רווח, לטובת הציבור.
+    </p>
+    <button onclick="closeModal('modal-about')" style="width:100%;padding:14px;border-radius:14px;background:linear-gradient(135deg,#4d8eff,#2563eb);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit">סגירה</button>
+  </div>
+</div>
+
+<!-- MODAL: מדיניות פרטיות -->
+<div id="modal-privacy" onclick="if(event.target===this)closeModal('modal-privacy')" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);align-items:flex-end;">
+  <div style="background:#1a2236;border-radius:24px 24px 0 0;padding:28px 24px 40px;width:100%;max-height:80vh;overflow-y:auto;border-top:1px solid rgba(255,255,255,0.1)">
+    <div style="font-size:32px;text-align:center;margin-bottom:12px">🔒</div>
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:16px;text-align:center">מדיניות פרטיות</h3>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">איסוף מידע</strong><br>
+      האתר אינו אוסף, שומר או מעביר לצד שלישי כל מידע אישי על המשתמשים.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">אחסון מקומי</strong><br>
+      האתר שומר באופן מקומי על המכשיר שלך את בחירת העיר/אזור בלבד, לצורך הצגת התראות רלוונטיות. מידע זה נשאר על המכשיר שלך בלבד.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">התראות פיקוד העורף</strong><br>
+      האתר מתחבר לשרת פיקוד העורף לצורך קבלת התראות בזמן אמת. לא נשמר כל מידע על חיבורים אלו.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px">
+      <strong style="color:var(--text)">עוגיות (Cookies)</strong><br>
+      האתר אינו משתמש בעוגיות.
+    </p>
+    <button onclick="closeModal('modal-privacy')" style="width:100%;padding:14px;border-radius:14px;background:linear-gradient(135deg,#4d8eff,#2563eb);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit">סגירה</button>
+  </div>
+</div>
+
+<!-- MODAL: תנאי שימוש -->
+<div id="modal-terms" onclick="if(event.target===this)closeModal('modal-terms')" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);align-items:flex-end;">
+  <div style="background:#1a2236;border-radius:24px 24px 0 0;padding:28px 24px 40px;width:100%;max-height:80vh;overflow-y:auto;border-top:1px solid rgba(255,255,255,0.1)">
+    <div style="font-size:32px;text-align:center;margin-bottom:12px">📋</div>
+    <h3 style="font-size:18px;font-weight:800;margin-bottom:16px;text-align:center">תנאי שימוש</h3>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">שימוש באתר</strong><br>
+      השימוש באתר מותר לכל גיל וללא תשלום. האתר מיועד לשימוש אישי ולא מסחרי.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">התראות חירום</strong><br>
+      מערכת ההתראות מסתמכת על נתוני פיקוד העורף. האתר אינו אחראי לאיחורים, תקלות טכניות, או אי-דיוק במידע המתקבל משרתי פיקוד העורף. בכל מצב חירום יש לפעול לפי הנחיות פיקוד העורף הרשמי.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
+      <strong style="color:var(--text)">אחריות</strong><br>
+      האתר מסופק "כמו שהוא" ללא אחריות מכל סוג. יוצר האתר אינו אחראי לכל נזק ישיר או עקיף הנובע מהשימוש באתר.
+    </p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px">
+      <strong style="color:var(--text)">שינויים</strong><br>
+      יוצר האתר שומר לעצמו את הזכות לשנות את תנאי השימוש בכל עת.
+    </p>
+    <button onclick="closeModal('modal-terms')" style="width:100%;padding:14px;border-radius:14px;background:linear-gradient(135deg,#4d8eff,#2563eb);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit">סגירה</button>
+  </div>
+</div>
+
 <script>
+// ======== MODALS ========
+function openModal(id) {
+  const m = document.getElementById(id);
+  m.style.display = 'flex';
+  setTimeout(() => m.style.opacity = '1', 10);
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
 // ======== SCREEN MANAGEMENT ========
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -2078,19 +2155,31 @@ async function shareApp() {
 // ======== INSTALL PWA ========
 let deferredPrompt = null;
 
-// Android / Chrome — תפוס את אירוע ההתקנה
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   deferredPrompt = e;
-  document.getElementById('installBanner').style.display = 'flex';
 });
 
-// iOS — זהה ספארי על iOS
 function isIos() {
   return /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
 }
 function isInStandaloneMode() {
-  return window.navigator.standalone === true;
+  return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+}
+
+function handleInstall() {
+  if (isInStandaloneMode()) {
+    showToast('✅ האתר כבר מותקן!', 2000);
+    return;
+  }
+  if (deferredPrompt) {
+    // אנדרואיד / Chrome
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+  } else {
+    // iOS או דפדפן אחר — הצג הוראות
+    showIosInstructions();
+  }
 }
 
 function showIosInstructions() {
@@ -2100,17 +2189,9 @@ function showIosInstructions() {
 async function installApp() {
   if (!deferredPrompt) return;
   deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
+  await deferredPrompt.userChoice;
   deferredPrompt = null;
-  document.getElementById('installBanner').style.display = 'none';
 }
-
-// הצג כפתור iOS אם צריך
-window.addEventListener('load', () => {
-  if (isIos() && !isInStandaloneMode()) {
-    document.getElementById('iosBanner').style.display = 'flex';
-  }
-});
 
 const HANGMAN_WORDS = [
   {word:'ממד',hint:'מרחב מוגן דירתי'},
