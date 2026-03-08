@@ -536,7 +536,7 @@
   <div class="orb orb3"></div>
 </div>
 
-<div class="alert-bar" id="alertBar">🚨 אזעקה פעילה - הישארו בממ"ד! 🚨</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- HERO -->
@@ -563,12 +563,20 @@
   <!-- באנר הוראה -->
   <div id="alertInstruction" style="display:none;margin-top:8px;justify-content:center">
     <div id="alertInstructionText" style="
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex; align-items:center; gap:10px;
       background:rgba(255,159,67,0.15);
-      border:1px solid rgba(255,159,67,0.4);
+      border:1.5px solid rgba(255,159,67,0.4);
       border-radius:50px; padding:8px 18px;
       font-size:13px; font-weight:700; color:#ff9f43;
-    ">🏃 היכנסו למרחב המוגן עכשיו!</div>
+    ">
+      <!-- גלי רדיו כתומים -->
+      <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex-shrink:0">
+        <span style="position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #ff9f43;animation:ripple1 2s ease-out infinite;opacity:0"></span>
+        <span style="position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #ff9f43;animation:ripple1 2s ease-out infinite 0.7s;opacity:0"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:#ff9f43;display:inline-block"></span>
+      </span>
+      <span id="alertInstructionLabel">🏃 היכנסו למרחב המוגן עכשיו!</span>
+    </div>
   </div>
 
   <div id="monitorBadge" style="display:flex;justify-content:center;margin-top:14px">
@@ -2096,7 +2104,7 @@ function showAlert(title, areas) {
 
   // הצג באנר הוראה
   const instrEl = document.getElementById('alertInstruction');
-  const instrText = document.getElementById('alertInstructionText');
+  const instrText = document.getElementById('alertInstructionLabel');
   instrText.textContent = '🏃 היכנסו למרחב המוגן עכשיו!';
   instrEl.style.display = 'flex';
 
