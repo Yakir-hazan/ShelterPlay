@@ -157,14 +157,17 @@
   .btn-secondary { background: var(--card); color: var(--text); border: 1.5px solid var(--border); }
   .btn-secondary:hover { border-color: rgba(255,255,255,0.15); }
   .btn-back {
-    display: flex; align-items: center; gap: 6px;
-    background: none; border: none;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(77,142,255,0.12);
+    border: 1.5px solid rgba(77,142,255,0.3);
+    border-radius: 50px;
     font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
-    font-size: 14px; color: var(--muted);
-    cursor: pointer; padding: 0 0 16px;
-    font-weight: 500;
+    font-size: 14px; color: var(--primary);
+    cursor: pointer; padding: 8px 16px;
+    font-weight: 700; margin-bottom: 16px;
+    transition: all 0.2s;
   }
-  .btn-back:hover { color: var(--text); }
+  .btn-back:hover { background: rgba(77,142,255,0.22); color: #fff; }
 
   /* SOUND CARD */
   .sound-card {
@@ -503,7 +506,7 @@
 <div class="hero">
   <div class="hero-icon">🛡️</div>
   <h1>הממ"ד שלנו</h1>
-  <p>כאן עוברים את הזמן יחד, בבטחה</p>
+  <p>כאן מעבירים את הזמן יחד, בבטחה</p>
 
   <!-- מצב חיבור -->
   <div id="alertChip" style="display:none;margin-top:14px;justify-content:center">
@@ -538,7 +541,7 @@
       border-radius:50px; padding:7px 16px;
       font-size:12px; font-weight:700; color:#4d8eff;
       cursor:pointer; font-family:inherit;
-    ">📍 כל הארץ — לחץ לבחור עיר</button>
+    ">📍 כל הארץ — לחץ/י לבחור עיר</button>
   </div>
 
   <!-- כפתור שיתוף -->
@@ -598,7 +601,7 @@
   <div class="screen active" id="screen-home">
 
     <!-- Sound Card -->
-    <div class="section-title">בחר פעילות</div>
+    <div class="section-title">בחר/י פעילות</div>
 
     <!-- Grid -->
     <div class="grid">
@@ -620,8 +623,24 @@
       </div>
       <div class="grid-item wide-item" onclick="showScreen('screen-breathing')">
         <span style="font-size:28px">💨</span>
-        <h3>נשימות להרגעה</h3>
+        <h3>תרגילי נשימה</h3>
       </div>
+    </div>
+
+    <!-- צור קשר -->
+    <div style="
+      margin-top:16px;padding:16px;border-radius:16px;
+      background:rgba(77,142,255,0.07);
+      border:1px solid rgba(77,142,255,0.18);
+      text-align:center;
+    ">
+      <p style="font-size:13px;font-weight:700;color:var(--text);margin:0 0 8px">חשוב לדעת:</p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.8;margin:0 0 12px">
+        האתר פועל ללא פרסומות וללא כל תשלום, ואינו מיועד למטרות רווח כלל!!
+      </p>
+      <p style="font-size:13px;color:var(--muted);line-height:1.8;margin:0 0 12px">
+        יש לכם רעיון למשחק, שאלה או תקלה? <a href="https://www.facebook.com/share/1HjvSenHUv/?mibextid=wwXIfr" target="_blank" style="color:#1877f2;font-weight:700;text-decoration:underline">צרו קשר</a>
+      </p>
     </div>
 
     <!-- FOOTER -->
@@ -641,7 +660,7 @@
   <!-- LOCATION SCREEN -->
   <div class="screen" id="screen-location">
     <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px">📍 בחר את האזור שלך</h2>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:6px">📍 בחר/י את האזור שלך</h2>
     <p style="font-size:13px;color:var(--muted);margin-bottom:16px">תקבל התראה רק אם האזעקה רלוונטית לאזור שלך</p>
     <input id="citySearch" oninput="filterCities()" placeholder="🔍 חפש עיר..." style="
       width:100%; padding:12px 16px; border-radius:14px;
@@ -947,7 +966,7 @@
       cursor:pointer; transition:background 0.15s; user-select:none;
     ">
       <div style="font-size:50px" id="reactionEmoji">⏳</div>
-      <div style="font-size:18px;font-weight:700;margin-top:12px" id="reactionText">לחץ להתחלה</div>
+      <div style="font-size:18px;font-weight:700;margin-top:12px" id="reactionText">לחץ/י להתחלה</div>
     </div>
     <div style="text-align:center;margin-top:16px">
       <div class="score-badge" id="reactionScore">הכי מהיר: --</div>
@@ -986,7 +1005,7 @@
   <div class="screen" id="screen-bubbles">
     <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">פצפצים 💠</h2>
-    <div class="bubble-score" id="bubbleScore">פוצצת: 0</div>
+    <div class="bubble-score" id="bubbleScore">פוצצת/פוצץ: 0</div>
     <div class="bubble-grid" id="bubbleGrid"></div>
     <button class="btn btn-primary" onclick="initBubbles()" style="width:100%;margin-top:16px">🔄 לוח חדש</button>
   </div>
@@ -995,7 +1014,7 @@
   <div class="screen" id="screen-magic">
     <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">כדור בדולח 🔮</h2>
-    <input class="magic-input" id="magicInput" placeholder="שאל שאלה כלשהי...">
+    <input class="magic-input" id="magicInput" placeholder="שאל/י שאלה כלשהי...">
     <div class="magic-container">
       <div class="magic-ball" onclick="askMagic()">
         <div class="magic-ball-inner">
@@ -1020,17 +1039,44 @@
   <!-- BREATHING SCREEN -->
   <div class="screen" id="screen-breathing">
     <button class="btn-back" onclick="stopBreathing();showScreen('screen-home')">‹ חזרה</button>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">נשימות להרגעה 💨</h2>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">תרגילי נשימה 💨</h2>
+
+    <div style="
+      margin-bottom:16px;padding:16px;border-radius:16px;
+      background:rgba(0,212,170,0.07);
+      border:1px solid rgba(0,212,170,0.18);
+      text-align:right;
+    ">
+      <div style="font-size:13px;font-weight:700;color:#00d4aa;margin-bottom:8px">💡 למה זה עוזר?</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.8;margin:0">
+        תרגילי נשימה עוזרים להרגיע את הגוף והנפש, להפחית לחץ וחרדה, לשפר ריכוז ושינה, ולהכניס יותר חמצן לגוף ולמוח.
+      </p>
+    </div>
+
     <div class="breathing-container">
       <div class="breath-circle" id="breathCircle">
         <span class="breath-text" id="breathEmoji">🌬️</span>
+        <span id="breathCountdown" style="
+          position:absolute;bottom:22px;left:0;right:0;text-align:center;
+          font-size:28px;font-weight:900;color:rgba(255,255,255,0.9);
+          display:none;
+        "></span>
       </div>
-      <div class="breath-instruction" id="breathInstruction">מוכן?</div>
-      <div class="breath-sub" id="breathSub">לחץ התחל להתחיל</div>
-      <div class="breath-count" id="breathCount"></div>
-      <div class="timer-btns">
-        <button class="btn btn-primary" id="breathBtn" onclick="toggleBreathing()">▶ התחל</button>
+      <div class="breath-instruction" id="breathInstruction" style="font-size:26px;font-weight:900;margin-top:20px">מוכן/ה?</div>
+      <div class="breath-sub" id="breathSub" style="font-size:15px;margin-top:6px">לחץ/י התחל להתחיל</div>
+      <div class="timer-btns" style="margin-top:20px">
+        <button id="breathBtn" onclick="toggleBreathing()" style="
+          display:inline-flex;align-items:center;justify-content:center;gap:10px;
+          padding:16px 40px;border-radius:50px;border:none;cursor:pointer;
+          font-family:inherit;font-size:18px;font-weight:800;
+          background:linear-gradient(135deg,#00d4aa,#4d8eff);
+          color:#fff;box-shadow:0 4px 20px rgba(0,212,170,0.35);
+          transition:all 0.2s;letter-spacing:0.5px;
+        ">▶ התחל/י</button>
       </div>
+
+    </div>
+  </div>
     </div>
   </div>
 
@@ -1042,13 +1088,13 @@
     <div style="font-size:32px;text-align:center;margin-bottom:12px">🛡️</div>
     <h3 style="font-size:18px;font-weight:800;margin-bottom:16px;text-align:center">אודות האתר</h3>
     <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
-      <strong style="color:var(--text)">הממ"ד שלנו</strong> הוא אתר חינמי שנוצר מתוך רצון לעזור למשפחות ישראליות לעבור את הזמן בממ"ד בצורה טובה יותר — בשלווה, עם חיוך, ובבטחה.
+      <strong style="color:var(--text)">הממ"ד שלנו</strong> הוא אתר חינמי שנוצר מתוך רצון לעזור למשפחות שחיים בישראל להעביר את הזמן בממ"ד בצורה טובה יותר — בשלווה, עם חיוך, ובבטחה.
     </p>
     <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:12px">
-      האתר מציע משחקים, פעילויות, צלילי הרגעה, ומערכת התראות בזמן אמת המחוברת לפיקוד העורף.
+      האתר מציע משחקים, פעילויות וצלילי הרגעה <strong style="color:var(--text)">ללא חיבור לאינטרנט כלל</strong> — כך שניתן לשחק במשחקים גם במצבים ללא אינטרנט או קליטה.
     </p>
     <p style="font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:20px">
-      האתר פותח ועוצב מהלב ❤️ על ידי <strong style="color:var(--text)">Yakir Hazan</strong>, ללא מטרת רווח, לטובת הציבור.
+      האתר כולל <strong style="color:var(--text)">מערכת התראות בזמן אמת</strong> המחוברת לפיקוד העורף.
     </p>
     <button onclick="closeModal('modal-about')" style="width:100%;padding:14px;border-radius:14px;background:linear-gradient(135deg,#4d8eff,#2563eb);border:none;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit">סגירה</button>
   </div>
@@ -1324,10 +1370,10 @@ function initTrivia() {
 }
 function showTriviaQuestion() {
   if (triviaIdx >= triviaQ.length) {
-    document.getElementById('triviaQ').textContent = `🎉 סיימת! קיבלת ${triviaScore} מתוך ${triviaQ.length}`;
+    document.getElementById('triviaQ').textContent = `🎉 סיימת/ת! קיבלת/ת ${triviaScore} מתוך ${triviaQ.length}`;
     document.getElementById('triviaAnswers').innerHTML = '';
     document.getElementById('triviaNum').textContent = 'סיום!';
-    document.getElementById('triviaNext').textContent = '🔄 שחק שוב'; document.getElementById('triviaNext').style.display='block';
+    document.getElementById('triviaNext').textContent = '🔄 שחק/י שוב'; document.getElementById('triviaNext').style.display='block';
     document.getElementById('triviaNext').onclick = initTrivia;
     return;
   }
@@ -1413,7 +1459,7 @@ function toggleEraser() { erasing = !erasing; showToast(erasing ? '🧹 מצב �
 let bubblesPopped = 0;
 function initBubbles() {
   bubblesPopped = 0;
-  document.getElementById('bubbleScore').textContent = 'פוצצת: 0';
+  document.getElementById('bubbleScore').textContent = 'פוצצת/פוצץ: 0';
   const grid = document.getElementById('bubbleGrid');
   grid.innerHTML = '';
   for (let i = 0; i < 56; i++) {
@@ -1423,9 +1469,9 @@ function initBubbles() {
       if (!b.classList.contains('popped')) {
         b.classList.add('popped');
         bubblesPopped++;
-        document.getElementById('bubbleScore').textContent = `פוצצת: ${bubblesPopped}`;
+        document.getElementById('bubbleScore').textContent = `פוצצת/פוצץ: ${bubblesPopped}`;
         playPop();
-        if (bubblesPopped === 56) { playWin(); showToast('🎉 פוצצת הכל! כל הכבוד!', 3000); }
+        if (bubblesPopped === 56) { playWin(); showToast('🎉 פוצצת/פוצץ הכל! כל הכבוד!', 3000); }
       }
     };
     grid.appendChild(b);
@@ -1448,7 +1494,7 @@ function playPop() {
 // ======== MAGIC BALL ========
 const magicAnswers = [
   'בהחלט כן! ✨','ודאי שכן 🌟','הסימנים מצביעים על כן','כן, בלי ספק','המגמות אומרות כן',
-  'לא בטוח... 🌫️','נסה שוב מאוחר יותר','הכדור מעורפל','קשה לומר כרגע',
+  'לא בטוח... 🌫️','נסה/י שוב מאוחר יותר','הכדור מעורפל','קשה לומר כרגע',
   'לא נראה כך 🌑','ספק רב','אל תחשוב על זה 😅','לא, לפי כל הסימנים'
 ];
 function askMagic() {
@@ -1507,15 +1553,15 @@ function playNote(freq) {
 }
 
 // ======== BREATHING ========
-let breathInterval, breathRunning = false, breathPhase = 0, breathCycle = 0;
+let breathInterval, breathCountInterval, breathRunning = false, breathPhase = 0, breathCycle = 0;
 const breathPhases = [
-  {name:'שאף...', sub:'4 שניות', dur:4000, emoji:'🫁', phase:'expand'},
-  {name:'החזק', sub:'4 שניות', dur:4000, emoji:'⏸️', phase:'hold'},
-  {name:'נשוף...', sub:'4 שניות', dur:4000, emoji:'💨', phase:'shrink'},
+  {name:'לשאוף', sub:'שאיפה עמוקה דרך האף', dur:4000, emoji:'🫁', phase:'expand'},
+  {name:'להחזיק', sub:'החזק/י את הנשימה', dur:4000, emoji:'⏸️', phase:'hold'},
+  {name:'לנשוף', sub:'נשיפה איטית דרך הפה', dur:4000, emoji:'💨', phase:'shrink'},
 ];
 function toggleBreathing() {
   if (breathRunning) { stopBreathing(); }
-  else { breathRunning = true; document.getElementById('breathBtn').textContent = '⏹ עצור'; breathCycle = 0; runBreath(); }
+  else { breathRunning = true; document.getElementById('breathBtn').textContent = '⏹ עצור/י'; breathCycle = 0; breathPhase = 0; runBreath(); }
 }
 function runBreath() {
   if (!breathRunning) return;
@@ -1526,17 +1572,35 @@ function runBreath() {
   document.getElementById('breathSub').textContent = p.sub;
   document.getElementById('breathEmoji').textContent = p.emoji;
   if (breathPhase % 3 === 2) breathCycle++;
-  document.getElementById('breathCount').textContent = breathCycle > 0 ? `מחזור ${breathCycle}` : '';
+
+  // טיימר לאחור — רק בשלב "החזק"
+  const countdown = document.getElementById('breathCountdown');
+  clearInterval(breathCountInterval);
+  if (breathPhase % 3 === 1) {
+    let secs = 4;
+    countdown.style.display = 'block';
+    countdown.textContent = secs;
+    breathCountInterval = setInterval(() => {
+      secs--;
+      if (secs > 0) { countdown.textContent = secs; }
+      else { countdown.style.display = 'none'; clearInterval(breathCountInterval); }
+    }, 1000);
+  } else {
+    countdown.style.display = 'none';
+  }
+
   breathPhase++;
   breathInterval = setTimeout(runBreath, p.dur);
 }
 function stopBreathing() {
-  clearTimeout(breathInterval); breathRunning = false; breathPhase = 0; breathCycle = 0;
-  document.getElementById('breathBtn').textContent = '▶ התחל';
-  document.getElementById('breathInstruction').textContent = 'מוכן?';
-  document.getElementById('breathSub').textContent = 'לחץ התחל להתחיל';
+  clearTimeout(breathInterval);
+  clearInterval(breathCountInterval);
+  breathRunning = false; breathPhase = 0; breathCycle = 0;
+  document.getElementById('breathBtn').textContent = '▶ התחל/י';
+  document.getElementById('breathInstruction').textContent = 'מוכן/ה?';
+  document.getElementById('breathSub').textContent = 'לחץ/י התחל להתחיל';
   document.getElementById('breathEmoji').textContent = '🌬️';
-  document.getElementById('breathCount').textContent = '';
+  document.getElementById('breathCountdown').style.display = 'none';
   document.getElementById('breathCircle').className = 'breath-circle';
 }
 
@@ -1812,7 +1876,7 @@ function selectCity(city) {
 
 function updateLocationBtn() {
   const btn = document.getElementById('locationBtn');
-  if (btn) btn.textContent = selectedCity === 'הכל' ? '📍 כל הארץ — לחץ לשינוי' : '📍 ' + selectedCity + ' — לחץ לשינוי';
+  if (btn) btn.textContent = selectedCity === 'הכל' ? '📍 כל הארץ — לחץ/י לשינוי' : '📍 ' + selectedCity + ' — לחץ/י לשינוי';
 }
 
 function startAlertPolling() {
@@ -2057,7 +2121,7 @@ function loopBreakout() {
     if(boBall.x>br.x&&boBall.x<br.x+br.w&&boBall.y>br.y&&boBall.y<br.y+br.h) { br.alive=false; boBall.vy*=-1; boScore+=10; document.getElementById('scoreBreakout').textContent=boScore; }
   });
   boCtx.fillStyle='#fff'; boCtx.beginPath(); boCtx.arc(boBall.x,boBall.y,boBall.r,0,Math.PI*2); boCtx.fill();
-  if(!boBricks.some(b=>b.alive)) { boRunning=false; boCtx.fillStyle='rgba(0,0,0,0.7)'; boCtx.fillRect(0,0,w,h); boCtx.fillStyle='#ffd700'; boCtx.font='bold 24px Arial'; boCtx.textAlign='center'; boCtx.fillText('🎉 ניצחת!',w/2,h/2); return; }
+  if(!boBricks.some(b=>b.alive)) { boRunning=false; boCtx.fillStyle='rgba(0,0,0,0.7)'; boCtx.fillRect(0,0,w,h); boCtx.fillStyle='#ffd700'; boCtx.font='bold 24px Arial'; boCtx.textAlign='center'; boCtx.fillText('🎉 ניצחת/ת!',w/2,h/2); return; }
   boAnim = requestAnimationFrame(loopBreakout);
 }
 
@@ -2110,8 +2174,8 @@ function playRPS(choice) {
   document.getElementById('rpsCPU').textContent=map[cpu];
   let res;
   if(choice===cpu) { res='🤝 תיקו!'; playClick(); }
-  else if((choice==='rock'&&cpu==='scissors')||(choice==='paper'&&cpu==='rock')||(choice==='scissors'&&cpu==='paper')) { res='🎉 ניצחת!'; rpsWins++; document.getElementById('rpsScore').textContent=`ניצחונות: ${rpsWins}`; playSuccess(); }
-  else { res='😢 הפסדת...'; playError(); }
+  else if((choice==='rock'&&cpu==='scissors')||(choice==='paper'&&cpu==='rock')||(choice==='scissors'&&cpu==='paper')) { res='🎉 ניצחת/ת!'; rpsWins++; document.getElementById('rpsScore').textContent=`ניצחונות: ${rpsWins}`; playSuccess(); }
+  else { res='😢 הפסדת/ת/ת...'; playError(); }
   document.getElementById('rpsResult').textContent=res;
 }
 
@@ -2122,22 +2186,22 @@ function stopReaction() { clearTimeout(reactionTimeout); reactionState='idle'; }
 function handleReaction() {
   if(reactionState==='idle') { reactionState='waiting'; playClick(); updateReactionUI(); const delay=1500+Math.random()*3000; reactionTimeout=setTimeout(()=>{ reactionState='go'; reactionStart=Date.now(); updateReactionUI(); },delay); }
   else if(reactionState==='waiting') { clearTimeout(reactionTimeout); reactionState='toosoon'; playError(); updateReactionUI(); setTimeout(()=>{ reactionState='idle'; updateReactionUI(); },1500); }
-  else if(reactionState==='go') { const t=Date.now()-reactionStart; if(!reactionBest||t<reactionBest) reactionBest=t; playWin(); document.getElementById('reactionScore').textContent=`הכי מהיר: ${reactionBest}ms`; reactionState='result'; const box=document.getElementById('reactionBox'); box.querySelector('#reactionText').textContent=`⚡ ${t}ms! לחץ שוב`; box.querySelector('#reactionEmoji').textContent='🏆'; box.style.background='rgba(38,222,129,0.12)'; setTimeout(()=>{ reactionState='idle'; updateReactionUI(); },2000); }
+  else if(reactionState==='go') { const t=Date.now()-reactionStart; if(!reactionBest||t<reactionBest) reactionBest=t; playWin(); document.getElementById('reactionScore').textContent=`הכי מהיר: ${reactionBest}ms`; reactionState='result'; const box=document.getElementById('reactionBox'); box.querySelector('#reactionText').textContent=`⚡ ${t}ms! לחץ/י שוב`; box.querySelector('#reactionEmoji').textContent='🏆'; box.style.background='rgba(38,222,129,0.12)'; setTimeout(()=>{ reactionState='idle'; updateReactionUI(); },2000); }
 }
 function updateReactionUI() {
   const box=document.getElementById('reactionBox');
   const emoji=document.getElementById('reactionEmoji');
   const text=document.getElementById('reactionText');
-  if(reactionState==='idle') { box.style.background='#1a2236'; emoji.textContent='⏳'; text.textContent='לחץ להתחלה'; }
+  if(reactionState==='idle') { box.style.background='#1a2236'; emoji.textContent='⏳'; text.textContent='לחץ/י להתחלה'; }
   else if(reactionState==='waiting') { box.style.background='rgba(254,211,48,0.1)'; emoji.textContent='👀'; text.textContent='המתן לירוק...'; }
-  else if(reactionState==='go') { box.style.background='rgba(38,222,129,0.12)'; emoji.textContent='🟢'; text.textContent='לחץ עכשיו!'; }
-  else if(reactionState==='toosoon') { box.style.background='rgba(255,95,95,0.1)'; emoji.textContent='❌'; text.textContent='מוקדם מדי! נסה שוב'; }
+  else if(reactionState==='go') { box.style.background='rgba(38,222,129,0.12)'; emoji.textContent='🟢'; text.textContent='לחץ/י עכשיו!'; }
+  else if(reactionState==='toosoon') { box.style.background='rgba(255,95,95,0.1)'; emoji.textContent='❌'; text.textContent='מוקדם מדי! נסה/י שוב'; }
 }
 
 async function shareApp() {
   const shareData = {
     title: 'הממ"ד שלנו 🛡️',
-    text: 'אתר לזמן בממ"ד — משחקים, פעילויות, והתראות אזעקה בזמן אמת!',
+    text: 'אתר חינמי לזמן בממ"ד או במקלט 🛡️\n✅ משחקים ופעילויות ללא צורך ברשת\n🚨 התראות אזעקה בזמן אמת\n👨‍👩‍👧 מתאים לכל המשפחה',
     url: window.location.href
   };
   if (navigator.share) {
@@ -2268,7 +2332,7 @@ function renderHangman() {
   const won = hmWord.split('').every(l => hmGuessed.includes(l));
   const lost = hmWrong.length >= hmMax;
   const msg = document.getElementById('hangmanMsg');
-  if(won){ msg.textContent='🎉 כל הכבוד! ניצחת!'; msg.style.color='var(--green)'; playWin(); }
+  if(won){ msg.textContent='🎉 כל הכבוד! ניצחת/ת!'; msg.style.color='var(--green)'; playWin(); }
   else if(lost){ msg.textContent='😢 המילה הייתה: ' + hmWord; msg.style.color='#ff6b6b'; playError(); }
   else msg.textContent='';
 }
@@ -2677,7 +2741,7 @@ function tryMoveToFoundation(f){
     found.cards.push(card);
     removeSelected();
     playSuccess();
-    if(solFoundations.every(f=>f.cards.length===13)){document.getElementById('solitaireMsg').textContent='🎉 ניצחת!';playWin();}
+    if(solFoundations.every(f=>f.cards.length===13)){document.getElementById('solitaireMsg').textContent='🎉 ניצחת/ת!';playWin();}
   } else playError();
   solSelected=null;
 }
