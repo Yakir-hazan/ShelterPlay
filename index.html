@@ -455,11 +455,12 @@
   /* TOAST */
   .toast {
     position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-    background: #1a2236; border: 1px solid rgba(255,255,255,0.1);
-    color: #fff; padding: 12px 24px; border-radius: 50px;
-    font-size: 14px; font-weight: 600; z-index: 999;
-    opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    background: #1a2236; border: 1px solid rgba(254,211,48,0.3);
+    color: #fff; padding: 14px 24px; border-radius: 20px;
+    font-size: 13px; font-weight: 600; z-index: 999;
+    opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    white-space: normal; max-width: 85%; text-align: center;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
   }
   .toast.show { opacity: 1; }
 
@@ -606,7 +607,7 @@
     <!-- Grid -->
     <div class="grid">
       <div class="grid-item" onclick="showScreen('screen-games')">
-        <span class="grid-emoji">🎮</span>
+        <span class="grid-emoji">🕹️</span>
         <h3>משחקים</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-magic')">
@@ -614,15 +615,27 @@
         <h3>כדור בדולח</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-piano')">
-        <span class="grid-emoji">🎵</span>
+        <span class="grid-emoji">🎹</span>
         <h3>פסנתר קסם</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-sounds')">
-        <span class="grid-emoji">🎧</span>
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="14" width="4" height="8" rx="2" fill="#00d4aa"/>
+          <rect x="8" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
+          <rect x="14" y="5" width="4" height="26" rx="2" fill="#00d4aa"/>
+          <rect x="20" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
+          <rect x="26" y="14" width="4" height="8" rx="2" fill="#00d4aa" opacity="0.7"/>
+          <rect x="32" y="16" width="2" height="4" rx="1" fill="#00d4aa" opacity="0.5"/>
+        </svg></span>
         <h3>צלילי רקע</h3>
       </div>
       <div class="grid-item wide-item" onclick="showScreen('screen-breathing')">
-        <span style="font-size:28px">💨</span>
+        <span style="display:block;margin-bottom:10px"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- גלי נשימה -->
+          <path d="M2 18 Q6 10 10 18 Q14 26 18 18 Q22 10 26 18 Q30 26 34 18" stroke="#4d8eff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M2 24 Q6 18 10 24 Q14 30 18 24 Q22 18 26 24 Q30 30 34 24" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
+          <path d="M2 12 Q6 6 10 12 Q14 18 18 12 Q22 6 26 12 Q30 18 34 12" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+        </svg></span>
         <h3>תרגילי נשימה</h3>
       </div>
     </div>
@@ -726,55 +739,58 @@
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">בחירת משחק 🎮</h2>
     <div class="grid">
       <div class="grid-item" onclick="showScreen('screen-math');initMath()">
-        <span class="grid-emoji">🔢</span><h3>מתמטיקה</h3>
+        <span class="grid-emoji">➕</span><h3>מתמטיקה</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-2048');init2048()">
-        <span class="grid-emoji">🟦</span><h3>2048</h3>
+        <span class="grid-emoji">🔲</span><h3>2048</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-breakout');initBreakout()">
-        <span class="grid-emoji">🎲</span><h3>ברייקאאוט</h3>
+        <span class="grid-emoji">🏐</span><h3>ברייקאאוט</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-snake');initSnake()">
         <span class="grid-emoji">🐍</span><h3>סנייק</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-rps');initRPS()">
-        <span class="grid-emoji">✂️</span><h3>אבן נייר...</h3>
+        <span class="grid-emoji">🤜</span><h3>אבן נייר...</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-memory');initMemory()">
-        <span class="grid-emoji">🧩</span><h3>זיכרון</h3>
+        <span class="grid-emoji">🃟</span><h3>זיכרון</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-reaction');initReaction()">
-        <span class="grid-emoji">⚡</span><h3>זמן תגובה</h3>
+        <span class="grid-emoji">⏱️</span><h3>זמן תגובה</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-ttt');initTTT()">
-        <span class="grid-emoji">#️⃣</span><h3>איקס עיגול</h3>
+        <span class="grid-emoji">⭕</span><h3>איקס עיגול</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-hangman');initHangman()">
-        <span class="grid-emoji">🔤</span><h3>תליין</h3>
+        <span class="grid-emoji">📝</span><h3>תליין</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-sudoku');initSudoku()">
-        <span class="grid-emoji">🧩</span><h3>סודוקו</h3>
+        <span class="grid-emoji">🔢</span><h3>סודוקו</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-pong');initPong()">
         <span class="grid-emoji">🏓</span><h3>פונג</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-tetris');initTetris()">
-        <span class="grid-emoji">🎪</span><h3>טטריס</h3>
+        <span class="grid-emoji">🧱</span><h3>טטריס</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-darts');initDarts()">
         <span class="grid-emoji">🎯</span><h3>דארטס</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-solitaire');initSolitaire()">
-        <span class="grid-emoji">🃏</span><h3>סוליטייר</h3>
+        <span class="grid-emoji">🎴</span><h3>סוליטייר</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-trivia')">
-        <span class="grid-emoji">🧠</span><h3>טריוויה</h3>
+        <span class="grid-emoji">💡</span><h3>טריוויה</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-draw')">
-        <span class="grid-emoji">🎨</span><h3>לוח ציור</h3>
+        <span class="grid-emoji">✏️</span><h3>לוח ציור</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-bubbles')">
-        <span class="grid-emoji">💠</span><h3>פצפצים</h3>
+        <span class="grid-emoji">🫧</span><h3>פצפצים</h3>
+      </div>
+      <div class="grid-item" onclick="showScreen('screen-minesweeper');initMinesweeper()">
+        <span class="grid-emoji">💥</span><h3>שדה מוקשים</h3>
       </div>
     </div>
   </div>
@@ -860,6 +876,30 @@
     <canvas id="dartsCanvas" style="width:100%;border-radius:50%;border:1.5px solid var(--border);display:block;cursor:crosshair;touch-action:none"></canvas>
     <div id="dartsMsg" style="text-align:center;font-size:18px;font-weight:800;margin-top:12px;min-height:28px"></div>
     <button class="btn btn-primary" onclick="initDarts()" style="width:100%;margin-top:8px">🔄 משחק חדש</button>
+  </div>
+
+  <!-- MINESWEEPER -->
+  <div class="screen" id="screen-minesweeper">
+    <button class="btn-back" onclick="showScreen('screen-games');stopMinesweeper()">‹ חזרה</button>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">שדה מוקשים 💣</h2>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div id="mineStatus" style="font-size:14px;font-weight:700;color:var(--text)">בחר/י רמה</div>
+      <div style="display:flex;gap:6px">
+        <button onclick="startMinesweeper(8,8,10)" style="padding:6px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">קל</button>
+        <button onclick="startMinesweeper(10,10,20)" style="padding:6px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">בינוני</button>
+        <button onclick="startMinesweeper(12,12,30)" style="padding:6px 10px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:inherit">קשה</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div id="mineFlagsLeft" style="font-size:13px;color:var(--muted)"></div>
+      <button id="mineToggleFlag" onclick="toggleFlagMode()" style="
+        padding:7px 14px;border-radius:20px;border:1.5px solid var(--border);
+        background:var(--card);color:var(--text);font-size:13px;font-weight:700;
+        cursor:pointer;font-family:inherit;display:none;
+      ">🚩 מצב דגל: כבוי</button>
+    </div>
+    <canvas id="mineCanvas" style="width:100%;border-radius:14px;display:block;touch-action:none"></canvas>
+    <div id="mineMsg" style="text-align:center;font-size:18px;font-weight:800;margin-top:12px;min-height:28px"></div>
   </div>
 
   <!-- SOLITAIRE -->
@@ -1081,6 +1121,82 @@
   </div>
 
 </div><!-- /main-card -->
+
+<!-- MODAL: ברוכים הבאים -->
+<style>
+@keyframes welcomeFadeIn {
+  from { opacity:0; transform:scale(0.85) translateY(30px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+@keyframes shieldPulse {
+  0%,100% { transform:scale(1); filter:drop-shadow(0 0 8px rgba(77,142,255,0.4)); }
+  50%      { transform:scale(1.12); filter:drop-shadow(0 0 20px rgba(77,142,255,0.8)); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+</style>
+<div id="welcomeModal" onclick="if(event.target===this)document.getElementById('welcomeModal').style.display='none'" style="
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;
+  padding:24px;
+">
+  <div style="
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(24px);
+    -webkit-backdrop-filter:blur(24px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:32px;padding:36px 28px;
+    width:100%;max-width:380px;text-align:center;
+    box-shadow:0 24px 64px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    animation:welcomeFadeIn 0.5s cubic-bezier(0.34,1.56,0.64,1) forwards;
+  ">
+    <!-- אייקון מגן עם פולס -->
+    <div style="font-size:56px;margin-bottom:20px;display:inline-block;animation:shieldPulse 2.5s ease-in-out infinite">🛡️</div>
+
+    <!-- כותרת עם שימר -->
+    <h2 style="
+      font-size:24px;font-weight:900;margin-bottom:6px;
+      background:linear-gradient(90deg,#fff,#a0c4ff,#fff);
+      background-size:200% auto;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      animation:shimmer 3s linear infinite;
+    ">ברוכים הבאים!</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:24px">הממ"ד שלנו 🛡️</p>
+
+    <!-- כרטיס טיפ -->
+    <div style="
+      background:rgba(254,211,48,0.07);
+      border:1px solid rgba(254,211,48,0.2);
+      border-radius:20px;padding:18px;margin-bottom:24px;
+      backdrop-filter:blur(8px);
+    ">
+      <div style="font-size:13px;font-weight:800;color:#fed330;margin-bottom:10px;letter-spacing:0.5px">טיפ חשוב 💡</div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.9;margin:0">
+        כדי להשתמש באתר בתוך ממ"ד או מקלט ללא אינטרנט, יש לפתוח את האתר לפני הכניסה למרחב המוגן. לאחר מכן האתר ימשיך לפעול.
+      </p>
+    </div>
+
+    <!-- כפתור -->
+    <button onclick="document.getElementById('welcomeModal').style.display='none'" style="
+      width:100%;padding:16px;border-radius:18px;border:none;
+      background:linear-gradient(135deg,#4d8eff,#2563eb);
+      color:#fff;font-size:16px;font-weight:800;
+      cursor:pointer;font-family:inherit;
+      box-shadow:0 8px 24px rgba(77,142,255,0.4);
+      transition:transform 0.15s,box-shadow 0.15s;
+    "
+    onmousedown="this.style.transform='scale(0.97)'"
+    onmouseup="this.style.transform='scale(1)'"
+    ontouchstart="this.style.transform='scale(0.97)'"
+    ontouchend="this.style.transform='scale(1)'"
+    >הבנתי, תודה 👍</button>
+  </div>
+</div>
 
 <!-- MODAL: אודות -->
 <div id="modal-about" onclick="if(event.target===this)closeModal('modal-about')" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.75);align-items:flex-end;">
@@ -1955,6 +2071,11 @@ initTTT();
 initCityList();
 startAlertPolling();
 
+// הודעת ברוכים הבאים
+setTimeout(() => {
+  document.getElementById('welcomeModal').style.display = 'flex';
+}, 800);
+
 // ======== MATH GAME ========
 let mathScore2 = 0, mathTimerInt, mathCorrect;
 function initMath() {
@@ -2649,17 +2770,221 @@ function drawDart(x,y){
   ctx.strokeStyle='#fed330'; ctx.lineWidth=2; ctx.beginPath(); ctx.arc(x,y,8,0,Math.PI*2); ctx.stroke();
 }
 
-// ======== SOLITAIRE (Klondike simple) ========
+// ======== MINESWEEPER ========
+let mineGrid=[], mineRows=0, mineCols=0, mineMines=0, mineRevealed=0, mineFlags=new Set();
+let mineGameOver=false, mineFirstClick=true, mineFlagMode=false;
+
+function stopMinesweeper(){ mineGameOver=true; }
+
+function toggleFlagMode(){
+  mineFlagMode=!mineFlagMode;
+  document.getElementById('mineToggleFlag').textContent=`🚩 מצב דגל: ${mineFlagMode?'פעיל':'כבוי'}`;
+  document.getElementById('mineToggleFlag').style.borderColor=mineFlagMode?'#ff6b6b':'var(--border)';
+  document.getElementById('mineToggleFlag').style.color=mineFlagMode?'#ff6b6b':'var(--text)';
+}
+
+function startMinesweeper(rows,cols,mines){
+  mineRows=rows; mineCols=cols; mineMines=mines;
+  mineGameOver=false; mineFirstClick=true; mineFlagMode=false;
+  mineFlags=new Set(); mineRevealed=0;
+  mineGrid=Array.from({length:rows},()=>Array(cols).fill(0));
+  document.getElementById('mineMsg').textContent='';
+  document.getElementById('mineFlagsLeft').textContent=`💣 ${mines} מוקשים`;
+  document.getElementById('mineToggleFlag').style.display='inline-block';
+  document.getElementById('mineToggleFlag').textContent='🚩 מצב דגל: כבוי';
+  document.getElementById('mineToggleFlag').style.borderColor='var(--border)';
+  document.getElementById('mineToggleFlag').style.color='var(--text)';
+  document.getElementById('mineStatus').textContent='לחץ/י על תא להתחיל';
+  setupMineCanvas();
+  drawMine();
+}
+
+function initMinesweeper(){ startMinesweeper(8,8,10); }
+
+function placeMines(safeR,safeC){
+  let placed=0;
+  while(placed<mineMines){
+    const r=Math.floor(Math.random()*mineRows);
+    const c=Math.floor(Math.random()*mineCols);
+    if(mineGrid[r][c]!=='M'&&!(Math.abs(r-safeR)<=1&&Math.abs(c-safeC)<=1)){
+      mineGrid[r][c]='M'; placed++;
+    }
+  }
+  for(let r=0;r<mineRows;r++) for(let c=0;c<mineCols;c++){
+    if(mineGrid[r][c]==='M') continue;
+    let cnt=0;
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+      const nr=r+dr,nc=c+dc;
+      if(nr>=0&&nr<mineRows&&nc>=0&&nc<mineCols&&mineGrid[nr][nc]==='M') cnt++;
+    }
+    mineGrid[r][c]=cnt;
+  }
+}
+
+function setupMineCanvas(){
+  const canvas=document.getElementById('mineCanvas');
+  canvas.onclick=null; canvas.ontouchend=null;
+  const handler=e=>{
+    e.preventDefault();
+    if(mineGameOver) return;
+    const rect=canvas.getBoundingClientRect();
+    const src=e.changedTouches?e.changedTouches[0]:e;
+    const x=(src.clientX-rect.left)*(canvas.width/rect.width);
+    const y=(src.clientY-rect.top)*(canvas.height/rect.height);
+    const cs=Math.floor(canvas.width/mineCols);
+    const c=Math.floor(x/cs), r=Math.floor(y/cs);
+    if(r<0||r>=mineRows||c<0||c>=mineCols) return;
+    handleMineClick(r,c);
+  };
+  // long press for flag on mobile
+  let pressTimer=null;
+  canvas.ontouchstart=e=>{
+    pressTimer=setTimeout(()=>{
+      if(mineGameOver) return;
+      const rect=canvas.getBoundingClientRect();
+      const src=e.touches[0];
+      const x=(src.clientX-rect.left)*(canvas.width/rect.width);
+      const y=(src.clientY-rect.top)*(canvas.height/rect.height);
+      const cs=Math.floor(canvas.width/mineCols);
+      const c=Math.floor(x/cs), r=Math.floor(y/cs);
+      toggleFlag(r,c);
+    },500);
+  };
+  canvas.ontouchend=e=>{ clearTimeout(pressTimer); handler(e); };
+  canvas.onclick=handler;
+}
+
+function toggleFlag(r,c){
+  const key=`${r},${c}`;
+  if(mineFlags.has(key)) mineFlags.delete(key);
+  else mineFlags.add(key);
+  document.getElementById('mineFlagsLeft').textContent=`💣 ${mineMines-mineFlags.size} נותרו`;
+  drawMine(); playClick();
+}
+
+function handleMineClick(r,c){
+  const key=`${r},${c}`;
+  if(mineFlags.has(key)&&!mineFlagMode) return;
+  if(mineFlagMode){ toggleFlag(r,c); return; }
+  if(mineFirstClick){ placeMines(r,c); mineFirstClick=false; }
+  if(mineGrid[r][c]==='R') return;
+  if(mineGrid[r][c]==='M'){
+    // boom!
+    mineGameOver=true;
+    revealAllMines();
+    drawMine();
+    document.getElementById('mineMsg').textContent='💥 בום! נפגעת ממוקש!';
+    document.getElementById('mineMsg').style.color='#ff6b6b';
+    playError(); return;
+  }
+  revealCell(r,c);
+  drawMine();
+  const safe=mineRows*mineCols-mineMines;
+  if(mineRevealed>=safe){
+    mineGameOver=true;
+    document.getElementById('mineMsg').textContent='🎉 כל הכבוד! ניצחת/ת!';
+    document.getElementById('mineMsg').style.color='var(--green)';
+    playWin();
+  }
+}
+
+function revealCell(r,c){
+  if(r<0||r>=mineRows||c<0||c>=mineCols) return;
+  if(mineGrid[r][c]==='R'||mineGrid[r][c]==='M') return;
+  const val=mineGrid[r][c];
+  mineGrid[r][c]='R';
+  mineRevealed++;
+  if(val===0){
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++) revealCell(r+dr,c+dc);
+  }
+}
+
+function revealAllMines(){
+  for(let r=0;r<mineRows;r++) for(let c=0;c<mineCols;c++)
+    if(mineGrid[r][c]==='M') mineGrid[r][c]='BOOM';
+}
+
+function drawMine(){
+  const canvas=document.getElementById('mineCanvas');
+  const W=canvas.parentElement.offsetWidth||300;
+  const cs=Math.floor(W/mineCols);
+  canvas.width=cs*mineCols; canvas.height=cs*mineRows;
+  const ctx=canvas.getContext('2d');
+  const numColors=['','#4d8eff','#26de81','#ff6b6b','#a55eea','#ff9f43','#00d4aa','#fd79a8','#636e72'];
+
+  for(let r=0;r<mineRows;r++){
+    for(let c=0;c<mineCols;c++){
+      const x=c*cs, y=r*cs;
+      const key=`${r},${c}`;
+      const val=mineGrid[r][c];
+      const flagged=mineFlags.has(key);
+
+      if(val==='R'){
+        ctx.fillStyle='#1e2d45';
+        ctx.fillRect(x,y,cs,cs);
+        ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=1;
+        ctx.strokeRect(x+0.5,y+0.5,cs-1,cs-1);
+        // number
+        const orig=mineGrid[r][c];
+      } else if(val==='BOOM'){
+        ctx.fillStyle='#3d0000';
+        ctx.fillRect(x,y,cs,cs);
+        ctx.fillStyle='#ff4444'; ctx.font=`bold ${cs*0.6}px sans-serif`;
+        ctx.textAlign='center'; ctx.textBaseline='middle';
+        ctx.fillText('💣',x+cs/2,y+cs/2);
+      } else {
+        // unrevealed
+        ctx.fillStyle=flagged?'rgba(255,107,107,0.2)':'#243454';
+        ctx.fillRect(x,y,cs,cs);
+        // 3d effect
+        ctx.fillStyle='rgba(255,255,255,0.06)';
+        ctx.fillRect(x,y,cs,2); ctx.fillRect(x,y,2,cs);
+        ctx.fillStyle='rgba(0,0,0,0.2)';
+        ctx.fillRect(x,y+cs-2,cs,2); ctx.fillRect(x+cs-2,y,2,cs);
+        ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=1;
+        ctx.strokeRect(x+0.5,y+0.5,cs-1,cs-1);
+        if(flagged){
+          ctx.font=`${cs*0.55}px sans-serif`;
+          ctx.textAlign='center'; ctx.textBaseline='middle';
+          ctx.fillText('🚩',x+cs/2,y+cs/2);
+        }
+      }
+    }
+  }
+
+  // second pass: numbers on revealed cells
+  for(let r=0;r<mineRows;r++){
+    for(let c=0;c<mineCols;c++){
+      if(mineGrid[r][c]==='R'){
+        const x=c*cs, y=r*cs;
+        // find original number by re-counting
+        let cnt=0;
+        for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+          const nr=r+dr,nc=c+dc;
+          if(nr>=0&&nr<mineRows&&nc>=0&&nc<mineCols&&
+            (mineGrid[nr][nc]==='M'||mineGrid[nr][nc]==='BOOM')) cnt++;
+        }
+        if(cnt>0){
+          ctx.fillStyle=numColors[cnt]||'#fff';
+          ctx.font=`bold ${cs*0.55}px sans-serif`;
+          ctx.textAlign='center'; ctx.textBaseline='middle';
+          ctx.fillText(cnt,x+cs/2,y+cs/2);
+        }
+      }
+    }
+  }
+}
+
+// ======== SOLITAIRE (Klondike - Mobile Friendly) ========
 let solCards=[], solTableau=[], solStock=[], solWaste=[], solFoundations=[], solSelected=null;
 const SUITS=['♠','♥','♦','♣'], VALS=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+
 function initSolitaire(){
   solSelected=null;
   document.getElementById('solitaireMsg').textContent='';
-  // build deck
   solCards=[];
   SUITS.forEach(s=>VALS.forEach((v,i)=>solCards.push({s,v,n:i+1,red:s==='♥'||s==='♦',up:false})));
   solCards.sort(()=>Math.random()-0.5);
-  // deal tableau
   solTableau=Array.from({length:7},()=>[]);
   let idx=0;
   for(let col=0;col<7;col++) for(let row=0;row<=col;row++){
@@ -2670,56 +2995,95 @@ function initSolitaire(){
   solStock=solCards.slice(idx).map(c=>({...c,up:false}));
   solWaste=[];
   solFoundations=[{s:'♠',cards:[]},{s:'♥',cards:[]},{s:'♦',cards:[]},{s:'♣',cards:[]}];
+  setupSolitaireCanvas();
   drawSolitaire();
+}
+
+function setupSolitaireCanvas(){
   const canvas=document.getElementById('solitaireCanvas');
-  canvas.onclick=e=>{
+  canvas.onclick=null;
+  canvas.ontouchend=null;
+  const handler=e=>{
+    e.preventDefault();
     const rect=canvas.getBoundingClientRect();
-    const x=(e.clientX-rect.left)*(canvas.width/rect.width);
-    const y=(e.clientY-rect.top)*(canvas.height/rect.height);
+    const src=e.changedTouches?e.changedTouches[0]:e;
+    const x=(src.clientX-rect.left)*(canvas.width/rect.width);
+    const y=(src.clientY-rect.top)*(canvas.height/rect.height);
     handleSolitaireClick(x,y);
   };
+  canvas.onclick=handler;
+  canvas.ontouchend=handler;
 }
+
 function solitaireDraw(){
   if(solStock.length===0){solStock=solWaste.reverse().map(c=>({...c,up:false}));solWaste=[];}
   else{const c=solStock.pop();c.up=true;solWaste.push(c);}
   playClick(); drawSolitaire();
 }
-function handleSolitaireClick(x,y){
+
+function getSolLayout(){
   const canvas=document.getElementById('solitaireCanvas');
   const W=canvas.width;
-  const cw=Math.floor((W-8)/7);
-  const ch=Math.round(cw*1.4);
-  const pad=4;
-  // stock area (top left)
+  const cw=Math.floor((W-16)/7);
+  const ch=Math.round(cw*1.5);
+  const pad=Math.floor((W-cw*7)/8);
+  return {W,cw,ch,pad};
+}
+
+function handleSolitaireClick(x,y){
+  const {cw,ch,pad}=getSolLayout();
+  const topBarH=ch+pad*2;
+
+  // stock
   if(x<cw+pad&&y<ch+pad){solitaireDraw();return;}
+
   // waste
-  if(x>cw+pad*2&&x<cw*2+pad*2&&y<ch+pad&&solWaste.length){
+  const wx=cw+pad*2;
+  if(x>wx&&x<wx+cw&&y<ch+pad&&solWaste.length){
     const card=solWaste[solWaste.length-1];
-    if(solSelected){solSelected=null;}
-    else{solSelected={from:'waste',card};}
+    if(solSelected){
+      solSelected=null;
+    } else {
+      solSelected={from:'waste',card};
+    }
     drawSolitaire(); return;
   }
+
   // foundations
   for(let f=0;f<4;f++){
-    const fx=(3+f)*(cw+pad);
-    if(x>fx&&x<fx+cw&&y<ch){
-      if(solSelected){
-        tryMoveToFoundation(f);
-      }
+    const fx=(3+f)*(cw+pad)+pad;
+    if(x>fx&&x<fx+cw&&y<ch+pad){
+      if(solSelected) tryMoveToFoundation(f);
       drawSolitaire(); return;
     }
   }
+
+  // auto-move to foundation on double-like tap (already selected same card)
   // tableau
   for(let col=0;col<7;col++){
-    const cx2=col*(cw+pad);
+    const cx2=col*(cw+pad)+pad;
     const stack=solTableau[col];
-    const topY=ch+pad*3;
-    const step=Math.min(22,Math.floor((canvas.height-topY-ch)/(stack.length||1)));
+    const baseY=topBarH;
+    const step=stack.length>1?Math.min(Math.floor((getSolCanvas().height-baseY-ch)/Math.max(stack.length-1,1)),28):0;
+
+    if(x<cx2||x>cx2+cw) continue;
+
+    // empty column
+    if(!stack.length&&y>baseY&&y<baseY+ch){
+      if(solSelected) tryMoveToTableau(col,-1);
+      drawSolitaire(); return;
+    }
+
     for(let row=stack.length-1;row>=0;row--){
-      const cy2=topY+row*step;
-      if(x>cx2&&x<cx2+cw&&y>cy2&&y<cy2+ch){
+      const cy2=baseY+row*step;
+      const cardBottom=row===stack.length-1?cy2+ch:cy2+step;
+      if(y>cy2&&y<cardBottom){
         const card=stack[row];
-        if(!card.up) break;
+        if(!card.up){
+          // flip if last card
+          if(row===stack.length-1){ card.up=true; drawSolitaire(); }
+          return;
+        }
         if(solSelected){
           tryMoveToTableau(col,row);
         } else {
@@ -2731,9 +3095,17 @@ function handleSolitaireClick(x,y){
   }
   solSelected=null; drawSolitaire();
 }
+
+function getSolCanvas(){return document.getElementById('solitaireCanvas');}
+
 function tryMoveToFoundation(f){
   if(!solSelected)return;
   const card=solSelected.card;
+  // only single cards to foundation
+  if(solSelected.from==='tableau'){
+    const src=solTableau[solSelected.col];
+    if(solSelected.row!==src.length-1){solSelected=null;return;}
+  }
   const found=solFoundations[f];
   const top=found.cards[found.cards.length-1];
   const ok=(card.s===found.s)&&((!top&&card.n===1)||(top&&card.n===top.n+1));
@@ -2741,10 +3113,13 @@ function tryMoveToFoundation(f){
     found.cards.push(card);
     removeSelected();
     playSuccess();
-    if(solFoundations.every(f=>f.cards.length===13)){document.getElementById('solitaireMsg').textContent='🎉 ניצחת/ת!';playWin();}
+    if(solFoundations.every(f=>f.cards.length===13)){
+      document.getElementById('solitaireMsg').textContent='🎉 ניצחת/ת!';playWin();
+    }
   } else playError();
   solSelected=null;
 }
+
 function tryMoveToTableau(col,row){
   if(!solSelected)return;
   const card=solSelected.card;
@@ -2752,7 +3127,6 @@ function tryMoveToTableau(col,row){
   const top=stack[stack.length-1];
   const ok=(!top&&card.n===13)||(top&&top.up&&top.n===card.n+1&&top.red!==card.red);
   if(ok){
-    // move card(s)
     if(solSelected.from==='waste'){
       solWaste.pop(); stack.push(card);
     } else if(solSelected.from==='tableau'){
@@ -2765,6 +3139,7 @@ function tryMoveToTableau(col,row){
   } else playError();
   solSelected=null;
 }
+
 function removeSelected(){
   if(!solSelected)return;
   if(solSelected.from==='waste') solWaste.pop();
@@ -2774,57 +3149,113 @@ function removeSelected(){
     if(src.length&&!src[src.length-1].up) src[src.length-1].up=true;
   }
 }
+
 function drawSolitaire(){
-  const canvas=document.getElementById('solitaireCanvas');
-  const W=canvas.parentElement.offsetWidth-2;
+  const canvas=getSolCanvas();
+  const W=canvas.parentElement.offsetWidth||300;
   canvas.width=W;
-  const cw=Math.floor((W-8)/7);
-  const ch=Math.round(cw*1.4);
-  const pad=4;
-  canvas.height=ch*4+100;
+  const {cw,ch,pad}=getSolLayout();
+  const topBarH=ch+pad*2;
+  const maxStack=Math.max(...solTableau.map(s=>s.length),1);
+  const step=Math.min(28,Math.floor((W*1.2)/Math.max(maxStack,1)));
+  canvas.height=topBarH+maxStack*step+ch+16;
+
   const ctx=canvas.getContext('2d');
-  ctx.fillStyle='#0b0f1a'; ctx.fillRect(0,0,canvas.width,canvas.height);
-  function drawCard(x,y,card,selected=false){
-    ctx.fillStyle=selected?'rgba(77,142,255,0.3)':'#1a2236';
-    ctx.strokeStyle=selected?'#4d8eff':'rgba(255,255,255,0.12)';
-    ctx.lineWidth=1.5;
-    ctx.beginPath(); ctx.roundRect(x,y,cw,ch,4); ctx.fill(); ctx.stroke();
-    if(!card){ctx.fillStyle='rgba(255,255,255,0.05)';ctx.beginPath();ctx.roundRect(x,y,cw,ch,4);ctx.fill();return;}
-    if(!card.up){ctx.fillStyle='rgba(77,142,255,0.15)';ctx.beginPath();ctx.roundRect(x+2,y+2,cw-4,ch-4,3);ctx.fill();return;}
-    ctx.fillStyle=card.red?'#ff5fa0':'#e8eef8';
-    ctx.font=`bold ${Math.max(8,cw/4)}px sans-serif`; ctx.textAlign='center';
-    ctx.fillText(card.v+card.s, x+cw/2, y+ch/2+4);
+  ctx.fillStyle='#0d1521'; ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  function roundRect(x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+    ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+    ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+    ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+    ctx.closePath();
   }
+
+  function drawCard(x,y,card,selected=false){
+    const r=4;
+    // shadow
+    ctx.shadowColor='rgba(0,0,0,0.4)'; ctx.shadowBlur=4;
+    ctx.fillStyle=selected?'rgba(77,142,255,0.25)':'#1e2d45';
+    roundRect(x,y,cw,ch,r); ctx.fill();
+    ctx.shadowBlur=0;
+    ctx.strokeStyle=selected?'#4d8eff':'rgba(255,255,255,0.15)';
+    ctx.lineWidth=selected?2:1;
+    roundRect(x,y,cw,ch,r); ctx.stroke();
+
+    if(!card){
+      // empty slot
+      ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
+      roundRect(x+2,y+2,cw-4,ch-4,r); ctx.stroke(); ctx.setLineDash([]);
+      return;
+    }
+    if(!card.up){
+      // card back pattern
+      const g=ctx.createLinearGradient(x,y,x+cw,y+ch);
+      g.addColorStop(0,'#1a3a6a'); g.addColorStop(1,'#0d1f3c');
+      ctx.fillStyle=g; roundRect(x+2,y+2,cw-4,ch-4,r); ctx.fill();
+      // dots pattern
+      ctx.fillStyle='rgba(77,142,255,0.15)';
+      for(let px=x+6;px<x+cw-4;px+=6) for(let py=y+6;py<y+ch-4;py+=6){
+        ctx.beginPath(); ctx.arc(px,py,1,0,Math.PI*2); ctx.fill();
+      }
+      return;
+    }
+    // face up
+    ctx.fillStyle='#f0f4ff'; roundRect(x+1,y+1,cw-2,ch-2,r); ctx.fill();
+    const color=card.red?'#e02050':'#0a1628';
+    const fs=Math.max(9,Math.floor(cw/3.5));
+    ctx.fillStyle=color; ctx.font=`bold ${fs}px sans-serif`; ctx.textAlign='left';
+    ctx.fillText(card.v, x+3, y+fs+2);
+    ctx.font=`${Math.max(8,fs-2)}px sans-serif`;
+    ctx.fillText(card.s, x+3, y+fs*2+2);
+    // center suit
+    ctx.font=`bold ${Math.floor(cw/2.2)}px sans-serif`; ctx.textAlign='center';
+    ctx.fillText(card.s, x+cw/2, y+ch/2+Math.floor(cw/4.5));
+  }
+
   // stock
-  if(solStock.length) drawCard(0,0,{up:false});
-  else{ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=1.5;ctx.beginPath();ctx.roundRect(0,0,cw,ch,4);ctx.stroke();}
+  if(solStock.length) drawCard(pad,pad,{up:false});
+  else { ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);
+    roundRect(pad,pad,cw,ch,4);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font=`${cw/2}px sans-serif`;ctx.textAlign='center';
+    ctx.fillText('↺',pad+cw/2,pad+ch/2+8);
+  }
   // waste
   if(solWaste.length){
     const wc=solWaste[solWaste.length-1];
     const sel=solSelected&&solSelected.from==='waste';
-    drawCard(cw+pad,0,wc,sel);
+    drawCard(cw+pad*2,pad,wc,sel);
   }
   // foundations
   for(let f=0;f<4;f++){
-    const fx=(3+f)*(cw+pad);
+    const fx=(3+f)*(cw+pad)+pad;
     const top=solFoundations[f].cards[solFoundations[f].cards.length-1];
-    drawCard(fx,0,top||null);
-    if(!top){ctx.fillStyle='rgba(255,255,255,0.15)';ctx.font=`${cw/2}px sans-serif`;ctx.textAlign='center';ctx.fillText(SUITS[f],fx+cw/2,ch/2+8);}
+    if(top){ drawCard(fx,pad,top,false); }
+    else {
+      drawCard(fx,pad,null);
+      ctx.fillStyle='rgba(255,255,255,0.2)';ctx.font=`${Math.floor(cw/2)}px sans-serif`;ctx.textAlign='center';
+      ctx.fillText(SUITS[f],fx+cw/2,pad+ch/2+8);
+    }
   }
+
   // tableau
-  const topY=ch+pad*3;
   for(let col=0;col<7;col++){
-    const cx2=col*(cw+pad);
+    const cx2=col*(cw+pad)+pad;
     const stack=solTableau[col];
-    if(!stack.length){ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(cx2,topY,cw,ch,4);ctx.stroke();}
-    const step=stack.length>1?Math.min(22,Math.floor((canvas.height-topY-ch-8)/(stack.length-1))):0;
+    if(!stack.length){
+      ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+      roundRect(cx2,topBarH,cw,ch,4);ctx.stroke();ctx.setLineDash([]);
+      continue;
+    }
+    const colStep=stack.length>1?Math.min(28,Math.floor((canvas.height-topBarH-ch-8)/(stack.length-1))):0;
     stack.forEach((card,row)=>{
       const sel=solSelected&&solSelected.from==='tableau'&&solSelected.col===col&&solSelected.row===row;
-      drawCard(cx2,topY+row*step,card,sel);
+      drawCard(cx2,topBarH+row*colStep,card,sel);
     });
   }
 }
-
 
 </script>
 </body>
