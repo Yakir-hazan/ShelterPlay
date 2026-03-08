@@ -2060,20 +2060,20 @@ async function checkOrefAlert() {
     const res = await fetch(OREF_URL, { cache: 'no-store' });
     const text = await res.text();
     if (!text || text.trim() === '' || text.trim() === '[]' || text.trim() === 'null') {
-      hideAlert(); lastAlertId = null; return;
+      if (!alertHideTimeout) { hideAlert(); lastAlertId = null; } return;
     }
     const data = JSON.parse(text);
 
     // פורמט חדש: מערך [{id, title, data:[...]}, ...]
     // פורמט ישן: {id, title, data:[...]}
     const alert = Array.isArray(data) ? data[0] : data;
-    if (!alert || !alert.id) { hideAlert(); lastAlertId = null; return; }
+    if (!alert || !alert.id) { if (!alertHideTimeout) { hideAlert(); lastAlertId = null; } return; }
 
     // סינון לפי עיר — התאמה מדויקת
     if (selectedCity !== 'הכל') {
       const areas = alert.data || [];
       const relevant = areas.some(area => area.trim() === selectedCity.trim());
-      if (!relevant) { hideAlert(); return; }
+      if (!relevant) { if (!alertHideTimeout) hideAlert(); return; }
     }
 
     if (alert.id !== lastAlertId) {
