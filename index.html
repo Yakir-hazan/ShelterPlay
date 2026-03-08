@@ -2123,7 +2123,6 @@ function showAlert(title, areas) {
   if (!timerRunning && timerSeconds === 600) { toggleTimer(); }
   // הפעל צליל אזעקה
   playAlertSound();
-  showToast('🚨 ' + title + (areas ? ' — ' + areas : ''), 6000);
 }
 
 function hideAlert() {
