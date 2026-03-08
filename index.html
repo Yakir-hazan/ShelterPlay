@@ -543,7 +543,7 @@
 <div class="hero">
   <div class="hero-icon">🛡️</div>
   <h1>הממ"ד שלנו</h1>
-  <p>כאן מעבירים את הזמן בכיף ובבטחה</p>
+  <p>בילוי בטוח ונעים בממ"ד ובמקלט</p>
 
   <!-- מצב חיבור -->
   <div id="alertChip" style="display:none;margin-top:14px;justify-content:center">
@@ -605,7 +605,7 @@
       border-radius:50px; padding:7px 16px;
       font-size:12px; font-weight:700; color:#4d8eff;
       cursor:pointer; font-family:inherit;
-    ">📍 כל הארץ — לחץ/י לבחור עיר</button>
+    ">📍 כל הארץ — לחץ/י לשינוי</button>
   </div>
 
   <!-- כפתור שיתוף -->
@@ -672,29 +672,10 @@
       <div class="grid-item" onclick="showScreen('screen-games')">
         <span class="grid-emoji">🕹️</span>
         <h3>משחקים</h3>
+        <span style="font-size:10px;color:var(--muted);margin-top:2px">ללא אינטרנט</span>
       </div>
-      <div class="grid-item" onclick="showScreen('screen-magic')">
-        <span class="grid-emoji">🔮</span>
-        <h3>כדור בדולח</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-piano')">
-        <span class="grid-emoji">🎹</span>
-        <h3>פסנתר קסם</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-sounds')">
+      <div class="grid-item" onclick="showScreen('screen-breathing')">
         <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="14" width="4" height="8" rx="2" fill="#00d4aa"/>
-          <rect x="8" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
-          <rect x="14" y="5" width="4" height="26" rx="2" fill="#00d4aa"/>
-          <rect x="20" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
-          <rect x="26" y="14" width="4" height="8" rx="2" fill="#00d4aa" opacity="0.7"/>
-          <rect x="32" y="16" width="2" height="4" rx="1" fill="#00d4aa" opacity="0.5"/>
-        </svg></span>
-        <h3>צלילי רקע</h3>
-      </div>
-      <div class="grid-item wide-item" onclick="showScreen('screen-breathing')">
-        <span style="display:block;margin-bottom:10px"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- גלי נשימה -->
           <path d="M2 18 Q6 10 10 18 Q14 26 18 18 Q22 10 26 18 Q30 26 34 18" stroke="#4d8eff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
           <path d="M2 24 Q6 18 10 24 Q14 30 18 24 Q22 18 26 24 Q30 30 34 24" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
           <path d="M2 12 Q6 6 10 12 Q14 18 18 12 Q22 6 26 12 Q30 18 34 12" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
@@ -771,7 +752,7 @@
 
   <!-- SOUNDS SCREEN -->
   <div class="screen" id="screen-sounds">
-    <button class="btn-back" onclick="showScreen('screen-home');stopSound()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopSound()">‹ חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">צלילי רקע 🎧</h2>
     <div class="sounds-grid" id="soundsGrid">
       <div class="sound-btn" onclick="playSound('rain','🌧️')">
@@ -811,7 +792,7 @@
         <span class="grid-emoji">🏐</span><h3>ברייקאאוט</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-snake');initSnake()">
-        <span class="grid-emoji">🐍</span><h3>סנייק</h3>
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 26 Q6 20 12 20 Q18 20 18 14 Q18 8 24 8 Q30 8 30 14" stroke="#26de81" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="30" cy="14" r="4" fill="#26de81"/><circle cx="28.5" cy="12.5" r="1.2" fill="#0b0f1a"/><circle cx="31.5" cy="12.5" r="1.2" fill="#0b0f1a"/><path d="M29 16 L28 18 M31 16 L32 18" stroke="#ff6b6b" stroke-width="1" stroke-linecap="round"/></svg></span><h3>סנייק</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-rps');initRPS()">
         <span class="grid-emoji">🤜</span><h3>אבן נייר...</h3>
@@ -832,7 +813,7 @@
         <span class="grid-emoji">🔢</span><h3>סודוקו</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-pong');initPong()">
-        <span class="grid-emoji">🏓</span><h3>פונג</h3>
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="12" width="4" height="12" rx="2" fill="#4d8eff"/><rect x="29" y="12" width="4" height="12" rx="2" fill="#a55eea"/><circle cx="18" cy="18" r="3" fill="white"/><line x1="18" y1="4" x2="18" y2="32" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3"/></svg></span><h3>פונג</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-tetris');initTetris()">
         <span class="grid-emoji">🧱</span><h3>טטריס</h3>
@@ -844,16 +825,29 @@
         <span class="grid-emoji">🎴</span><h3>סוליטייר</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-trivia')">
-        <span class="grid-emoji">💡</span><h3>טריוויה</h3>
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><ellipse cx="18" cy="15" rx="9" ry="10" fill="url(#bq1)" opacity="0.95"/><path d="M13 24 Q18 27 23 24" stroke="#fed330" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M14 26 Q18 29 22 26" stroke="#fed330" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M18 5 L18 3M10 8 L8 7M26 8 L28 7" stroke="#fed330" stroke-width="1.5" stroke-linecap="round"/><path d="M14 13 Q16 11 18 13 Q20 15 22 13" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/><defs><radialGradient id="bq1" cx="40%" cy="35%"><stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#f59e0b"/></radialGradient></defs></svg></span><h3>טריוויה</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-draw')">
-        <span class="grid-emoji">✏️</span><h3>לוח ציור</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-bubbles')">
-        <span class="grid-emoji">🫧</span><h3>פצפצים</h3>
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 28L10 22L24 8L28 12L14 26L8 28Z" fill="#4d8eff" opacity="0.85"/><path d="M24 8L28 12L26 14L22 10L24 8Z" fill="#a55eea"/><path d="M8 28L10 22L12 24L8 28Z" fill="#fed330"/><line x1="22" y1="10" x2="26" y2="14" stroke="white" stroke-width="0.8" opacity="0.4"/></svg></span><h3>לוח ציור</h3>
       </div>
       <div class="grid-item" onclick="showScreen('screen-minesweeper');initMinesweeper()">
         <span class="grid-emoji">💥</span><h3>שדה מוקשים</h3>
+      </div>
+      <div class="grid-item" onclick="showScreen('screen-piano')">
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="10" width="30" height="18" rx="3" fill="#1e293b" stroke="#4d8eff" stroke-width="1.2"/><rect x="5" y="10" width="4" height="11" rx="1" fill="white"/><rect x="11" y="10" width="4" height="11" rx="1" fill="white"/><rect x="17" y="10" width="4" height="11" rx="1" fill="white"/><rect x="23" y="10" width="4" height="11" rx="1" fill="white"/><rect x="29" y="10" width="4" height="11" rx="1" fill="white"/><rect x="8" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="14" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="25" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="31" y="10" width="2.5" height="7" rx="1" fill="#1e293b"/></svg></span><h3>פסנתר</h3>
+      </div>
+      <div class="grid-item" onclick="showScreen('screen-magic')">
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" fill="url(#mg1)"/><circle cx="13" cy="14" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="13" cy="14" r="1.5" fill="rgba(255,255,255,0.4)"/><text x="18" y="23" text-anchor="middle" font-size="10" fill="white" font-weight="bold">?</text><defs><radialGradient id="mg1" cx="40%" cy="35%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#6d28d9"/></radialGradient></defs></svg></span><h3>כדור הקסם</h3>
+      </div>
+      <div class="grid-item" onclick="showScreen('screen-sounds')">
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="14" width="4" height="8" rx="2" fill="#00d4aa"/>
+          <rect x="8" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
+          <rect x="14" y="5" width="4" height="26" rx="2" fill="#00d4aa"/>
+          <rect x="20" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
+          <rect x="26" y="14" width="4" height="8" rx="2" fill="#00d4aa" opacity="0.7"/>
+          <rect x="32" y="16" width="2" height="4" rx="1" fill="#00d4aa" opacity="0.5"/>
+        </svg></span><h3>צלילי רקע</h3>
       </div>
     </div>
   </div>
@@ -1105,18 +1099,10 @@
   </div>
 
   <!-- BUBBLES SCREEN -->
-  <div class="screen" id="screen-bubbles">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">פצפצים 💠</h2>
-    <div class="bubble-score" id="bubbleScore">פוצצת/פוצץ: 0</div>
-    <div class="bubble-grid" id="bubbleGrid"></div>
-    <button class="btn btn-primary" onclick="initBubbles()" style="width:100%;margin-top:16px">🔄 לוח חדש</button>
-  </div>
-
   <!-- MAGIC BALL -->
   <div class="screen" id="screen-magic">
-    <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">כדור בדולח 🔮</h2>
+    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">כדור הקסם 🔮</h2>
     <input class="magic-input" id="magicInput" placeholder="שאל/י שאלה כלשהי...">
     <div class="magic-container">
       <div class="magic-ball" onclick="askMagic()">
@@ -1124,15 +1110,15 @@
           <div class="magic-answer" id="magicAnswer">🔮</div>
         </div>
       </div>
-      <button class="btn btn-primary" onclick="askMagic()" style="margin:0 auto;display:block">שאל את הכדור!</button>
+      <button class="btn btn-primary" onclick="askMagic()" style="margin:0 auto;display:block">גלה את התשובה ✨</button>
       <p class="magic-hint">לחץ על הכדור לאחר כתיבת שאלה</p>
     </div>
   </div>
 
   <!-- PIANO SCREEN -->
   <div class="screen" id="screen-piano">
-    <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">פסנתר קסם 🎵</h2>
+    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">פסנתר 🎵</h2>
     <div class="piano-container">
       <div class="piano" id="piano"></div>
     </div>
@@ -1345,7 +1331,6 @@ function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   if (id === 'screen-trivia') initTrivia();
-  if (id === 'screen-bubbles') initBubbles();
   if (id === 'screen-piano') initPiano();
   if (id === 'screen-draw') initCanvas();
   if (id === 'screen-ttt') initTTT();
@@ -1635,41 +1620,6 @@ function clearCanvas() { if(ctx2d) { ctx2d.fillStyle='#fff'; ctx2d.fillRect(0,0,
 function toggleEraser() { erasing = !erasing; showToast(erasing ? '🧹 מצב מחיקה' : '✏️ מצב ציור'); }
 
 // ======== BUBBLES ========
-let bubblesPopped = 0;
-function initBubbles() {
-  bubblesPopped = 0;
-  document.getElementById('bubbleScore').textContent = 'פוצצת/פוצץ: 0';
-  const grid = document.getElementById('bubbleGrid');
-  grid.innerHTML = '';
-  for (let i = 0; i < 56; i++) {
-    const b = document.createElement('div');
-    b.className = 'bubble';
-    b.onclick = () => {
-      if (!b.classList.contains('popped')) {
-        b.classList.add('popped');
-        bubblesPopped++;
-        document.getElementById('bubbleScore').textContent = `פוצצת/פוצץ: ${bubblesPopped}`;
-        playPop();
-        if (bubblesPopped === 56) { playWin(); showToast('🎉 פוצצת/פוצץ הכל! כל הכבוד!', 3000); }
-      }
-    };
-    grid.appendChild(b);
-  }
-}
-function playPop() {
-  try {
-    const ctx = getAudioCtx();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.frequency.setValueAtTime(300 + Math.random()*200, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(100, ctx.currentTime + 0.1);
-    gain.gain.setValueAtTime(0.3, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-    osc.start(); osc.stop(ctx.currentTime + 0.1);
-  } catch(e){}
-}
-
 // ======== MAGIC BALL ========
 const magicAnswers = [
   'בהחלט כן! ✨','ודאי שכן 🌟','הסימנים מצביעים על כן','כן, בלי ספק','המגמות אומרות כן',
