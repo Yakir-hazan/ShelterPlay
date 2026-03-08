@@ -478,6 +478,35 @@
   .math-ans.correct { background: rgba(38,222,129,0.1); border-color: var(--green); color: var(--green); }
   .math-ans.wrong { background: rgba(255,95,95,0.1); border-color: #ff5f5f; color: #ff7070; }
 
+  @keyframes ripple1 {
+    0%   { transform:scale(1); opacity:0.6; }
+    100% { transform:scale(3); opacity:0; }
+  }
+  @keyframes badgePulse {
+    0%,100% {
+      opacity: 0.5;
+      border-color: rgba(38,222,129,0.2);
+      box-shadow: 0 0 0 0 rgba(38,222,129,0);
+    }
+    50% {
+      opacity: 1;
+      border-color: rgba(38,222,129,0.7);
+      box-shadow: 0 0 12px 3px rgba(38,222,129,0.2);
+    }
+  }
+  @keyframes badgeBorder {
+    0%,100% { border-color:rgba(38,222,129,0.2); box-shadow:0 0 0 0 rgba(38,222,129,0); }
+    50%      { border-color:rgba(38,222,129,0.6); box-shadow:0 0 10px 3px rgba(38,222,129,0.15); }
+  }
+  @keyframes livePing {
+    0%   { transform:scale(1); opacity:0.5; }
+    70%  { transform:scale(2.4); opacity:0; }
+    100% { transform:scale(1); opacity:0; }
+  }
+  @keyframes liveFade {
+    0%,100% { opacity:1; }
+    50%      { opacity:0.45; }
+  }
   @keyframes alertBlink {
     0%,100% { opacity:1; }
     50%      { opacity:0.55; }
@@ -544,12 +573,20 @@
 
   <div id="monitorBadge" style="display:flex;justify-content:center;margin-top:14px">
     <div style="
-      display:inline-flex; align-items:center; gap:7px;
-      background:rgba(38,222,129,0.1);
-      border:1px solid rgba(38,222,129,0.25);
-      border-radius:50px; padding:7px 16px;
+      display:inline-flex; align-items:center; gap:10px;
+      background:rgba(38,222,129,0.08);
+      border:1.5px solid rgba(38,222,129,0.3);
+      border-radius:50px; padding:8px 18px;
       font-size:12px; font-weight:700; color:#26de81;
-    ">🟢 מחובר לפיקוד העורף</div>
+    ">
+      <!-- גלי רדיו -->
+      <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex-shrink:0">
+        <span style="position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #26de81;animation:ripple1 2.5s ease-out infinite;opacity:0"></span>
+        <span style="position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #26de81;animation:ripple1 2.5s ease-out infinite 0.8s;opacity:0"></span>
+        <span style="width:8px;height:8px;border-radius:50%;background:#26de81;display:inline-block;flex-shrink:0"></span>
+      </span>
+      מחובר לפיקוד העורף
+    </div>
   </div>
 
   <div style="display:flex;justify-content:center;margin-top:10px">
