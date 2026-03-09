@@ -557,13 +557,14 @@
   </div>
 
   <!-- באנר הוראה -->
-  <div id="alertInstruction" style="display:none;margin-top:8px;justify-content:center">
+  <div id="alertInstruction" style="display:none;justify-content:center">
     <div id="alertInstructionText" style="
       display:inline-flex; align-items:center; gap:10px;
       background:rgba(255,159,67,0.15);
       border:1.5px solid rgba(255,159,67,0.4);
       border-radius:50px; padding:8px 18px;
       font-size:13px; font-weight:700; color:#ff9f43;
+      margin-top:8px;
     ">
       <!-- גלי רדיו כתומים -->
       <span style="position:relative;display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;flex-shrink:0">
@@ -2617,7 +2618,7 @@ function restoreAlertFromStorage() {
 
     const remainingHide = tenMin - elapsed;
     alertHideTimeout = setTimeout(() => {
-      hideAlert();
+      hideAlert(false);
       localStorage.removeItem('mamad_alert');
     }, remainingHide);
   } catch(e) {}
@@ -2628,20 +2629,36 @@ async function checkOrefAlert() {
     const res = await fetch(OREF_URL, { cache: 'no-store' });
     const text = await res.text();
     if (!text || text.trim() === '' || text.trim() === '[]' || text.trim() === 'null') {
-      if (!alertHideTimeout) { hideAlert(); lastAlertId = null; } return;
+      if (!alertHideTimeout) {
+        const wasActive = document.getElementById('alertChip').style.display !== 'none';
+        hideAlert(wasActive);
+        lastAlertId = null;
+      }
+      return;
     }
     const data = JSON.parse(text);
 
     // פורמט חדש: מערך [{id, title, data:[...]}, ...]
     // פורמט ישן: {id, title, data:[...]}
     const alert = Array.isArray(data) ? data[0] : data;
-    if (!alert || !alert.id) { if (!alertHideTimeout) { hideAlert(); lastAlertId = null; } return; }
+    if (!alert || !alert.id) {
+      if (!alertHideTimeout) {
+        const wasActive = document.getElementById('alertChip').style.display !== 'none';
+        hideAlert(wasActive);
+        lastAlertId = null;
+      }
+      return;
+    }
 
-    // סינון לפי עיר — התאמה מדויקת
+    // סינון לפי עיר — התאמה מלאה או חלקית (כולל רבעים כגון "דימונה - מזרח")
     if (selectedCity !== 'הכל') {
       const areas = alert.data || [];
-      const relevant = areas.some(area => area.trim() === selectedCity.trim());
-      if (!relevant) { if (!alertHideTimeout) hideAlert(); return; }
+      const s = selectedCity.trim();
+      const relevant = areas.some(area => {
+        const a = area.trim();
+        return a === s || a.startsWith(s + ' ') || a.startsWith(s + ' - ') || a.startsWith(s + '-');
+      });
+      if (!relevant) { if (!alertHideTimeout) hideAlert(false); return; }
     }
 
     if (alert.id !== lastAlertId) {
@@ -2706,8 +2723,7 @@ function showAlert(title, areas) {
   chip.style.display = 'flex';
 
   // הסתר שורת אזעקה אחרונה בזמן אזעקה פעילה
-  const lastBadge = document.getElementById('lastAlertBadge');
-  if (lastBadge) lastBadge.style.visibility = 'hidden';
+  // lastAlertBadge נשאר תמיד מוצג
 
   // שמור ב-localStorage
   try {
@@ -2736,7 +2752,7 @@ function showAlert(title, areas) {
   // בטל timeout קודם אם יש
   if (alertHideTimeout) clearTimeout(alertHideTimeout);
   // הסתר הכל אחרי 10 דקות
-  alertHideTimeout = setTimeout(() => { hideAlert(); }, 10 * 60 * 1000);
+  alertHideTimeout = setTimeout(() => { hideAlert(true); }, 10 * 60 * 1000);
 
   // הפעל טיימר אוטומטי
   if (!timerRunning && timerSeconds === 600) { toggleTimer(); }
@@ -2744,16 +2760,45 @@ function showAlert(title, areas) {
   playAlertSound();
 }
 
-function hideAlert() {
+function hideAlert(showAllClear) {
   lastAlertId = null;
   if (alertHideTimeout) { clearTimeout(alertHideTimeout); alertHideTimeout = null; }
   if (alertInstructionTimeout) { clearTimeout(alertInstructionTimeout); alertInstructionTimeout = null; }
-  document.getElementById('alertChip').style.display = 'none';
-  document.getElementById('alertInstruction').style.display = 'none';
+
+  const chip = document.getElementById('alertChip');
+  const instrEl = document.getElementById('alertInstruction');
+
+  // הסתר את באנר ההוראה מיד תמיד
+  instrEl.style.display = 'none';
+
+  if (showAllClear) {
+    // הצג הודעה ירוקה קצרה רק ב-chip
+    const inner = chip.querySelector('div');
+    inner.style.background = 'rgba(38,222,129,0.15)';
+    inner.style.border = '1px solid rgba(38,222,129,0.4)';
+    inner.style.color = '#26de81';
+    inner.style.animation = 'none';
+    inner.innerHTML = '<span style="width:8px;height:8px;background:#26de81;border-radius:50%;display:inline-block;flex-shrink:0"></span>&nbsp;✅ האירוע הסתיים — אפשר לצאת מהממ״ד';
+    chip.style.display = 'flex';
+
+    // נעלם אחרי 8 שניות
+    setTimeout(function() {
+      chip.style.display = 'none';
+      // אפס עיצוב ל-default לפעם הבאה
+      inner.style.background = '';
+      inner.style.border = '';
+      inner.style.color = '';
+      inner.style.animation = '';
+      finishHideAlert();
+    }, 8000);
+  } else {
+    chip.style.display = 'none';
+    finishHideAlert();
+  }
+}
+
+function finishHideAlert() {
   try { localStorage.removeItem('mamad_alert'); } catch(e) {}
-  // הצג חזרה שורת אזעקה אחרונה
-  const lb = document.getElementById('lastAlertBadge');
-  if (lb) lb.style.visibility = 'visible';
   updateLastAlertBadge();
 }
 
@@ -2780,6 +2825,8 @@ function toggleAlert() {}
 initTTT();
 initCityList();
 startAlertPolling();
+// עדכן שורת "אזעקה אחרונה" כל דקה
+setInterval(updateLastAlertBadge, 60000);
 
 // הודעת ברוכים הבאים
 setTimeout(() => {
