@@ -687,7 +687,7 @@
           <line x1="4" y1="3" x2="5.5" y2="4.5" stroke="#ff6b6b" stroke-width="1.5" stroke-linecap="round"/>
           <line x1="20" y1="3" x2="18.5" y2="4.5" stroke="#ff6b6b" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
-        <span id="lastAlertTime" style="font-weight:700;color:#ff9f9f;font-size:10px;text-align:center"></span>
+        <span id="lastAlertTime" style="font-weight:700;color:#ff9f9f;font-size:10px;text-align:center">אזעקה אחרונה: אין מידע</span>
       </div>
     </div>
 
@@ -1442,15 +1442,6 @@
 </div>
 
 <!-- מודל מפת אזעקות -->
-<div id="modal-alert-map" onclick="if(event.target===this)closeAlertMap()" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.85);align-items:flex-end;">
-  <div style="background:#131929;border-radius:24px 24px 0 0;padding:20px 20px 32px;width:100%;height:80vh;display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.1)">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-      <h3 style="font-size:16px;font-weight:800;color:#ff6b6b">🚨 מפת אזעקות פעילות</h3>
-      <button onclick="closeAlertMap()" style="background:rgba(255,255,255,0.1);border:none;color:var(--text);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
-    </div>
-    <div id="alert-map" style="flex:1;border-radius:14px;overflow:hidden"></div>
-  </div>
-</div>
 
 <script>
 // ======== MODALS ========
@@ -2499,8 +2490,7 @@ function flipMem(card) {
 const OREF_URL = 'https://oref-proxy.mydevelop1.workers.dev';
 let lastAlertId = null;
 let alertPolling = null;
-let selectedCity = 'הכל'; // ברירת מחדל — כל הארץ
-let currentAlertCities = [];
+let selectedCity = 'הכל';
 
 // רשימת ישובים מלאה של פיקוד העורף
 const ALL_CITIES = [
@@ -2689,100 +2679,6 @@ function updateLocationBtn() {
   if (btn) btn.textContent = selectedCity === 'הכל' ? '📍 כל הארץ — לחץ/י לשינוי' : '📍 ' + selectedCity + ' — לחץ/י לשינוי';
 }
 
-// ======== מפת אזעקות ========
-const CITY_COORDS = {
-  'תל אביב': [32.0853, 34.7818], 'תל אביב - יפו': [32.0853, 34.7818],
-  'ירושלים': [31.7683, 35.2137], 'חיפה': [32.7940, 34.9896],
-  'באר שבע': [31.2520, 34.7915], 'נתניה': [32.3215, 34.8532],
-  'אשדוד': [31.8044, 34.6553], 'אשקלון': [31.6688, 34.5742],
-  'פתח תקווה': [32.0840, 34.8878], 'רמת גן': [32.0707, 34.8238],
-  'ראשון לציון': [31.9730, 34.7925], 'הרצליה': [32.1641, 34.8437],
-  'רחובות': [31.8928, 34.8113], 'בת ים': [32.0208, 34.7506],
-  'בני ברק': [32.0833, 34.8333], 'חולון': [32.0114, 34.7739],
-  'כפר סבא': [32.1751, 34.9077], 'רעננה': [32.1840, 34.8706],
-  'מודיעין': [31.8980, 35.0108], 'לוד': [31.9516, 34.8951],
-  'רמלה': [31.9296, 34.8724], 'נצרת': [32.6996, 35.3035],
-  'עפולה': [32.6078, 35.2897], 'טבריה': [32.7940, 35.5310],
-  'צפת': [32.9646, 35.4962], 'עכו': [32.9232, 35.0686],
-  'נהריה': [33.0077, 35.0950], 'קריית שמונה': [33.2070, 35.5690],
-  'דימונה': [31.0686, 35.0330], 'אילת': [29.5581, 34.9482],
-  'ערד': [31.2589, 35.2128], 'קריית גת': [31.6100, 34.7642],
-  'קריית מלאכי': [31.7322, 34.7385], 'אופקים': [31.3145, 34.6215],
-  'נתיבות': [31.4219, 34.5878], 'שדרות': [31.5239, 34.5965],
-  'גדרה': [31.8119, 34.7778], 'יבנה': [31.8760, 34.7404],
-  'נשר': [32.7706, 35.0400], 'טירת כרמל': [32.7579, 34.9700],
-  'קריית ביאליק': [32.8342, 35.0887], 'קריית ים': [32.8479, 35.0726],
-  'קריית מוצקין': [32.8378, 35.0764], 'קריית אתא': [32.8059, 35.1111],
-  'חדרה': [32.4340, 34.9196], 'זכרון יעקב': [32.5689, 34.9494],
-  'פרדס חנה': [32.4724, 34.9710], 'בית שאן': [32.5019, 35.4989],
-  'אור עקיבא': [32.5057, 34.9160], 'חוות יאיר': [32.1500, 34.9200],
-  'גבעת שמואל': [32.0786, 34.8503], 'רמת השרון': [32.1456, 34.8405],
-  'הוד השרון': [32.1504, 34.8917], 'כפר יונה': [32.3121, 34.9373],
-  'טול כרם': [32.3107, 35.0284], 'ג׳ת': [32.4500, 35.0100],
-  'אום אל פחם': [32.5143, 35.1529], 'מגאר': [32.8833, 35.4000],
-  'שפרעם': [32.8057, 35.1700], 'יקנעם': [32.6583, 35.1033],
-  'מעלות תרשיחא': [33.0157, 35.2719], 'כרמיאל': [32.9122, 35.2967],
-  'יוקנעם עילית': [32.6583, 35.1033], 'בית שמש': [31.7476, 34.9930],
-  'מעלה אדומים': [31.7729, 35.2983], 'גבעת זאב': [31.8596, 35.1701],
-  'ביתר עילית': [31.6967, 35.1178], 'בית אל': [31.9338, 35.2244],
-  'אלעד': [32.0469, 34.9500], 'ראש העין': [32.0956, 34.9558],
-  'טירה': [32.2333, 34.9500], 'קלנסווה': [32.2833, 34.9833],
-  'באקה אל גרביה': [32.4167, 35.0333], 'ג׳לג׳וליה': [32.1500, 34.9500],
-  'רהט': [31.3933, 34.7542], 'לקיה': [31.3667, 34.8167],
-  'תל שבע': [31.2500, 34.8333], 'כסייפה': [31.2667, 34.9500],
-  'חורה': [31.2833, 34.9333], 'ערערה בנגב': [31.2667, 34.9500],
-  'מצפה רמון': [30.6100, 34.8014], 'ירוחם': [30.9882, 34.9285],
-  'אבו גוש': [31.8087, 35.1104], 'מבשרת ציון': [31.8003, 35.1483],
-  'נס ציונה': [31.9298, 34.7985], 'גן יבנה': [31.7883, 34.7083],
-  'קריית עקרון': [31.8667, 34.8333], 'גבעתיים': [32.0711, 34.8111],
-  'אור יהודה': [32.0281, 34.8558], 'בית דגן': [31.9717, 34.8278],
-};
-
-let alertMapInstance = null;
-let currentAlertCities = [];
-
-function openAlertMap(cities) {
-  currentAlertCities = cities;
-  const modal = document.getElementById('modal-alert-map');
-  modal.style.display = 'flex';
-
-  function initMap() {
-    setTimeout(() => {
-      if (alertMapInstance) { alertMapInstance.remove(); alertMapInstance = null; }
-      alertMapInstance = L.map('alert-map', { zoomControl: true, attributionControl: false }).setView([31.5, 34.9], 7);
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(alertMapInstance);
-      const redIcon = L.divIcon({
-        html: '<div style="width:12px;height:12px;background:#ff6b6b;border-radius:50%;border:2px solid #fff;box-shadow:0 0 6px #ff6b6b"></div>',
-        className: '', iconSize: [12, 12], iconAnchor: [6, 6]
-      });
-      let bounds = [];
-      cities.forEach(city => {
-        const coords = CITY_COORDS[city];
-        if (coords) { L.marker(coords, { icon: redIcon }).addTo(alertMapInstance).bindPopup(city); bounds.push(coords); }
-      });
-      if (bounds.length > 0) alertMapInstance.fitBounds(bounds, { padding: [30, 30] });
-    }, 300);
-  }
-
-  if (typeof L !== 'undefined') {
-    initMap();
-  } else {
-    // טען Leaflet דינמית
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    document.head.appendChild(css);
-    const js = document.createElement('script');
-    js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-    js.onload = initMap;
-    document.head.appendChild(js);
-  }
-}
-
-function closeAlertMap() {
-  document.getElementById('modal-alert-map').style.display = 'none';
-}
-
 function startAlertPolling() {
   // בדוק אם יש אזעקה שמורה מרענון קודם
   restoreAlertFromStorage();
@@ -2854,9 +2750,7 @@ async function checkOrefAlert() {
     if (alert.id !== lastAlertId) {
       lastAlertId = alert.id;
       const data = alert.data || [];
-      currentAlertCities = data; // שמור לשימוש במפה
 
-      // אם בחרנו עיר — הצג רק אותה, אחרת הצג עד 3 ערים + כמה עוד
       let areasDisplay;
       if (selectedCity !== 'הכל') {
         areasDisplay = selectedCity;
@@ -2864,10 +2758,10 @@ async function checkOrefAlert() {
         if (data.length <= 3) {
           areasDisplay = data.join(' • ');
         } else {
-          areasDisplay = data.slice(0, 3).join(' • ') + ` <span onclick="openAlertMap(currentAlertCities)" style="color:#ffd43b;cursor:pointer;text-decoration:underline">ועוד ${data.length - 3}</span>`;
+          areasDisplay = data.slice(0, 3).join(' • ') + ` ועוד ${data.length - 3}`;
         }
       }
-      showAlert(alert.title || '🚨 אזעקה', areasDisplay, data);
+      showAlert(alert.title || '🚨 אזעקה', areasDisplay);
     }
   } catch(e) { /* שקט בשגיאות רשת */ }
 }
@@ -2877,14 +2771,12 @@ let alertInstructionTimeout = null;
 
 function updateLastAlertBadge() {
   try {
-    const badge = document.getElementById('lastAlertBadge');
     const timeEl = document.getElementById('lastAlertTime');
-    if (!badge || !timeEl) return;
+    if (!timeEl) return;
 
     const saved = localStorage.getItem('mamad_last_alert');
     if (!saved) {
       timeEl.textContent = 'אזעקה אחרונה: אין מידע';
-      badge.style.display = 'flex';
       return;
     }
     const { title, areas, timestamp } = JSON.parse(saved);
@@ -2905,8 +2797,7 @@ function updateLastAlertBadge() {
       const parts = areas.split(' • ');
       areasShort = parts.length <= 2 ? areas : parts.slice(0,2).join(' • ') + ` +${parts.length-2}`;
     }
-    timeEl.textContent = 'אזעקה אחרונה: ' + timeStr + (areasShort ? ` (${areasShort})` : '');
-    badge.style.display = 'flex';
+    timeEl.textContent = timeStr + (areasShort ? ` (${areasShort})` : '');
   } catch(e) {}
 }
 
@@ -2919,7 +2810,7 @@ function showAlert(title, areas) {
 
   // הסתר שורת אזעקה אחרונה בזמן אזעקה פעילה
   const lastBadge = document.getElementById('lastAlertBadge');
-  if (lastBadge) lastBadge.style.display = 'none';
+  if (lastBadge) lastBadge.style.visibility = 'hidden';
 
   // שמור ב-localStorage
   try {
@@ -2964,6 +2855,8 @@ function hideAlert() {
   document.getElementById('alertInstruction').style.display = 'none';
   try { localStorage.removeItem('mamad_alert'); } catch(e) {}
   // הצג חזרה שורת אזעקה אחרונה
+  const lb = document.getElementById('lastAlertBadge');
+  if (lb) lb.style.visibility = 'visible';
   updateLastAlertBadge();
 }
 
