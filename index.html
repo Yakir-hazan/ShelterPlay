@@ -862,7 +862,6 @@
         <div class="grid-item" onclick="showScreen('screen-2048');init2048()">
           <span class="grid-emoji">🔲</span><h3>2048</h3>
         </div>
-
         <div class="grid-item" onclick="showScreen('screen-sudoku');initSudoku()">
           <span class="grid-emoji">🔢</span><h3>סודוקו</h3>
         </div>
@@ -2749,25 +2748,13 @@ function hideAlert() {
   lastAlertId = null;
   if (alertHideTimeout) { clearTimeout(alertHideTimeout); alertHideTimeout = null; }
   if (alertInstructionTimeout) { clearTimeout(alertInstructionTimeout); alertInstructionTimeout = null; }
-
+  document.getElementById('alertChip').style.display = 'none';
   document.getElementById('alertInstruction').style.display = 'none';
-
-  const chip = document.getElementById('alertChip');
-  const inner = chip.querySelector('div');
-  inner.style.background = 'rgba(38,222,129,0.15)';
-  inner.style.border = '1px solid rgba(38,222,129,0.4)';
-  inner.style.color = '#26de81';
-  inner.style.animation = 'none';
-  inner.innerHTML = '<span style="width:8px;height:8px;background:#26de81;border-radius:50%;display:inline-block;flex-shrink:0"></span>\u00a0\u2705 \u05d4\u05d0\u05d9\u05e8\u05d5\u05e2 \u05d4\u05e1\u05ea\u05d9\u05d9\u05dd \u2014 \u05d0\u05e4\u05e9\u05e8 \u05dc\u05e6\u05d0\u05ea \u05de\u05d4\u05de\u05de\u05d3';
-  chip.style.display = 'flex';
-
-  setTimeout(function() {
-    chip.style.display = 'none';
-    try { localStorage.removeItem('mamad_alert'); } catch(e) {}
-    var lb = document.getElementById('lastAlertBadge');
-    if (lb) lb.style.visibility = 'visible';
-    updateLastAlertBadge();
-  }, 8000);
+  try { localStorage.removeItem('mamad_alert'); } catch(e) {}
+  // הצג חזרה שורת אזעקה אחרונה
+  const lb = document.getElementById('lastAlertBadge');
+  if (lb) lb.style.visibility = 'visible';
+  updateLastAlertBadge();
 }
 
 function playAlertSound() {
@@ -3100,7 +3087,6 @@ async function installApp() {
   await deferredPrompt.userChoice;
   deferredPrompt = null;
 }
-
 
 // ======== SUDOKU ========
 let sudokuBoard=[], sudokuSolution=[], sudokuSelected=null, sudokuFixed=[];
