@@ -1225,8 +1225,6 @@
 
     </div>
   </div>
-    </div>
-  </div>
 
 </div><!-- /main-card -->
 
@@ -2767,13 +2765,40 @@ function hideAlert() {
   lastAlertId = null;
   if (alertHideTimeout) { clearTimeout(alertHideTimeout); alertHideTimeout = null; }
   if (alertInstructionTimeout) { clearTimeout(alertInstructionTimeout); alertInstructionTimeout = null; }
-  document.getElementById('alertChip').style.display = 'none';
-  document.getElementById('alertInstruction').style.display = 'none';
-  try { localStorage.removeItem('mamad_alert'); } catch(e) {}
-  // הצג חזרה שורת אזעקה אחרונה
-  const lb = document.getElementById('lastAlertBadge');
-  if (lb) lb.style.visibility = 'visible';
-  updateLastAlertBadge();
+
+  const chip = document.getElementById('alertChip');
+  const instrEl = document.getElementById('alertInstruction');
+  const instrText = document.getElementById('alertInstructionLabel');
+  const inner = chip.querySelector('div');
+
+  // הצג הודעת סיום ירוקה
+  inner.style.background = 'rgba(38,222,129,0.15)';
+  inner.style.borderColor = 'rgba(38,222,129,0.4)';
+  inner.style.color = '#26de81';
+  inner.style.animation = 'none';
+  inner.innerHTML = `<span style="width:8px;height:8px;background:#26de81;border-radius:50%;display:inline-block"></span> ✅ האירוע הסתיים — אפשר לצאת מהממ״ד`;
+  chip.style.display = 'flex';
+
+  instrText.textContent = '✅ האירוע הסתיים — אפשר לצאת מהממ״ד בבטחה';
+  instrEl.style.display = 'flex';
+  const instrInner = document.getElementById('alertInstructionText');
+  if (instrInner) {
+    instrInner.style.background = 'rgba(38,222,129,0.1)';
+    instrInner.style.borderColor = 'rgba(38,222,129,0.4)';
+    instrInner.style.color = '#26de81';
+  }
+
+  // הסתר הכל אחרי 10 שניות
+  setTimeout(() => {
+    chip.style.display = 'none';
+    instrEl.style.display = 'none';
+    inner.style.background = ''; inner.style.borderColor = ''; inner.style.color = ''; inner.style.animation = '';
+    if (instrInner) { instrInner.style.background = ''; instrInner.style.borderColor = ''; instrInner.style.color = ''; }
+    try { localStorage.removeItem('mamad_alert'); } catch(e) {}
+    const lb = document.getElementById('lastAlertBadge');
+    if (lb) lb.style.visibility = 'visible';
+    updateLastAlertBadge();
+  }, 10000);
 }
 
 function playAlertSound() {
