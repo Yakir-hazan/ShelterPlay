@@ -112,44 +112,7 @@
   .screen { display: none; }
   .screen.active { display: block; }
 
-  /* TIMER CARD */
-  .timer-card {
-    background: linear-gradient(135deg, #1a2e50, #162240);
-    border: 1.5px solid rgba(77,142,255,0.25);
-    border-radius: var(--radius);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .timer-card:hover { transform: translateY(-2px); border-color: rgba(77,142,255,0.5); box-shadow: 0 8px 24px rgba(77,142,255,0.15); }
-  .timer-icon {
-    width: 52px; height: 52px;
-    background: linear-gradient(135deg, #4d8eff, #2563eb);
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 26px; flex-shrink: 0;
-    box-shadow: 0 4px 16px rgba(77,142,255,0.4);
-  }
-  .timer-text h3 { font-size: 16px; font-weight: 700; color: var(--text); }
-  .timer-text p { font-size: 12px; color: var(--muted); margin-top: 3px; }
 
-  /* TIMER DISPLAY */
-  .timer-display { text-align: center; padding: 30px 0 20px; }
-  .timer-circle {
-    width: 160px; height: 160px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #4d8eff, #a55eea);
-    margin: 0 auto 20px;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 40px rgba(77,142,255,0.4);
-  }
-  .timer-number { font-size: 48px; font-weight: 900; color: #fff; letter-spacing: -2px; }
-  .timer-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
-  .timer-btns { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
   .btn {
     padding: 12px 28px;
     border-radius: 50px;
@@ -739,11 +702,8 @@
       text-align:center;
     ">
       <p style="font-size:13px;font-weight:700;color:var(--text);margin:0 0 8px">חשוב לדעת:</p>
-      <p style="font-size:13px;color:var(--muted);line-height:1.8;margin:0 0 12px">
-        האתר פועל ללא פרסומות וללא תשלום, ואינו מיועד למטרות רווח כלל!!
-      </p>
-      <p style="font-size:13px;color:var(--muted);line-height:1.8;margin:0 0 12px">
-        יש לכם רעיון למשחק, שאלה או תקלה? <a href="https://m.me/yakir.hazan.9" target="_blank" style="color:#1877f2;font-weight:700;text-decoration:underline">צרו קשר</a>
+      <p style="font-size:13px;color:var(--muted);line-height:1.8;margin:0">
+        האתר פועל ללא פרסומות וללא תשלום, ואינו מיועד למטרות רווח כלל!! יש לכם רעיון, פעילות, שאלה או תקלה? <a href="https://m.me/yakir.hazan.9" target="_blank" style="color:#1877f2;font-weight:700;text-decoration:underline">צרו קשר!</a>
       </p>
     </div>
 
@@ -815,20 +775,6 @@
     <div id="cityList" style="display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto;padding-left:2px"></div>
   </div>
 
-  <!-- TIMER SCREEN -->
-  <div class="screen" id="screen-timer">
-    <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
-    <div class="timer-display">
-      <div class="timer-circle">
-        <span class="timer-number" id="timerDisplay">10:00</span>
-      </div>
-      <p class="timer-label">דקות שנותרו בממ"ד</p>
-      <div class="timer-btns">
-        <button class="btn btn-primary" id="timerBtn" onclick="toggleTimer()">▶ התחל</button>
-        <button class="btn btn-secondary" onclick="resetTimer()">↺ אפס</button>
-      </div>
-    </div>
-  </div>
 
   <!-- SOUNDS SCREEN -->
   <div class="screen" id="screen-sounds">
@@ -1477,41 +1423,7 @@ function showToast(msg, dur=2000) {
   setTimeout(() => t.classList.remove('show'), dur);
 }
 
-// ======== TIMER ========
-let timerInterval, timerSeconds = 600, timerRunning = false;
-function toggleTimer() {
-  if (timerRunning) {
-    clearInterval(timerInterval); timerRunning = false;
-    document.getElementById('timerBtn').textContent = '▶ המשך';
-    playClick();
-  } else {
-    if (timerSeconds <= 0) resetTimer();
-    timerRunning = true;
-    document.getElementById('timerBtn').textContent = '⏸ עצור';
-    playSuccess();
-    timerInterval = setInterval(() => {
-      timerSeconds--;
-      updateTimerDisplay();
-      if (timerSeconds <= 0) {
-        clearInterval(timerInterval); timerRunning = false;
-        document.getElementById('timerBtn').textContent = '✅ הסתיים';
-        playWin();
-        showToast('⏰ 10 דקות עברו!', 4000);
-      }
-    }, 1000);
-  }
-}
-function resetTimer() {
-  clearInterval(timerInterval); timerRunning = false;
-  timerSeconds = 600;
-  document.getElementById('timerBtn').textContent = '▶ התחל';
-  updateTimerDisplay();
-}
-function updateTimerDisplay() {
-  const m = Math.floor(timerSeconds / 60);
-  const s = timerSeconds % 60;
-  document.getElementById('timerDisplay').textContent = `${m}:${s.toString().padStart(2,'0')}`;
-}
+
 
 // ======== SOUNDS ========
 let audioCtx, currentSound = null, currentSoundName = null;
