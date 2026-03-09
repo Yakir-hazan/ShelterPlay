@@ -94,7 +94,7 @@
   .main-card {
     width: 100%;
     max-width: 480px;
-    padding: 20px 16px 40px;
+    padding: 8px 16px 40px;
     position: relative;
     z-index: 1;
     min-height: calc(100vh - 180px);
@@ -633,7 +633,25 @@
     ">📍 כל הארץ — לחץ/י לשינוי</button>
   </div>
 
-  <!-- כפתור שיתוף -->
+  <!-- אזעקה אחרונה -->
+  <div id="lastAlertBadge" style="display:none;justify-content:center;margin-top:8px">
+    <div style="
+      display:inline-flex; align-items:center; gap:6px;
+      background:rgba(255,107,107,0.07);
+      border:1px solid rgba(255,107,107,0.2);
+      border-radius:50px; padding:6px 14px;
+      font-size:11px; font-weight:600; color:#ff9f9f;
+    ">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2 C7 2 3 6 3 11 L3 16 L21 16 L21 11 C21 6 17 2 12 2Z" fill="#ff6b6b" opacity="0.9"/>
+        <rect x="3" y="16" width="18" height="3" rx="1.5" fill="#ff9f43"/>
+        <line x1="12" y1="0" x2="12" y2="2" stroke="#ff6b6b" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="4" y1="3" x2="5.5" y2="4.5" stroke="#ff6b6b" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="20" y1="3" x2="18.5" y2="4.5" stroke="#ff6b6b" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <span id="lastAlertTime" style="font-weight:700;color:#ff9f9f"></span>
+    </div>
+  </div>
 
 </div>
 
@@ -2642,6 +2660,7 @@ function updateLocationBtn() {
 function startAlertPolling() {
   // בדוק אם יש אזעקה שמורה מרענון קודם
   restoreAlertFromStorage();
+  updateLastAlertBadge();
   checkOrefAlert();
   alertPolling = setInterval(checkOrefAlert, 10000);
 }
@@ -2723,6 +2742,36 @@ async function checkOrefAlert() {
 let alertHideTimeout = null;
 let alertInstructionTimeout = null;
 
+function updateLastAlertBadge() {
+  try {
+    const badge = document.getElementById('lastAlertBadge');
+    const timeEl = document.getElementById('lastAlertTime');
+    if (!badge || !timeEl) return;
+
+    const saved = localStorage.getItem('mamad_last_alert');
+    if (!saved) {
+      timeEl.textContent = 'אזעקה אחרונה: אין מידע';
+      badge.style.display = 'flex';
+      return;
+    }
+    const { title, areas, timestamp } = JSON.parse(saved);
+
+    const now = Date.now();
+    const diff = Math.floor((now - timestamp) / 1000);
+    let timeStr = '';
+    if (diff < 60) timeStr = `לפני ${diff} שניות`;
+    else if (diff < 3600) timeStr = `לפני ${Math.floor(diff/60)} דקות`;
+    else if (diff < 86400) timeStr = `לפני ${Math.floor(diff/3600)} שעות`;
+    else {
+      const d = new Date(timestamp);
+      timeStr = d.toLocaleDateString('he-IL', { day:'numeric', month:'numeric' }) + ' ' +
+                d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
+    }
+    timeEl.textContent = 'אזעקה אחרונה: ' + timeStr + (areas ? ` (${areas})` : '');
+    badge.style.display = 'flex';
+  } catch(e) {}
+}
+
 function showAlert(title, areas) {
   const chip = document.getElementById('alertChip');
   const inner = chip.querySelector('div');
@@ -2730,11 +2779,20 @@ function showAlert(title, areas) {
     🚨 ${title}${areas ? ' — ' + areas : ''}`;
   chip.style.display = 'flex';
 
+  // הסתר שורת אזעקה אחרונה בזמן אזעקה פעילה
+  const lastBadge = document.getElementById('lastAlertBadge');
+  if (lastBadge) lastBadge.style.display = 'none';
+
   // שמור ב-localStorage
   try {
     localStorage.setItem('mamad_alert', JSON.stringify({
       title, areas, timestamp: Date.now()
     }));
+    // שמור גם כאזעקה אחרונה
+    localStorage.setItem('mamad_last_alert', JSON.stringify({
+      title, areas, timestamp: Date.now()
+    }));
+    updateLastAlertBadge();
   } catch(e) {}
 
   // הצג באנר הוראה
@@ -2767,6 +2825,8 @@ function hideAlert() {
   document.getElementById('alertChip').style.display = 'none';
   document.getElementById('alertInstruction').style.display = 'none';
   try { localStorage.removeItem('mamad_alert'); } catch(e) {}
+  // הצג חזרה שורת אזעקה אחרונה
+  updateLastAlertBadge();
 }
 
 function playAlertSound() {
