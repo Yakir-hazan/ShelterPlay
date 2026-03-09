@@ -1,6 +1,8 @@
 <!--
   Copyright (c) 2026 Yakir Hazan
   All rights reserved.
+  Game concepts (Snake, Tetris, Pong, etc.) are classic games in the public domain.
+  All code, design and implementation are original and written from scratch.
   This code may not be copied, modified, or distributed
   without written permission from the author.
 -->
@@ -2753,12 +2755,17 @@ async function checkOrefAlert() {
 
     if (alert.id !== lastAlertId) {
       lastAlertId = alert.id;
-      // אם בחרנו עיר — הצג רק אותה, אחרת הצג את כל הערים
+      // אם בחרנו עיר — הצג רק אותה, אחרת הצג עד 3 ערים + כמה עוד
       let areasDisplay;
       if (selectedCity !== 'הכל') {
         areasDisplay = selectedCity;
       } else {
-        areasDisplay = alert.data ? alert.data.join(' • ') : '';
+        const data = alert.data || [];
+        if (data.length <= 3) {
+          areasDisplay = data.join(' • ');
+        } else {
+          areasDisplay = data.slice(0, 3).join(' • ') + ` ועוד ${data.length - 3}`;
+        }
       }
       showAlert(alert.title || '🚨 אזעקה', areasDisplay);
     }
@@ -2793,7 +2800,12 @@ function updateLastAlertBadge() {
       timeStr = d.toLocaleDateString('he-IL', { day:'numeric', month:'numeric' }) + ' ' +
                 d.toLocaleTimeString('he-IL', { hour:'2-digit', minute:'2-digit' });
     }
-    timeEl.textContent = 'אזעקה אחרונה: ' + timeStr + (areas ? ` (${areas})` : '');
+    let areasShort = '';
+    if (areas) {
+      const parts = areas.split(' • ');
+      areasShort = parts.length <= 2 ? areas : parts.slice(0,2).join(' • ') + ` +${parts.length-2}`;
+    }
+    timeEl.textContent = 'אזעקה אחרונה: ' + timeStr + (areasShort ? ` (${areasShort})` : '');
     badge.style.display = 'flex';
   } catch(e) {}
 }
