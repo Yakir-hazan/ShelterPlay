@@ -227,6 +227,31 @@
     gap: 10px; padding: 18px;
   }
   .wide-item h3 { font-size: 15px; color: var(--teal); font-weight: 700; }
+  .tall-item {
+    grid-row: span 2;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-height: 160px;
+  }
+  .tall-item .grid-emoji { font-size: 42px; margin-bottom: 12px; }
+  .tall-item h3 { font-size: 15px; color: var(--teal); }
+  .cat-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px; margin-top: 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .cat-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .cat-kids  .grid-item { border-color: rgba(38,222,129,0.15); }
+  .cat-kids  .grid-item:hover { border-color: rgba(38,222,129,0.4); }
+  .cat-relax .grid-item { border-color: rgba(0,212,170,0.15); }
+  .cat-relax .grid-item:hover { border-color: rgba(0,212,170,0.4); }
+  .cat-brain .grid-item { border-color: rgba(77,142,255,0.15); }
+  .cat-brain .grid-item:hover { border-color: rgba(77,142,255,0.4); }
+  .cat-action .grid-item { border-color: rgba(165,94,234,0.15); }
+  .cat-action .grid-item:hover { border-color: rgba(165,94,234,0.4); }
+  .cat-kids  .cat-title { color: #26de81; }
+  .cat-relax .cat-title { color: #00d4aa; }
+  .cat-brain .cat-title { color: #4d8eff; }
+  .cat-action .cat-title { color: #a55eea; }
 
   /* SOUND SCREEN */
   .sounds-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -612,25 +637,7 @@
 
 </div>
 
-<!-- כפתורי שיתוף והתקנה — קבועים למעלה שמאל -->
-<div style="position:fixed;top:14px;left:14px;z-index:1000;display:flex;gap:8px">
-  <button onclick="shareApp()" title="שתף את האתר" style="
-    width:40px;height:40px;border-radius:50%;
-    background:rgba(0,212,170,0.15);
-    border:1.5px solid rgba(0,212,170,0.35);
-    color:#00d4aa;font-size:18px;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;
-    backdrop-filter:blur(8px);
-  ">🔗</button>
-  <button id="installBtn" onclick="handleInstall()" title="הוסף למסך הבית" style="
-    width:40px;height:40px;border-radius:50%;
-    background:rgba(254,211,48,0.15);
-    border:1.5px solid rgba(254,211,48,0.35);
-    color:#fed330;font-size:18px;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;
-    backdrop-filter:blur(8px);
-  ">📲</button>
-</div>
+
 
 <!-- מודל הוראות iOS -->
 <div id="iosModal" style="
@@ -665,27 +672,32 @@
   <div class="screen active" id="screen-home">
 
     <!-- Sound Card -->
-    <div class="section-title">בחר/י פעילות</div>
 
-    <!-- Grid -->
+    <!-- Grid — פריסה ה׳ -->
     <div class="grid">
-      <div class="grid-item" onclick="showScreen('screen-games')">
+      <div class="grid-item tall-item" onclick="showScreen('screen-games')">
         <span class="grid-emoji">🕹️</span>
         <h3>משחקים</h3>
-        <span style="font-size:10px;color:var(--muted);margin-top:2px">ללא אינטרנט</span>
+        <span style="font-size:10px;color:var(--muted);margin-top:4px;display:block">ללא אינטרנט</span>
       </div>
-      <div class="grid-item" onclick="showScreen('screen-stories')">
-        <span class="grid-emoji">📖</span>
-        <h3>סיפורים לילדים</h3>
-        <span style="font-size:10px;color:var(--muted);margin-top:2px">ללא אינטרנט</span>
-      </div>
-      <div class="grid-item wide-item" onclick="showScreen('screen-breathing')">
-        <span style="display:block"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 18 Q6 10 10 18 Q14 26 18 18 Q22 10 26 18 Q30 26 34 18" stroke="#4d8eff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          <path d="M2 24 Q6 18 10 24 Q14 30 18 24 Q22 18 26 24 Q30 30 34 24" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>
-          <path d="M2 12 Q6 6 10 12 Q14 18 18 12 Q22 6 26 12 Q30 18 34 12" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.3"/>
+      <div class="grid-item" onclick="shareApp()">
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 38 38" fill="none">
+          <circle cx="29" cy="10" r="4" fill="none" stroke="#00d4aa" stroke-width="2"/>
+          <circle cx="29" cy="28" r="4" fill="none" stroke="#00d4aa" stroke-width="2"/>
+          <circle cx="10" cy="19" r="4" fill="none" stroke="#00d4aa" stroke-width="2"/>
+          <line x1="14" y1="17" x2="25" y2="12" stroke="#00d4aa" stroke-width="1.5"/>
+          <line x1="14" y1="21" x2="25" y2="26" stroke="#00d4aa" stroke-width="1.5"/>
         </svg></span>
-        <h3 style="color:var(--teal)">תרגילי נשימה</h3>
+        <h3>שתפו את האתר</h3>
+      </div>
+      <div class="grid-item" onclick="handleInstall()">
+        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 38 38" fill="none">
+          <rect x="10" y="4" width="18" height="28" rx="4" fill="none" stroke="#4d8eff" stroke-width="2"/>
+          <line x1="15" y1="29" x2="23" y2="29" stroke="#4d8eff" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="19" y1="13" x2="19" y2="21" stroke="#4d8eff" stroke-width="2" stroke-linecap="round"/>
+          <line x1="15" y1="17" x2="23" y2="17" stroke="#4d8eff" stroke-width="2" stroke-linecap="round"/>
+        </svg></span>
+        <h3>הוסיפו למסך הבית</h3>
       </div>
     </div>
 
@@ -815,74 +827,107 @@
   <!-- GAMES SCREEN -->
   <div class="screen" id="screen-games">
     <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
-    <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">בחירת משחק 🎮</h2>
-    <div class="grid">
-      <div class="grid-item" onclick="showScreen('screen-math');initMath()">
-        <span class="grid-emoji">➕</span><h3>מתמטיקה</h3>
+    <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">בחירת פעילות 🎮</h2>
+    <p style="font-size:12px;color:var(--muted);margin-bottom:16px">כל הפעילויות עובדות ללא אינטרנט</p>
+
+    <!-- לילדים -->
+    <div class="cat-kids">
+      <div class="cat-title">לילדים 🌟</div>
+      <div class="grid">
+        <div class="grid-item" onclick="showScreen('screen-stories');initStories()">
+          <span class="grid-emoji">📖</span><h3>סיפורים לילדים</h3>
+          <span style="font-size:10px;color:var(--muted)">10 סיפורים קלאסיים</span>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-rps');initRPS()">
+          <span class="grid-emoji">🤜</span><h3>אבן נייר מספריים</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-memory');initMemory()">
+          <span class="grid-emoji">🃟</span><h3>זיכרון</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-ttt');initTTT()">
+          <span class="grid-emoji">⭕</span><h3>איקס אפס</h3>
+        </div>
       </div>
-      <div class="grid-item" onclick="showScreen('screen-2048');init2048()">
-        <span class="grid-emoji">🔲</span><h3>2048</h3>
+    </div>
+
+    <!-- הרגעה -->
+    <div class="cat-relax" style="margin-top:16px">
+      <div class="cat-title">הרגעה ✨</div>
+      <div class="grid">
+        <div class="grid-item" onclick="showScreen('screen-breathing')">
+          <span class="grid-emoji">💨</span><h3>תרגילי נשימה</h3>
+          <span style="font-size:10px;color:var(--muted)">הרגעה ומיקוד</span>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-sounds')">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="2" y="14" width="4" height="8" rx="2" fill="#00d4aa"/><rect x="8" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/><rect x="14" y="5" width="4" height="26" rx="2" fill="#00d4aa"/><rect x="20" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/><rect x="26" y="14" width="4" height="8" rx="2" fill="#00d4aa" opacity="0.7"/></svg></span>
+          <h3>צלילי רקע</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-magic')">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" fill="url(#mg1)"/><circle cx="13" cy="14" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="13" cy="14" r="1.5" fill="rgba(255,255,255,0.4)"/><text x="18" y="23" text-anchor="middle" font-size="10" fill="white" font-weight="bold">?</text><defs><radialGradient id="mg1" cx="40%" cy="35%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#6d28d9"/></radialGradient></defs></svg></span>
+          <h3>כדור הקסם</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-piano')">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="10" width="30" height="18" rx="3" fill="#1e293b" stroke="#4d8eff" stroke-width="1.2"/><rect x="5" y="10" width="4" height="11" rx="1" fill="white"/><rect x="11" y="10" width="4" height="11" rx="1" fill="white"/><rect x="17" y="10" width="4" height="11" rx="1" fill="white"/><rect x="23" y="10" width="4" height="11" rx="1" fill="white"/><rect x="29" y="10" width="4" height="11" rx="1" fill="white"/><rect x="8" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="14" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="25" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="31" y="10" width="2.5" height="7" rx="1" fill="#1e293b"/></svg></span>
+          <h3>פסנתר</h3>
+        </div>
       </div>
-      <div class="grid-item" onclick="showScreen('screen-breakout');initBreakout()">
-        <span class="grid-emoji">🏐</span><h3>שובר קירות</h3>
+    </div>
+
+    <!-- חשיבה -->
+    <div class="cat-brain" style="margin-top:16px">
+      <div class="cat-title">חשיבה 🧠</div>
+      <div class="grid">
+        <div class="grid-item" onclick="showScreen('screen-math');initMath()">
+          <span class="grid-emoji">➕</span><h3>מתמטיקה</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-2048');init2048()">
+          <span class="grid-emoji">🔲</span><h3>2048</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-hangman');initHangman()">
+          <span class="grid-emoji">📝</span><h3>תליין</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-sudoku');initSudoku()">
+          <span class="grid-emoji">🔢</span><h3>סודוקו</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-trivia')">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><ellipse cx="18" cy="15" rx="9" ry="10" fill="url(#bq1)" opacity="0.95"/><path d="M13 24 Q18 27 23 24" stroke="#fed330" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M14 26 Q18 29 22 26" stroke="#fed330" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M18 5 L18 3M10 8 L8 7M26 8 L28 7" stroke="#fed330" stroke-width="1.5" stroke-linecap="round"/><defs><radialGradient id="bq1" cx="40%" cy="35%"><stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#f59e0b"/></radialGradient></defs></svg></span>
+          <h3>טריוויה</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-draw')">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 28L10 22L24 8L28 12L14 26L8 28Z" fill="#4d8eff" opacity="0.85"/><path d="M24 8L28 12L26 14L22 10L24 8Z" fill="#a55eea"/><path d="M8 28L10 22L12 24L8 28Z" fill="#fed330"/></svg></span>
+          <h3>לוח ציור</h3>
+        </div>
       </div>
-      <div class="grid-item" onclick="showScreen('screen-snake');initSnake()">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 26 Q6 20 12 20 Q18 20 18 14 Q18 8 24 8 Q30 8 30 14" stroke="#26de81" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="30" cy="14" r="4" fill="#26de81"/><circle cx="28.5" cy="12.5" r="1.2" fill="#0b0f1a"/><circle cx="31.5" cy="12.5" r="1.2" fill="#0b0f1a"/><path d="M29 16 L28 18 M31 16 L32 18" stroke="#ff6b6b" stroke-width="1" stroke-linecap="round"/></svg></span><h3>סנייק</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-rps');initRPS()">
-        <span class="grid-emoji">🤜</span><h3>אבן נייר...</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-memory');initMemory()">
-        <span class="grid-emoji">🃟</span><h3>זיכרון</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-reaction');initReaction()">
-        <span class="grid-emoji">⏱️</span><h3>זמן תגובה</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-ttt');initTTT()">
-        <span class="grid-emoji">⭕</span><h3>איקס אפס</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-hangman');initHangman()">
-        <span class="grid-emoji">📝</span><h3>תליין</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-sudoku');initSudoku()">
-        <span class="grid-emoji">🔢</span><h3>סודוקו</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-pong');initPong()">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="12" width="4" height="12" rx="2" fill="#4d8eff"/><rect x="29" y="12" width="4" height="12" rx="2" fill="#a55eea"/><circle cx="18" cy="18" r="3" fill="white"/><line x1="18" y1="4" x2="18" y2="32" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3"/></svg></span><h3>פונג</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-tetris');initTetris()">
-        <span class="grid-emoji">🧱</span><h3>טטריס</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-darts');initDarts()">
-        <span class="grid-emoji">🎯</span><h3>דארטס</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-solitaire');initSolitaire()">
-        <span class="grid-emoji">🎴</span><h3>סוליטייר</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-trivia')">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><ellipse cx="18" cy="15" rx="9" ry="10" fill="url(#bq1)" opacity="0.95"/><path d="M13 24 Q18 27 23 24" stroke="#fed330" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M14 26 Q18 29 22 26" stroke="#fed330" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M18 5 L18 3M10 8 L8 7M26 8 L28 7" stroke="#fed330" stroke-width="1.5" stroke-linecap="round"/><path d="M14 13 Q16 11 18 13 Q20 15 22 13" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/><defs><radialGradient id="bq1" cx="40%" cy="35%"><stop offset="0%" stop-color="#fef08a"/><stop offset="100%" stop-color="#f59e0b"/></radialGradient></defs></svg></span><h3>טריוויה</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-draw')">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M8 28L10 22L24 8L28 12L14 26L8 28Z" fill="#4d8eff" opacity="0.85"/><path d="M24 8L28 12L26 14L22 10L24 8Z" fill="#a55eea"/><path d="M8 28L10 22L12 24L8 28Z" fill="#fed330"/><line x1="22" y1="10" x2="26" y2="14" stroke="white" stroke-width="0.8" opacity="0.4"/></svg></span><h3>לוח ציור</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-minesweeper');initMinesweeper()">
-        <span class="grid-emoji">💥</span><h3>שדה מוקשים</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-piano')">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="10" width="30" height="18" rx="3" fill="#1e293b" stroke="#4d8eff" stroke-width="1.2"/><rect x="5" y="10" width="4" height="11" rx="1" fill="white"/><rect x="11" y="10" width="4" height="11" rx="1" fill="white"/><rect x="17" y="10" width="4" height="11" rx="1" fill="white"/><rect x="23" y="10" width="4" height="11" rx="1" fill="white"/><rect x="29" y="10" width="4" height="11" rx="1" fill="white"/><rect x="8" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="14" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="25" y="10" width="3" height="7" rx="1" fill="#1e293b"/><rect x="31" y="10" width="2.5" height="7" rx="1" fill="#1e293b"/></svg></span><h3>פסנתר</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-magic')">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="14" fill="url(#mg1)"/><circle cx="13" cy="14" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="13" cy="14" r="1.5" fill="rgba(255,255,255,0.4)"/><text x="18" y="23" text-anchor="middle" font-size="10" fill="white" font-weight="bold">?</text><defs><radialGradient id="mg1" cx="40%" cy="35%"><stop offset="0%" stop-color="#c084fc"/><stop offset="100%" stop-color="#6d28d9"/></radialGradient></defs></svg></span><h3>כדור הקסם</h3>
-      </div>
-      <div class="grid-item" onclick="showScreen('screen-sounds')">
-        <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="14" width="4" height="8" rx="2" fill="#00d4aa"/>
-          <rect x="8" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
-          <rect x="14" y="5" width="4" height="26" rx="2" fill="#00d4aa"/>
-          <rect x="20" y="9" width="4" height="18" rx="2" fill="#00d4aa" opacity="0.85"/>
-          <rect x="26" y="14" width="4" height="8" rx="2" fill="#00d4aa" opacity="0.7"/>
-          <rect x="32" y="16" width="2" height="4" rx="1" fill="#00d4aa" opacity="0.5"/>
-        </svg></span><h3>צלילי רקע</h3>
+    </div>
+
+    <!-- אקשן -->
+    <div class="cat-action" style="margin-top:16px">
+      <div class="cat-title">אקשן ⚡</div>
+      <div class="grid">
+        <div class="grid-item" onclick="showScreen('screen-breakout');initBreakout()">
+          <span class="grid-emoji">🏐</span><h3>שובר קירות</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-snake');initSnake()">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><path d="M6 26 Q6 20 12 20 Q18 20 18 14 Q18 8 24 8 Q30 8 30 14" stroke="#26de81" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="30" cy="14" r="4" fill="#26de81"/><circle cx="28.5" cy="12.5" r="1.2" fill="#0b0f1a"/><circle cx="31.5" cy="12.5" r="1.2" fill="#0b0f1a"/><path d="M29 16 L28 18 M31 16 L32 18" stroke="#ff6b6b" stroke-width="1" stroke-linecap="round"/></svg></span><h3>סנייק</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-reaction');initReaction()">
+          <span class="grid-emoji">⏱️</span><h3>זמן תגובה</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-pong');initPong()">
+          <span class="grid-emoji"><svg width="36" height="36" viewBox="0 0 36 36" fill="none"><rect x="3" y="12" width="4" height="12" rx="2" fill="#4d8eff"/><rect x="29" y="12" width="4" height="12" rx="2" fill="#a55eea"/><circle cx="18" cy="18" r="3" fill="white"/><line x1="18" y1="4" x2="18" y2="32" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="3,3"/></svg></span><h3>פונג</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-tetris');initTetris()">
+          <span class="grid-emoji">🧱</span><h3>טטריס</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-darts');initDarts()">
+          <span class="grid-emoji">🎯</span><h3>דארטס</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-solitaire');initSolitaire()">
+          <span class="grid-emoji">🎴</span><h3>סוליטייר</h3>
+        </div>
+        <div class="grid-item" onclick="showScreen('screen-minesweeper');initMinesweeper()">
+          <span class="grid-emoji">💥</span><h3>שדה מוקשים</h3>
+        </div>
       </div>
     </div>
   </div>
@@ -1663,258 +1708,505 @@ const stories = [
     emoji: '🐢',
     title: 'הארנב והצב',
     age: 'אזופוס • לכל הגילאים',
-    text: `פעם התגרה ארנב מהיר בצב איטי: "אתה כל כך איטי! אפילו חילזון מהיר ממך!"
+    text: `בקצה יער ירוק וגדול גרו שני חברים מוזרים — ארנב עם רגליים מהירות כרוח, וצב עם שריון כבד על גבו.
 
-הצב לא כעס. הוא אמר בשקט: "בוא נתחרה במרוץ עד לעץ הגדול ביער."
+הארנב אהב לרוץ. כל בוקר היה מקיף את היער שלוש פעמים לפני ארוחת הבוקר. הצב אהב ללכת. לאט, לאט, ולחשוב בדרך.
 
-הארנב פרץ בצחוק — אבל הסכים.
+יום אחד, ליד בריכת המים, עצר הארנב לשתות. הצב עבר לידו, כרגיל, לאט מאוד.
 
-כשהחל המרוץ, הארנב רץ כל כך מהר עד שהגיע לאמצע הדרך בדקות. הוא הסתכל אחורה — הצב בקושי נע.
+"היי, צב!" קרא הארנב בקול רם. "אתה יודע שאת הדרך הזו אני עושה בחמש דקות? כמה זמן לוקח לך?"
 
-"יש לי שעות," חשב הארנב. "אישן קצת."
+"שעה בערך," ענה הצב בשלווה.
 
-הוא שכב תחת עץ ונרדם.
+"שעה!" פרץ הארנב בצחוק. "אני יכול לרוץ עד לאגם ובחזרה בזמן הזה!"
 
-בינתיים, הצב המשיך. צעד. עוד צעד. עוד צעד. לא עצר לרגע.
+"אולי," ענה הצב. "רוצה לנסות?"
 
-כשהארנב קפץ משנתו, ראה את הצב מגיע לקו הסיום.
+"מרוץ?" שאל הארנב. "איתך? זה לא הוגן לך בכלל!"
 
-הוא רץ בכל כוחו — אבל היה מאוחר מדי.
+"בוא נראה," אמר הצב בשקט.
 
-הצב ניצח.
+הציפורים שמעו ופרסו את הבשורה בכל היער. כל בעלי החיים באו לראות — הדובים, השועלים, הצבאים, אפילו התולעים.
 
-"איך?" גנח הארנב.
+"מוכן?" שאל השועל, ששימש כשופט.
 
-"לא עצרתי," ענה הצב בפשטות.`,
-    moral: '💡 עקביות וסבלנות מנצחות כישרון ללא מאמץ.'
+"תמיד!" קרא הארנב וזינק קדימה כמו חץ.
+
+הצב יצא בצעד מדוד, ראשו מורד, עיניו על הדרך.
+
+הארנב הגיע לאמצע הדרך בפחות מדקה. הוא הסתכל אחורה — הצב בקושי נראה בקצה הדרך.
+
+"פשוט מגוחך," נאנח הארנב. הוא ישב תחת עץ אלון גדול. השמש הייתה נעימה, הצל קריר. "אישן עשר דקות ועדיין אנצח בקלות."
+
+הוא עצם עיניים. עשר דקות הפכו לשעה. שעה לשתיים.
+
+בינתיים, הצב צעד. ימין, שמאל, ימין, שמאל. לא הסתכל ימינה, לא שמאלה. לא עצר לנוח, לא עצר לשתות. רק קדימה.
+
+הצבאים שעמדו בצד לחשו: "הוא לא יצליח."
+
+"אל תהיו בטוחים," אמרה הנמלה הקטנה שהלכה לצידו.
+
+כשהגיע הצב לקו הסיום — האגם הכחול נצנץ לפניו — פרץ מחיאות הכפיים של כל בעלי החיים.
+
+הקול הגיע עד לעץ האלון.
+
+הארנב קפץ, שפשף עיניים, וראה… הצב מקבל פרחים.
+
+הוא רץ בכל כוחו, עפר התעופף מתחת לרגליו — אבל האגם כבר לא קיבל אותו ראשון.
+
+"איך?!" גנח הארנב, כפפותיו על ברכיו, נושם בכבדות.
+
+הצב הסתכל עליו בעיניים שקטות. "לא עצרתי," אמר פשוט. "זה הסוד כולו."`,
+    moral: '💡 עקביות וסבלנות מנצחות כישרון ללא מאמץ — לא מהירות מנצחת, אלא התמדה.'
   },
   {
     emoji: '🐜',
     title: 'הנמלה והחגב',
     age: 'אזופוס • לכל הגילאים',
-    text: `בימי הקיץ החמים עבדה הנמלה ללא הפסקה. היא נשאה גרגרי אוכל למחסן שלה, שוב ושוב, מהבוקר עד הערב.
+    text: `בקיץ החם, כשהשמש שרפה את העשב ואוויר היה מתוק מניחוח פרחים, עבדה הנמלה מזריחה עד שקיעה.
 
-החגב ישב על עלה ירוק וצחק: "נמלה טיפשה! הקיץ ארוך, השמש זורחת — למה לא לשיר ולרקוד?"
+הנמלה הייתה קטנה — קטנה מאוד — אבל חזקה. היא יכלה לשאת גרגיר גדול פי עשר ממנה. כל יום הלכה אל שדות החיטה, בחרה את הגרגרים הטובים ביותר, וסחבה אותם אל המחסן תחת האדמה.
 
-הנמלה לא ענתה. המשיכה לעבוד.
+החגב ישב על עלה ירוק גדול וניגן בכנפיו. המוזיקה שלו הייתה יפה — צ'ריק צ'ריק — והיא מילאה את כל השדה.
 
-הגיע החורף. הגשמים ירדו, הקור נכנס לעצמות. אין אוכל בשדות.
+"נמלה!" קרא החגב. "למה אתה עובדת כל היום? בואי לשיר איתי!"
 
-החגב רעב ורועד הגיע לדלת הנמלה: "בבקשה, יש לך משהו לאכול?"
+"אני מכינה מזון לחורף," ענתה הנמלה בלי לעצור.
 
-הנמלה פתחה את הדלת. מחסנה היה מלא עד הגג.
+"חורף?" צחק החגב. "עוד חודשים רבים! לכי לשחק!"
 
-"כל הקיץ שרת ורקדת?" שאלה.
+הנמלה לא ענתה. המשיכה.
 
-"כן," הודה החגב בבושה.
+"טיפשה," לחש החגב לעצמו, וחזר לנגן.
 
-"ואנחנו עבדנו," אמרה הנמלה. היא נתנה לו מעט אוכל. "אכול, אבל למד לעתיד."`,
-    moral: '💡 הכנה בזמן טוב מבטיחה שלא תסבול בזמן קשה.'
+הימים עברו. הקיץ הלך, הסתיו הגיע עם עליו הצהובים והאדומים. החגב עדיין שר, אבל הלילות התחילו להיות קרים.
+
+ואז הגיע החורף. בוקר אחד קם החגב ושלג לבן כיסה את הכל. אין פרחים. אין עלים. אין גרגרים. רק שלג וקור וסתם.
+
+החגב רעד. כנפיו לא זזו מהקור. הבטן שלו ריקה.
+
+הוא הלך לדלת הנמלה ודפק בביישנות.
+
+"מי שם?" נשמע קולה של הנמלה.
+
+"אני... החגב. מהשדה. אנחנו... היינו שכנים בקיץ."
+
+הדלת נפתחה. הנמלה הביטה בו — שיניים נקישו, עיניים עצובות.
+
+"כל הקיץ ניגנת ושרת?" שאלה.
+
+"כן," ענה החגב בבושה.
+
+הנמלה נאנחה. היא פתחה את הדלת לרווחה. "בוא, אני לא משאירה שכן רעב. אבל בבוא האביב — תעבוד."
+
+החגב נכנס לפנים. המחסן היה מלא עד הגג בגרגרים, פירות יבשים ועלים מיובשים.
+
+"כל זה את אספת לבד?" לחש בהדהמה.
+
+"צעד אחר צעד," ענתה הנמלה.`,
+    moral: '💡 הכנה בזמן טוב מבטיחה שלא תסבול בזמן קשה — אל תדחה למחר מה שאפשר לעשות היום.'
   },
   {
     emoji: '🐺',
     title: 'הזאב בעור כבש',
     age: 'אזופוס • לכל הגילאים',
-    text: `זאב רעב חשב תוכנית ערמומית. הוא מצא עור של כבש ועטף את עצמו בו.
+    text: `בקצה הכפר, ליד חורשה קטנה, רעה עדר כבשים לבנות. הרועה שלהם — ילד בשם דוד — היה שומר עליהן כל יום מזריחה עד שקיעה.
 
-כך נכנס לתוך העדר. הכבשים לא הבחינו בו — הוא נראה בדיוק כמוהן.
+הכבשים היו שמנות ורגועות. הן ידעו שדוד שומר עליהן.
 
-כל היום הלך עמן לאכול עשב, ולילה חיכה לרגע הנכון.
+בחורשה גר זאב. הוא היה רעב — תמיד רעב. הוא ניסה פעמים רבות להתקרב לעדר, אבל דוד תמיד ראה אותו בזמן.
 
-אבל הרועה שם לב לכבש שנתנהג קצת מוזר. הוא התקרב ובדק.
+יום אחד מצא הזאב עור של כבש שנשאר בשדה. הוא הסתכל בו, והסתכל בעדר, ורעיון עלה בראשו.
 
-"כבש שיש לו שיניים חדות?" תמה הרועה.
+הוא עטף את עצמו בעור בזהירות. כיסה את זנבו, את אוזניו, את פניו.
 
-הוא גילה את הזאב.
+ואז נכנס לתוך העדר בצעד שקט.
 
-הזאב ניסה לברוח, אבל נלכד.
+הכבשים הסתכלו בו. אחת מהן התקרבה והריחה אותו.
 
-"הסתרת את האמת," אמר הרועה. "אבל האמת תמיד מתגלה."`,
+"שלום," בָּאה הכבשה.
+
+"שלום," ענה הזאב בקול עדין ככל שיכל.
+
+הוא הסתובב בעדר כל הבוקר. חיכה. תכנן. ידע שלילה, כשדוד ירדם, הוא יפעל.
+
+אבל לדוד היו עיניים חדות.
+
+בשעת הצהריים, כשישב לאכול את לחמו, שם לב לכבש אחד שלא אכל כמו האחרים. שלא קרא כמו האחרים. שהסתכל סביב בעיניים חשדניות.
+
+דוד קם לאט. התקרב.
+
+הכבש — הזאב — ניסה לסגת.
+
+"עמוד!" קרא דוד.
+
+הוא תפס את העור ומשך. הזאב נחשף.
+
+שתיהם הביטו זה בזה רגע.
+
+ואז הזאב ברח — מהר מאוד, חזרה לחורשה — בלי שום כבשה.
+
+הכבשות בָּאו בשלום.
+
+"כך תמיד," אמר דוד לעצמו בחיוך. "עור חיצוני אפשר לשנות — אבל עיניים של אמת לא משקרות."`,
     moral: '💡 הונאה עשויה להצליח לזמן מה — אבל האמת תמיד יוצאת לאור.'
   },
   {
     emoji: '🐦',
     title: 'העורב והכד',
     age: 'אזופוס • לכל הגילאים',
-    text: `יום קיץ לוהט. עורב צמא עף שעות עד שמצא כד חרס עם מעט מים בתחתית.
+    text: `קיץ לוהט שרף את הארץ. שבועות בלי גשם. הנחלים יבשו, הבריכות התכווצו, ואפילו הטל בבוקר נעלם.
 
-הוא הכניס את מקורו — לא הגיע למים. הכד היה צר מדי וגבוה מדי.
+עורב שחור טס שעות מעל הארץ החרוכה ועיניו חיפשו מים. השמיים היו לבנים מחום. הכנפיים כבדות.
 
-"מה אעשה?" חשב העורב.
+ואז — הוא ראה.
 
-הוא ניסה להפיל את הכד — כבד מדי.
+ליד חורבת בית עתיקה עמד כד חרס גדול. העורב התקרב, הציץ פנימה — ובתחתית, רחוק מאוד למטה, נצנצו מים.
 
-ואז ראה ערמת אבנים קטנות ליד הכד.
+הוא הכניס את מקורו. לא הגיע.
 
-רעיון הבריק בראשו.
+הוא הטה את הכד. כבד מדי.
 
-העורב החל להכניס אבן אחת לכד. עוד אבן. עוד ועוד.
+הוא ניסה להחדיר את ראשו פנימה. הצוואר צר מדי.
 
-לאט לאט — המים עלו!
+העורב ישב על הכד ונאנח. המים שם! כל כך קרובים. כל כך רחוקים.
 
-אחרי אבנים רבות, הגיעו המים לשפת הכד. העורב שתה ושבע.
+ואז הוא הביט סביב. האדמה הייתה מכוסה אבנים — אבנים קטנות, מעוגלות, כמו ביצים קטנות של צפרדע.
 
-הצופים נדהמו: "עורב חכם!"
+הרעיון נחת על ראשו כמו ברק.
 
-"לא חכמה," אמר העורב. "סבלנות וחשיבה."`,
-    moral: '💡 כשכוח לא עוזר — חשוב בחכמה ועבוד בסבלנות.'
+הוא קפץ, לקח אבן בפה, וזרק אותה לכד. קול נפילה. הסתכל — המים עלו מעט.
+
+עוד אבן. עוד עלייה.
+
+שוב. ושוב. ושוב.
+
+העורב עמל חצי שעה תחת השמש הלוהטת. כנפיו כאבו. מקורו כאב. אבל הוא לא הפסיק.
+
+לאט לאט — המים עלו. אינץ' אחרי אינץ'. קצת ועוד קצת.
+
+ואז — המים הגיעו לשפה.
+
+העורב שתה. שתה עוד. ועוד. העיניים עצמו מאושר.
+
+כשסיים, נפרש ועף לאוויר, ולבו היה קל.
+
+"לא כוח," ציוץ לעצמו. "לא מזל. סבלנות. וחשיבה."`,
+    moral: '💡 כשכוח לא עוזר — חשוב בחכמה ועבוד בסבלנות. כל בעיה יש לה פתרון.'
   },
   {
     emoji: '🐑',
     title: 'הרועה שצעק זאב',
     age: 'אזופוס • לכל הגילאים',
-    text: `נער צעיר שמר על עדר כבשים בהר. הימים היו ארוכים ומשעממים.
+    text: `בכפר קטן בהרים, רחוק מהעיר, חי נער בשם אלי. כל בוקר היה לוקח את עדר הכבשים של אביו ומוביל אותן לאחו הירוק על המדרון.
 
-יום אחד, מתוך שעמום, צעק בקול: "זאב! זאב! בא זאב!"
+שם, בין הפרחים הסגולים והעשב הגבוה, היה שומר עליהן כל היום.
 
-אנשי הכפר רצו מהר עם מקלות ואבנים — ולא מצאו שום זאב.
+הימים היו ארוכים. ארוכים מאוד.
 
-הנער צחק. "רק התבדחתי!"
+אלי ישב לבד. ספר עצמים בשמיים. חרט שמות על עץ. ניגן בחליל קטן שעשה מסוף. אבל השעות זחלו.
 
-יומיים אחר כך עשה זאת שוב. שוב רצו, שוב לא היה זאב. שוב צחק.
+יום אחד קיבל רעיון שנראה לו מבריק.
 
-אבל יום שלישי — זאב אמיתי תקף את העדר!
+הוא מילא ריאות באוויר וצעק: "זאב! זאב! בא זאב לעדר!"
 
-הנער צעק בכל כוחו: "זאב! זאב! בא זאב!"
+הכפר, שמאה מטר למטה, התעורר. אנשים השאירו את עבודתם, לקחו מקלות ואבנים ורצו בנשימה כבדה במעלה ההר.
 
-אנשי הכפר שמעו — ולא זזו ממקומם.
+"איפה הזאב?!" שאל הנפח, מזיע.
 
-"שוב הוא משחק בנו," אמרו.
+"אין זאב," ענה אלי ופרץ בצחוק. "רק התבדחתי! ראיתם איך רצתם?"
 
-הזאב פיזר את העדר ונעלם. הנער עמד לבד על ההר.`,
-    moral: '💡 מי שמרגיל אחרים לשקר — לא יאמינו לו כשיגיד אמת.'
+האנשים הסתכלו בו בכעס ומרוגז ירדו חזרה לכפר.
+
+אלי חייך לעצמו. כיף!
+
+שבוע אחר כך עשה זאת שוב. "זאב! זאב!" שוב רצו. שוב לא היה כלום. שוב ירדו כועסים.
+
+"פעם אחרונה," מלמל הנפח. "הילד הזה בדאי."
+
+אבל אלי לא ידע מה הוא מאבד.
+
+שבוע שלישי. שעת אחר הצהריים. אלי ישב ורגליו תלויות מאבן גדולה — כשבין העצים ראה צל גדול. ושיניים. ועיניים צהובות.
+
+זאב אמיתי.
+
+גדול. רעב. מסתכל על הכבשים.
+
+אלי קפץ ומלא ריאות: "זאב! זאב!! זאב אמיתי!! בואו!!"
+
+הכפר שמע. האנשים שמעו.
+
+"שוב הוא," אמרה האישה הזקנה ולא זזה.
+
+"בדאי," אמר הנפח וחזר לפטישו.
+
+הזאב נכנס לעדר. פיזר את הכבשים לכל הרוחות. כשאנשי הכפר סוף סוף עלו — מאוחר, בלי למהר — הזאב כבר נעלם.
+
+אלי ישב לבד על האבן, בוכה בשקט.
+
+"למה לא האמנתם לי?" שאל כשאביו עלה.
+
+אביו ישב לצידו בלי מילים. אחרי זמן אמר: "כי לימדת אותנו שאין להאמין לך."`,
+    moral: '💡 מי שמרגיל אחרים לשקר — לא יאמינו לו כשיגיד אמת. האמינות היא הדבר היקר ביותר שיש לאדם.'
   },
   // ===== אגדות גרים =====
   {
     emoji: '🧣',
     title: 'כיפה אדומה',
     age: 'אחי גרים • לכל הגילאים',
-    text: `ילדה קטנה שאהבה לחבוש כיפה אדומה יצאה ביום בהיר לבקר את סבתא חולה ביער. אמה הזהירה: "אל תסטי מהדרך!"
+    text: `בכפר קטן בין העצים גרה ילדה שכולם אהבו. היא קיבלה מסבתא כיפה אדומה כל כך יפה, שלעולם לא הורידה אותה — ומאז קראו לה כולם: כיפה אדומה.
 
-בדרך פגשה זאב. "לאן את הולכת, ילדה?" שאל בעדינות.
+יום אחד אמרה לה אמה: "סבתא חולה ושוכבת במיטה. קחי לה סל עם עוגה, חמאה וקנקן יין. ולכי ישר ביערה בדרך המוכרת — אל תסטי ימינה ואל תסטי שמאלה!"
 
-"לסבתא שלי," ענתה.
+"אסכים, אמא," הבטיחה כיפה אדומה ויצאה.
 
-הזאב מיהר לבית הסבתא, בלע אותה, ושכב במיטה במקומה.
+היער היה יפה. ציפורים שרו בין הענפים. אור השמש שפשף דרך העלים. כיפה אדומה הלכה ושרה לעצמה.
 
-כשהגיעה כיפה אדומה, שמה לב למשהו מוזר.
+ואז יצא מן הצללים זאב גדול. כיפה אדומה לא ידעה שזאב הוא יצור מסוכן, ולא פחדה.
 
-"סבתא, איזה עיניים גדולות יש לך."
+"לאן את הולכת, ילדה יפה?" שאל הזאב בקול מתוק.
 
-"כדי לראות אותך טוב יותר."
+"לסבתא שלי," ענתה. "היא גרה מאחורי שלוש הבריות הגדולות, בבית עם גדר אדומה."
 
-"ואיזה אוזניים גדולות."
+"כמה מקסים," אמר הזאב. "ואיזה דרך את לוקחת?"
+
+כיפה אדומה הצביעה.
+
+"אני אקח את הדרך השנייה," אמר הזאב. "נראה מי יגיע ראשון."
+
+הזאב רץ בכל מהירותו ביצה יצא לדרך הקצרה. כיפה אדומה פנתה ועצרה לקטוף פרחים לסבתא.
+
+הזאב הגיע ראשון. דפק. "סבתא, כיפה אדומה כאן, הבאתי לך מנחה."
+
+"משוך את החבל," ענתה הסבתא.
+
+הזאב נכנס, בלע את הסבתא בנשימה אחת, לבש את שמלתה, שכב במיטה ומשך את הכובע מעל פניו.
+
+כיפה אדומה הגיעה ודפקה.
+
+"בואי, ילדתי יקירה."
+
+כיפה אדומה נכנסה. שמה סל על השולחן והתקרבה למיטה.
+
+"סבתא, איזה אוזניים גדולות יש לך!"
 
 "כדי לשמוע אותך טוב יותר."
 
-"ואיזה שיניים גדולות—"
+"ואיזה עיניים גדולות!"
 
-"כדי לאכול אותך!" קפץ הזאב.
+"כדי לראות אותך טוב יותר."
 
-אבל ציד שעבר ליד שמע את הצעקות, פרץ פנימה והציל את שתיהן.
+"ואיזה ידיים גדולות!"
 
-כיפה אדומה הבטיחה: לעולם לא אסטה מהדרך שוב.`,
-    moral: '💡 תמיד כדאי להקשיב לאזהרות של מי שאוהב אותנו.'
+"כדי לחבק אותך טוב יותר."
+
+"ואיזה פה גדול ומפחיד!"
+
+"כדי לאכול אותך!" — וקפץ מהמיטה.
+
+כיפה אדומה צעקה בקול גדול. ציד שעבר בסמוך שמע את הצעקה, פרץ בדלת, ראה את הזאב — ויריה אחת. הסבתא יצאה בריאה ושלמה.
+
+כיפה אדומה הבטיחה לעולם לא לסטות מהדרך שוב.`,
+    moral: '💡 תמיד כדאי להקשיב לאזהרות של מי שאוהב אותנו — וזהירות מפני זרים היא חכמה, לא פחד.'
   },
   {
     emoji: '🍎',
-    title: 'שלגייה',
+    title: 'שלגייה ושבעת הגמדים',
     age: 'אחי גרים • לכל הגילאים',
-    text: `נסיכה יפה בשם שלגייה גרה עם אביה המלך ואמה החורגת. האם החורגת שאלה כל יום את המראה הקסמה: "מי היפה בממלכה?"
+    text: `בממלכה רחוקה, בחורף לבן, נולדה נסיכה ששפתיה אדומות כדם, שיערה שחור כלילה ועורה לבן כשלג. אמה קראה לה שלגייה, ומתה זמן קצר לאחר מכן.
 
-"שלגייה," ענה המראה יום אחד.
+אביה המלך נשא אישה שנייה — יפה להפליא, אבל גאוותנית עד אין קץ. לה היה מראה קסמה, ובכל בוקר שאלה: "מראה מראה שבקיר, מי היפה בממלכה?"
 
-האם קנאה ושלחה ציידים להרחיק את שלגייה. הנסיכה ברחה ליער ומצאה בית קטן שבו גרו שבעה גמדים.
+והמראה תמיד ענה: "את, המלכה, היפה בכל הארץ."
 
-הם קיבלו אותה בשמחה. אבל האם החורגת, שגילתה שהיא חיה, שלחה לה תפוח מורעל.
+עד שיום אחד ענה: "שלגייה, גבירתי, יפה ממך בממלכה."
 
-שלגייה נשכה ונפלה לשינה עמוקה.
+המלכה החורגת חרקה שיניים. היא קראה לציד ואמרה: "קח את שלגייה ליער ואל תחזיר אותה."
 
-הגמדים הניחוה בארון זכוכית ביער.
+הציד לקח את שלגייה, אבל לא יכול היה לפגוע בה. "ברחי," לחש לה. "ואל תחזרי."
 
-נסיך שעבר ראה אותה, התאהב, ונשק לה.
+שלגייה רצה עמוק ביער. ענפים שרטו, שרשים בלעו את רגליה. עד שראתה אור קטן בין העצים.
 
-שלגייה פתחה עיניים.
+בית! קטן כמו צעצוע. שבעה צלחות על השולחן, שבעה כוסות, שבע מיטות קטנות.
 
-האם החורגת נענשה. ושלגייה חיה באושר.`,
-    moral: '💡 קנאה מביאה רע לקנאי — אבל טוב תמיד מנצח.'
+שלגייה אכלה מעט מכל צלחת, שתתה מעט מכל כוס, ושכבה על שלוש מיטות שחיברה יחד — ונרדמה.
+
+בלילה חזרו שבעה גמדים קטנים מהמכרה. הם מצאו את שלגייה ישנה.
+
+בבוקר סיפרה להם. הם הסכימו שתישאר ותנהל את הבית, ואמרו: "לעולם אל תפתחי לזרים."
+
+בארמון, שאלה המלכה שוב את המראה. "שלגייה, ביער, יפה ממך."
+
+המלכה החליפה שמלה, צבעה פנים ויצאה בתחפושת כסוחרת זקנה, עם תפוח אדום ויפה — מורעל מצד אחד, תמים מצד שני.
+
+שלגייה, שזכרה את האזהרה, לא רצתה לפתוח. אבל הזקנה נראתה כל כך טובה, והתפוח כל כך אדום ומבריק.
+
+"רק ננסי," אמרה הסוחרת ולקחה עצמה נשיכה מהצד התמים.
+
+שלגייה נשכה מהצד האחר — ונפלה.
+
+הגמדים מצאו אותה ולא ידעו מה לעשות. הם הניחו אותה בארון זכוכית ביער, כי לא יכלו לקבור יופי כזה.
+
+שנים עברו. נסיך רכב ביער וראה את ארון הזכוכית. הוא ירד, הרים את המכסה, ולא יכל שלא ליגע בשפתיה האדומות.
+
+נשיקתו העירה אותה.
+
+שלגייה פתחה עיניים. ראתה את הנסיך. חייכה.
+
+הם חיו באושר, והמלכה החורגת — מראה שבורה, ולב שבור.`,
+    moral: '💡 קנאה ורוע לבב מביאים אסון לקנאי — אבל טוב לב ויופי פנימי מנצחים תמיד.'
   },
   {
     emoji: '👸',
     title: 'רפונזל',
     age: 'אחי גרים • לכל הגילאים',
-    text: `במגדל גבוה בלב יער כלאה מכשפה נערה יפה בשם רפונזל. לא היו מדרגות, לא הייתה דלת. רק חלון אחד למעלה.
+    text: `בקצה ממלכה קטנה, בחצר בית שכנה לגינה גדולה ומסתורית, גרו בעל ואישה. בגינה גדלו עשבים נפלאים של מכשפה בשם גוטל.
 
-כשהמכשפה רצתה לעלות, קראה: "רפונזל, רפונזל, שלחי שיערך!"
+האישה הריון ורצתה מאוד לאכול מהגינה. בעלה, שאהב אותה, טיפס בלילה מעל הגדר ולקח מעט — אבל גוטל ראתה.
 
-ורפונזל שילחה את שיערה הארוך והמכשפה טיפסה.
+"תנו לי את ילדכם כשייוולד," אמרה, "ואסלח."
 
-יום אחד שמע נסיך את קולה של רפונזל שרה מהמגדל. הוא המתין, ראה את המכשפה עולה — וניסה גם הוא.
+לא היה להם ברירה.
 
-"רפונזל, רפונזל, שלחי שיערך!"
+כשנולדה הבת — יפה ובריאה — לקחה גוטל אותה ונתנה לה שם: רפונזל. היא גידלה אותה כבתה, אבל כשהגיעה לגיל שתיים עשרה, כלאה אותה במגדל גבוה בלב יער. למגדל לא הייתה דלת ולא הייתה סולם. רק חלון אחד בראש, גבוה מהכל.
 
-רפונזל נדהמה — אבל שילחה. הנסיך עלה, השניים דיברו וחברו.
+רפונזל גדלה. שיערה גדל איתה — ארוך, ארוך, זהוב כשמש. כשגוטל רצתה לעלות, עמדה מתחת וקראה:
 
-המכשפה גילתה, כעסה, וגרשה את רפונזל למדבר.
+"רפונזל, רפונזל, שלחי שיערך למטה!"
 
-אבל הנסיך חיפש עד שמצאה. דמעותיה ריפאו את עיניו שנפגעו.
+ורפונזל הורידה את שיערה הארוך מהחלון, וגוטל טיפסה.
 
-השניים מצאו ממלכה ושם חיו באושר.`,
-    moral: '💡 אהבה אמיתית מוצאת דרך — גם דרך חומות גבוהות.'
+יום אחד עבר נסיך ביער ושמע קול שר. יפה כל כך עד שעצר סוסו ולא יכל לזוז. הוא עקב אחר הקול ומצא את המגדל — ואת גוטל, שעלתה.
+
+בלילה ניסה גם הוא: "רפונזל, רפונזל, שלחי שיערך!"
+
+רפונזל הורידה. הנסיך עלה.
+
+רפונזל הבהלה — אף אדם מלבד גוטל לא ביקר אותה. אבל הנסיך דיבר בנחת, ולבסוף חייכו יחד. הוא חזר כל לילה, והם דיברו שעות.
+
+גוטל גילתה. בזעם גזרה את שיערה של רפונזל ושלחה אותה למדבר רחוק. ולנסיך שבא — הפילה אותו מהמגדל. הוא לא מת, אבל קוצים סרטו את עיניו ועיוורו אותו.
+
+הנסיך נדד שנים במדבר, עיוור ואבוד, מחפש את רפונזל.
+
+יום אחד שמע קול שר — קול שהכיר מיד.
+
+רפונזל ראתה אותו. היא רצה אליו ובכתה. ודמעותיה נפלו על עיניו.
+
+ועיניו נפתחו.
+
+הם מצאו ממלכה ידידותית ושם חיו, סוף סוף, בשקט ובאושר.`,
+    moral: '💡 אהבה אמיתית מוצאת דרך — גם דרך חומות גבוהות, גם אחרי שנים של ניסיון.'
   },
   // ===== אנדרסן =====
   {
     emoji: '🦆',
     title: 'ברווזון המכוער',
     age: 'אנדרסן • לכל הגילאים',
-    text: `ביצה אחת גדולה שלא בקעה נשארה בקן עם שאר הביצים. כשסוף סוף בקעה — יצא גוזל אפור, גדול ומוזר.
+    text: `בשפת נהר, בין קני סוף גבוהים, ישבה ברווז על קן עם ביצים. אחת אחת בקעו הגוזלות — צהובות, עגולות, מתנדנדות.
 
-"כמה מכוער!" אמרו הברווזים. "הוא אפילו לא דומה לנו!"
+אבל ביצה אחת, גדולה מהרגיל, לא בקעה.
 
-הגוזל הסב לו עגמה. כל מי שפגש לגלג עליו — הברווזים, התרנגולות, אפילו הילדים.
+"אולי היא של תרנגולת הודו," אמרה ברווז זקנה שישבה לצד. "תשאירי אותה."
 
-הוא ברח לאגם בודד.
+"כבר כל כך חיכיתי," ענתה האמא, ונשארה.
 
-בחורף קפא האגם. ציידים מצאו אותו, לקחוהו לבית חם.
+ביום השביעי — בקעה גם הביצה האחרונה. אבל מה שיצא ממנה לא דמה לאחיו: גדול, אפור, מגושם, עם מקור ארוך.
 
-כשהאביב הגיע שב לאגם. הסתכל במים וראה את בבואתו.
+"מה זה?" לחשו הגוזלות.
 
-לא ברווז מכוער. ברבור לבן יפהפה.
+"כנראה שייך לנו," אמרה האמא. "נלמד אותו לשחות."
 
-ברבורים אחרים שחו לקראתו: "ברוך הבא, אחינו!"
+בבריכה הוא שחה יפה — יותר מכל האחרים. אבל ביצר העוף כולם צחקו עליו.
 
-לראשונה בחייו הרגיש הגוזל שהוא שייך.`,
-    moral: '💡 לא משנה מה אחרים אומרים — הזמן יגלה מי אתה באמת.'
+"מכוער! מגושם! לא שייך!"
+
+הברווזים צבטו אותו. התרנגולות לא ניגשו אליו. אפילו אחיו התרחקו.
+
+ביום אחד לא יכל יותר. ברח.
+
+הוא עף מעל השדות עד שמצא ביצה גדולה ומפוארת. שם גרו ברבורים פראיים — לבנים ונפלאים. הוא הביט בהם מרחוק בכמיהה, ולא העז להתקרב.
+
+החורף הגיע. הביצה קפאה. ציידים מצאו אותו מקפיא, לקחו אותו הביתה. ילדים ניסו לשחק איתו — הוא ברח בבהלה ונפל לחלב, ואז לחמאה, ואז לקמח. הכל השתבש.
+
+אבל האביב חזר.
+
+ביום בהיר אחד פשט כנפיים ועף — ולב דהר מתחת לנוצות.
+
+הוא ירד על אגם. שם שחו ברבורים לבנים. הוא כפף ראש, בוש, וחיכה שידחו אותו.
+
+הוא ראה בבואתו במים.
+
+לא ברווז מכוער. לא גוזל אפור. ברבור. לבן. עם צוואר ארוך ועיניים כהות ומבריקות.
+
+הברבורים שחו לקראתו. "ברוך הבא, אחינו!"
+
+הוא לא הבין. "אחיכם? אני?"
+
+"כן," ענו. "אתה אחד מאיתנו."
+
+ילדים שרצו ליד האגם עצרו. "ראיתם? הברבור החדש — הוא הכי יפה מכולם!"`,
+    moral: '💡 לא משנה מה אחרים אומרים — הזמן יגלה מי אתה באמת. אל תשפוט עצמך לפי עיני אחרים.'
   },
   {
     emoji: '👑',
     title: 'בגדי המלך החדשים',
     age: 'אנדרסן • לכל הגילאים',
-    text: `מלך אהב בגדים מעל כל דבר. יום אחד הגיעו שני רמאים וסיפרו שהם אורגים בד קסום — שרק חכמים ומתאימים לתפקידם יכולים לראות אותו. טיפשים לא רואים כלום.
+    text: `בממלכה גדולה ועשירה שלט מלך שאהב בגדים מעל כל דבר. לא צבאות, לא שטחים, לא חוקים — בגדים. לכל שעה ביום היה לו חליפה אחרת, ולכל עונה ארון שלם.
 
-המלך שלח שרים לבדוק. כל שר ראה... כלום. אבל לא העז לומר — מה, הוא טיפש?
+יום אחד הגיעו לעיר שני אנשים, לבושים יפה, עם ארגז כלים מוזהב.
 
-"יפהפה!" אמר כל שר.
+"שמענו על המלך," אמר הראשון לשר האוצר. "אנחנו אורגים את הבד הנפלא ביותר בעולם — שרק אנשים חכמים ומתאימים לתפקידם יכולים לראות אותו. טיפשים ופשוטי דעת לא רואים כלום."
 
-המלך עצמו בא — ראה כלום. אבל גם הוא לא העז.
+השר הביא אותם למלך.
 
-"נפלא!" אמר.
+המלך הזמין אותם מיד. הם קיבלו כסף רב, חדר ענק ונולו. הם ישבו ליד הנול — ואצבעותיהם זזו, אבל שום חוט לא נגע בנול. לא היה שום בד.
 
-הרמאים הכריזו שהבגדים מוכנים. ה"לבישו" את המלך — שהלך ערום ברחובות.
+המלך שלח שר לבדוק.
 
-כל העם צעק: "איזה בגדים יפים!"
+השר נכנס. הביט. לא ראה כלום.
 
-אף אחד לא העז להגיד אמת.
+"טוב," חשב. "אם אני לא רואה — כנראה שאני טיפש. אסור שהמלך ידע."
 
-עד ילד קטן שצעק: "אבל המלך ערום!"
+"נפלא!" אמר השר בקול. "הצבעים, הדוגמה — מרהיב!"
 
-שתיקה. ואז — כולם פרצו בצחוק.
+הוא חזר ודיווח למלך.
 
-המלך הסמיק. הרמאים כבר ברחו.`,
-    moral: '💡 לפעמים רק ילד תמים אומר את האמת שכולם רואים אבל פוחדים לומר.'
+המלך שלח שר אחר. אותו דבר — לא ראה, לא העז, שיבח.
+
+סוף סוף הגיע המלך עצמו.
+
+הנול ריק לחלוטין.
+
+"אני לא רואה כלום," חשב המלך. "אבל אם אגיד — יחשבו שאני טיפש. ולא מתאים למלוך."
+
+"נפלא!" אמר בקול רם. "גאוני!"
+
+כל בני חצרו הנהנו ומחאו כפיים.
+
+יום לאחר מכן הכריזו הרמאים שהבגדים מוכנים. הם "לבשו" את המלך — מתעסקים עם כלום — והמלך עמד בחליפתו הרגילה, בטוח שהוא לובש משהו.
+
+הוא יצא לרחוב בתהלוכה.
+
+כל העם עמד בצדדים. כולם ראו את המלך כמעט ערום. אבל כולם ידעו מה נאמר על הבד — וכולם מחאו כפיים.
+
+"איזה יפה! איזה מרהיב!"
+
+עד ילד קטן, בן שש, שנאחז בשמלת אמו ואמר בקול תמים:
+
+"אמא, המלך ערום."
+
+שתיקה.
+
+אז אחד לחש. אחר אמר. ועוד אחד. ורחש עבר בקהל:
+
+"הילד צודק. המלך ערום!"
+
+המלך הסמיק. הוא ידע שהילד צודק, אבל הגאווה לא נתנה לו לעצור. הוא המשיך לצעוד — גאה יותר מתמיד.
+
+הרמאים כבר לא היו בעיר.`,
+    moral: '💡 לפעמים רק ילד תמים אומר את האמת שכולם רואים אבל פוחדים לומר — אמץ את הפשטות ואת האמת.'
   }
 ];
-
 
 function initStories() {
   const list = document.getElementById('stories-list');
