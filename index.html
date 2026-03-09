@@ -128,17 +128,17 @@
   .btn-secondary { background: var(--card); color: var(--text); border: 1.5px solid var(--border); }
   .btn-secondary:hover { border-color: rgba(255,255,255,0.15); }
   .btn-back {
-    display: inline-flex; align-items: center; gap: 7px;
-    background: rgba(77,142,255,0.12);
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, rgba(77,142,255,0.2), rgba(165,94,234,0.2));
     border: 1.5px solid rgba(77,142,255,0.3);
     border-radius: 50px;
     font-family: -apple-system, 'Segoe UI', Arial, sans-serif;
-    font-size: 14px; color: var(--primary);
-    cursor: pointer; padding: 8px 16px;
+    font-size: 14px; color: #fff;
+    cursor: pointer; padding: 9px 18px;
     font-weight: 700; margin-bottom: 16px;
     transition: all 0.2s;
   }
-  .btn-back:hover { background: rgba(77,142,255,0.22); color: #fff; }
+  .btn-back:hover { background: linear-gradient(135deg, rgba(77,142,255,0.35), rgba(165,94,234,0.35)); }
 
   /* SOUND CARD */
   .sound-card {
@@ -726,7 +726,7 @@
 
   <!-- STORIES SCREEN -->
   <div class="screen" id="screen-stories">
-    <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="text-align:center;font-size:20px;font-weight:900;margin-bottom:4px">📖 סיפורים לילדים</h2>
     <p style="text-align:center;font-size:12px;color:var(--muted);margin-bottom:20px">לחץ/י על סיפור לקריאה</p>
 
@@ -756,7 +756,7 @@
 
   <!-- LOCATION SCREEN -->
   <div class="screen" id="screen-location">
-    <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:6px">📍 בחר/י את האזור שלך</h2>
     <p style="font-size:13px;color:var(--muted);margin-bottom:16px">תקבל התראה רק אם האזעקה רלוונטית לאזור שלך</p>
     <input id="citySearch" oninput="filterCities()" placeholder="🔍 חפש עיר..." style="
@@ -778,7 +778,7 @@
 
   <!-- SOUNDS SCREEN -->
   <div class="screen" id="screen-sounds">
-    <button class="btn-back" onclick="showScreen('screen-games');stopSound()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopSound()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">צלילי רקע 🎧</h2>
     <div class="sounds-grid" id="soundsGrid">
       <div class="sound-btn" onclick="playSound('rain','🌧️')">
@@ -805,7 +805,7 @@
 
   <!-- GAMES SCREEN -->
   <div class="screen" id="screen-games">
-    <button class="btn-back" onclick="showScreen('screen-home')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">בחירת פעילות 🎮</h2>
     <p style="font-size:12px;color:var(--muted);margin-bottom:16px">כל הפעילויות עובדות ללא אינטרנט</p>
 
@@ -913,7 +913,7 @@
 
   <!-- TIC TAC TOE -->
   <div class="screen" id="screen-ttt">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">איקס אפס ⭕</h2>
     <div class="ttt-status" id="tttStatus">תור של: ❌</div>
     <div class="ttt-board" id="tttBoard"></div>
@@ -922,7 +922,7 @@
 
   <!-- HANGMAN -->
   <div class="screen" id="screen-hangman">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:12px">תליין 🔤</h2>
     <div style="text-align:center">
       <canvas id="hangmanCanvas" width="200" height="180" style="border-radius:14px;background:var(--card);border:1.5px solid var(--border)"></canvas>
@@ -937,7 +937,7 @@
 
   <!-- SUDOKU -->
   <div class="screen" id="screen-sudoku">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">סודוקו 🧩</h2>
     <div class="score-badge" id="sudokuStatus">קל</div>
     <div id="sudokuGrid" style="display:grid;grid-template-columns:repeat(9,1fr);gap:2px;margin:12px 0;direction:ltr"></div>
@@ -950,7 +950,7 @@
 
   <!-- PONG -->
   <div class="screen" id="screen-pong">
-    <button class="btn-back" onclick="showScreen('screen-games');stopPong()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopPong()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">פונג 🏓</h2>
     <div style="text-align:center;margin-bottom:8px">
       <span id="pongScore" style="font-size:22px;font-weight:900">0 : 0</span>
@@ -965,7 +965,7 @@
 
   <!-- TETRIS -->
   <div class="screen" id="screen-tetris">
-    <button class="btn-back" onclick="showScreen('screen-games');stopTetris()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopTetris()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">טטריס 🎪</h2>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <span class="score-badge" id="tetrisScore">ניקוד: 0</span>
@@ -983,7 +983,7 @@
 
   <!-- DARTS -->
   <div class="screen" id="screen-darts">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">דארטס 🎯</h2>
     <div style="display:flex;justify-content:space-between;margin-bottom:8px">
       <span class="score-badge" id="dartsScore">ניקוד: 0</span>
@@ -996,7 +996,7 @@
 
   <!-- MINESWEEPER -->
   <div class="screen" id="screen-minesweeper">
-    <button class="btn-back" onclick="showScreen('screen-games');stopMinesweeper()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopMinesweeper()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">שדה מוקשים 💣</h2>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <div id="mineStatus" style="font-size:14px;font-weight:700;color:var(--text)">בחר/י רמה</div>
@@ -1020,7 +1020,7 @@
 
   <!-- SOLITAIRE -->
   <div class="screen" id="screen-solitaire">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:8px">סוליטייר 🃏</h2>
     <canvas id="solitaireCanvas" style="width:100%;border-radius:14px;border:1.5px solid var(--border);display:block;touch-action:none;cursor:pointer"></canvas>
     <div style="display:flex;gap:8px;margin-top:10px">
@@ -1032,7 +1032,7 @@
 
   <!-- MEMORY -->
   <div class="screen" id="screen-memory">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">זיכרון 🃏</h2>
     <div class="score-badge" id="memScore">זוגות: 0/8</div>
     <div class="memory-board" id="memoryBoard"></div>
@@ -1041,7 +1041,7 @@
 
   <!-- MATH GAME -->
   <div class="screen" id="screen-math">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">מתמטיקה מהירה 🔢</h2>
     <div class="score-badge" id="mathScore">ניקוד: 0</div>
     <div style="text-align:center;margin-bottom:20px">
@@ -1053,7 +1053,7 @@
 
   <!-- 2048 -->
   <div class="screen" id="screen-2048">
-    <button class="btn-back" onclick="showScreen('screen-games');stop2048()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stop2048()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
       <h2 style="font-size:20px;font-weight:800">2048 🟦</h2>
       <div class="score-badge" id="score2048">ניקוד: 0</div>
@@ -1065,7 +1065,7 @@
 
   <!-- BREAKOUT -->
   <div class="screen" id="screen-breakout">
-    <button class="btn-back" onclick="showScreen('screen-games');stopBreakout()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopBreakout()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <h2 style="font-size:20px;font-weight:800">שובר קירות 🎲</h2>
       <div class="score-badge" id="scoreBreakout">0</div>
@@ -1076,7 +1076,7 @@
 
   <!-- SNAKE -->
   <div class="screen" id="screen-snake">
-    <button class="btn-back" onclick="showScreen('screen-games');stopSnake()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopSnake()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
       <h2 style="font-size:20px;font-weight:800">סנייק 🐍</h2>
       <div class="score-badge" id="scoreSnake">0</div>
@@ -1094,7 +1094,7 @@
 
   <!-- RPS -->
   <div class="screen" id="screen-rps">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">אבן נייר מספריים ✂️</h2>
     <div class="score-badge" id="rpsScore">ניצחונות: 0</div>
     <div id="rpsResult" style="text-align:center;font-size:18px;font-weight:700;margin:16px 0;min-height:30px"></div>
@@ -1113,7 +1113,7 @@
 
   <!-- REACTION TIME -->
   <div class="screen" id="screen-reaction">
-    <button class="btn-back" onclick="showScreen('screen-games');stopReaction()">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games');stopReaction()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">זמן תגובה ⚡</h2>
     <div id="reactionBox" onclick="handleReaction()" style="
       width:100%; height:260px; border-radius:24px;
@@ -1131,7 +1131,7 @@
 
   <!-- TRIVIA SCREEN -->
   <div class="screen" id="screen-trivia">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:12px">טריוויה 🧠</h2>
     <div class="score-badge" id="triviaScore">ניקוד: 0</div>
     <div class="trivia-q">
@@ -1144,7 +1144,7 @@
 
   <!-- DRAW SCREEN -->
   <div class="screen" id="screen-draw">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:12px">לוח ציור 🎨</h2>
     <canvas id="drawCanvas"></canvas>
     <div class="color-palette" id="colorPalette"></div>
@@ -1160,7 +1160,7 @@
   <!-- BUBBLES SCREEN -->
   <!-- MAGIC BALL -->
   <div class="screen" id="screen-magic">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">כדור הקסם 🔮</h2>
     <input class="magic-input" id="magicInput" placeholder="שאל/י שאלה כלשהי...">
     <div class="magic-container">
@@ -1176,7 +1176,7 @@
 
   <!-- PIANO SCREEN -->
   <div class="screen" id="screen-piano">
-    <button class="btn-back" onclick="showScreen('screen-games')">‹ חזרה</button>
+    <button class="btn-back" onclick="showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:16px">פסנתר 🎵</h2>
     <div class="piano-container">
       <div class="piano" id="piano"></div>
@@ -1186,7 +1186,7 @@
 
   <!-- BREATHING SCREEN -->
   <div class="screen" id="screen-breathing">
-    <button class="btn-back" onclick="stopBreathing();showScreen('screen-home')">‹ חזרה</button>
+    <button class="btn-back" onclick="stopBreathing();showScreen('screen-games')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
     <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">תרגילי נשימה 💨</h2>
 
     <div style="
