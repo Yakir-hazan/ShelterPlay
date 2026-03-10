@@ -643,7 +643,7 @@
         font-size:12px; font-weight:700; color:#4d8eff;
         cursor:pointer; font-family:inherit;
       ">📍 כל הארץ — לחץ/י לשינוי</button>
-      <div id="lastAlertBadge" style="display:flex;flex:1;align-items:center;justify-content:center;gap:6px;background:rgba(255,107,107,0.07);border:1px solid rgba(255,107,107,0.2);border-radius:14px;padding:10px 10px;font-size:11px;font-weight:600;color:#ff9f9f;">
+      <div id="lastAlertBadge" onclick="showScreen('screen-history');loadHistory()" style="display:flex;flex:1;align-items:center;justify-content:center;gap:6px;background:rgba(255,107,107,0.07);border:1px solid rgba(255,107,107,0.2);border-radius:14px;padding:10px 10px;font-size:11px;font-weight:600;color:#ff9f9f;cursor:pointer;">
         <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
           <!-- גוף הסירנה -->
           <rect x="6" y="18" width="20" height="5" rx="2" fill="#ff9f43"/>
@@ -727,6 +727,16 @@
     </div>
 
   </div><!-- /home -->
+
+  <!-- HISTORY SCREEN -->
+  <div class="screen" id="screen-history">
+    <button class="btn-back" onclick="showScreen('screen-home')"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> חזרה</button>
+    <h2 style="font-size:20px;font-weight:900;margin-bottom:4px">🕐 התראות אחרונות</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px">שבוע אחרון — כל הארץ</p>
+    <div id="historyList">
+      <div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">טוען...</div>
+    </div>
+  </div>
 
   <!-- STORIES SCREEN -->
   <div class="screen" id="screen-stories">
@@ -2905,7 +2915,71 @@ setTimeout(() => {
   document.getElementById('welcomeModal').style.display = 'flex';
 }, 800);
 
-// ======== MATH GAME ========
+// ======== HISTORY ========
+async function loadHistory() {
+  const cont = document.getElementById('historyList');
+  cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">טוען...</div>';
+  try {
+    const res = await fetch('https://oref-proxy.mydevelop1.workers.dev/history', { cache: 'no-store' });
+    const text = await res.text();
+    if (!text || text.trim() === '[]' || text.trim() === '') {
+      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות בשבוע האחרון</div>';
+      return;
+    }
+    const data = JSON.parse(text);
+    if (!Array.isArray(data) || data.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות בשבוע האחרון</div>';
+      return;
+    }
+
+    // סנן שבוע אחרון
+    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
+    const filtered = data.filter(item => {
+      if (!item.alertDate) return true;
+      const d = new Date(item.alertDate);
+      return d.getTime() >= weekAgo;
+    });
+
+    if (filtered.length === 0) {
+      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות בשבוע האחרון</div>';
+      return;
+    }
+
+    // קבץ לפי תאריך
+    const byDate = {};
+    filtered.forEach(item => {
+      const d = item.alertDate ? new Date(item.alertDate) : new Date();
+      const dateKey = d.toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long' });
+      const timeStr = d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+      if (!byDate[dateKey]) byDate[dateKey] = [];
+      byDate[dateKey].push({ ...item, timeStr });
+    });
+
+    let html = '';
+    Object.entries(byDate).forEach(([date, items]) => {
+      html += `<div style="font-size:12px;font-weight:700;color:var(--muted);margin:16px 0 8px;padding-right:4px">${date}</div>`;
+      items.forEach(item => {
+        const areas = Array.isArray(item.data) ? item.data.join(' • ') : (item.data || '');
+        const isAllClear = (item.title || '').includes('הסתיים');
+        const color = isAllClear ? '#26de81' : '#ff6b6b';
+        const bg = isAllClear ? 'rgba(38,222,129,0.07)' : 'rgba(255,107,107,0.07)';
+        const border = isAllClear ? 'rgba(38,222,129,0.2)' : 'rgba(255,107,107,0.2)';
+        html += `
+          <div style="background:${bg};border:1px solid ${border};border-radius:16px;padding:14px 16px;margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+              <span style="font-size:13px;font-weight:800;color:${color}">${item.title || 'התראה'}</span>
+              <span style="font-size:11px;color:var(--muted)">${item.timeStr}</span>
+            </div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.7">${areas}</div>
+          </div>`;
+      });
+    });
+
+    cont.innerHTML = html;
+  } catch(e) {
+    cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">שגיאה בטעינת ההיסטוריה</div>';
+  }
+}
 let mathScore2 = 0, mathTimerInt, mathCorrect;
 function initMath() {
   mathScore2 = 0;
