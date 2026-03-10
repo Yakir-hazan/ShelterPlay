@@ -2848,6 +2848,37 @@ startAlertPolling();
 // עדכן שורת "אזעקה אחרונה" כל דקה
 setInterval(updateLastAlertBadge, 60000);
 
+// בקש מיקום אם עיר לא נשמרה עדיין
+if (!localStorage.getItem('mamad_city')) {
+  setTimeout(() => askForLocation(), 1200);
+}
+
+function askForLocation() {
+  if (!navigator.geolocation) return;
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude, longitude } = pos.coords;
+      // מצא עיר קרובה מתוך הרשימה ע"י Nominatim (geocoding חינמי)
+      fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json&accept-language=he`)
+        .then(r => r.json())
+        .then(data => {
+          const city = data.address?.city || data.address?.town || data.address?.village || data.address?.suburb;
+          if (!city) return;
+          // מצא התאמה ברשימת הערים
+          const match = ALL_CITIES.find(c => c === city || c.startsWith(city) || city.startsWith(c));
+          if (match) {
+            selectedCity = match;
+            localStorage.setItem('mamad_city', match);
+            updateLocationBtn();
+            showToast('📍 זוהה: ' + match + ' — ניתן לשנות ידנית', 3500);
+          }
+        })
+        .catch(() => {});
+    },
+    () => {} // משתמש דחה — שקט
+  );
+}
+
 // הודעת ברוכים הבאים
 setTimeout(() => {
   document.getElementById('welcomeModal').style.display = 'flex';
