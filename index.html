@@ -719,6 +719,10 @@
       <span style="color:var(--border);font-size:16px;line-height:1">|</span>
       <button onclick="openModal('modal-terms')" style="background:none;border:none;color:var(--primary);font-size:12px;cursor:pointer;font-family:inherit;padding:4px">תנאי שימוש</button>
     </div>
+    <div style="text-align:center;padding:0 16px 20px;font-size:11px;color:rgba(255,255,255,0.3);line-height:1.8">
+      ⚠️ האתר אינו תחליף להתראות הרשמיות של פיקוד העורף.<br>אין להסתמך על האתר כמקור יחיד להתראות.
+    </div>
+
     <div style="text-align:center;padding:0 0 24px;font-size:10px;color:var(--muted);opacity:0.6">
       © 2026 Yakir Hazan — כל הזכויות שמורות. העיצוב והקוד מוגנים בזכויות יוצרים. רעיונות המשחקים הקלאסיים ואימוג׳ים שייכים ליוצריהם המקוריים.
     </div>
@@ -1266,6 +1270,16 @@
       <p style="font-size:13px;color:rgba(255,255,255,0.6);line-height:1.9;margin:0">
         כדי להשתמש באתר בתוך ממ"ד או מקלט ללא אינטרנט, יש לפתוח את האתר לפני הכניסה למרחב המוגן. לאחר מכן האתר ימשיך לפעול.
       </p>
+    </div>
+
+    <!-- אזהרה -->
+    <div style="
+      background:rgba(255,107,107,0.07);
+      border:1px solid rgba(255,107,107,0.2);
+      border-radius:16px;padding:14px 16px;margin-bottom:20px;
+      font-size:12px;color:rgba(255,255,255,0.5);line-height:1.8;text-align:center;
+    ">
+      ⚠️ האתר אינו תחליף להתראות הרשמיות של פיקוד העורף.<br>אין להסתמך על האתר כמקור יחיד להתראות.
     </div>
 
     <!-- כפתור -->
@@ -2846,8 +2860,12 @@ function toggleAlert() {}
 initTTT();
 initCityList();
 startAlertPolling();
-// עדכן שורת "אזעקה אחרונה" כל דקה
 setInterval(updateLastAlertBadge, 60000);
+
+// רישום Service Worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
 
 // בקש מיקום אם עיר לא נבחרה ספציפית
 const savedCity = localStorage.getItem('mamad_city');
