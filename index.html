@@ -1251,6 +1251,7 @@
       background-size:200% auto;
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       animation:shimmer 3s linear infinite;
+      border:none;
     ">ברוכים הבאים!</h2>
     <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:24px">הממ"ד שלנו 🛡️</p>
 
@@ -2848,8 +2849,9 @@ startAlertPolling();
 // עדכן שורת "אזעקה אחרונה" כל דקה
 setInterval(updateLastAlertBadge, 60000);
 
-// בקש מיקום אם עיר לא נשמרה עדיין
-if (!localStorage.getItem('mamad_city')) {
+// בקש מיקום אם עיר לא נבחרה ספציפית
+const savedCity = localStorage.getItem('mamad_city');
+if (!savedCity || savedCity === 'הכל') {
   setTimeout(() => askForLocation(), 1200);
 }
 
