@@ -590,7 +590,7 @@
         <span style="position:absolute;width:14px;height:14px;border-radius:50%;border:2px solid #26de81;animation:ripple1 2.5s ease-out infinite 0.8s;opacity:0"></span>
         <span style="width:8px;height:8px;border-radius:50%;background:#26de81;display:inline-block;flex-shrink:0"></span>
       </span>
-      מחובר לפיקוד העורף
+      <span id="monitorText">מחובר לפיקוד העורף</span>
     </div>
   </div>
 
@@ -2623,6 +2623,11 @@ function restoreAlertFromStorage() {
 async function checkOrefAlert() {
   try {
     const res = await fetch(OREF_URL, { cache: 'no-store' });
+    if (!res.ok) {
+      updateMonitorBadge(false, 'שגיאת שרת ' + res.status);
+      return;
+    }
+    updateMonitorBadge(true);
     const text = await res.text();
     if (!text || text.trim() === '' || text.trim() === '[]' || text.trim() === 'null') {
       if (!alertHideTimeout) {
@@ -2673,11 +2678,30 @@ async function checkOrefAlert() {
       }
       showAlert(alert.title || '🚨 אזעקה', areasDisplay);
     }
-  } catch(e) { /* שקט בשגיאות רשת */ }
+  } catch(e) {
+    updateMonitorBadge(false, 'אין חיבור');
+  }
 }
 
 let alertHideTimeout = null;
 let alertInstructionTimeout = null;
+
+function updateMonitorBadge(connected, errorMsg) {
+  const inner = document.getElementById('monitorBadge')?.querySelector('div');
+  const text = document.getElementById('monitorText');
+  if (!inner || !text) return;
+  if (connected) {
+    inner.style.background = 'rgba(38,222,129,0.08)';
+    inner.style.borderColor = 'rgba(38,222,129,0.3)';
+    inner.style.color = '#26de81';
+    text.textContent = 'מחובר לפיקוד העורף';
+  } else {
+    inner.style.background = 'rgba(255,107,107,0.08)';
+    inner.style.borderColor = 'rgba(255,107,107,0.3)';
+    inner.style.color = '#ff6b6b';
+    text.textContent = '⚠️ ' + (errorMsg || 'בעיית חיבור');
+  }
+}
 
 function updateLastAlertBadge() {
   try {
