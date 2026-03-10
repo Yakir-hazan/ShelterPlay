@@ -2643,6 +2643,8 @@ async function checkOrefAlert() {
     }
     updateMonitorBadge(true);
     const text = await res.text();
+    // שמור לוג לאבחון
+    try { localStorage.setItem('mamad_last_raw', text.slice(0,500) + '|' + new Date().toLocaleTimeString('he')); } catch(e) {}
     if (!text || text.trim() === '' || text.trim() === '[]' || text.trim() === 'null') {
       if (!alertHideTimeout) {
         const wasActive = document.getElementById('alertChip').style.display !== 'none';
