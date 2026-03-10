@@ -2590,6 +2590,8 @@ function selectCity(city) {
   playSuccess();
   showToast('📍 ' + (city === 'הכל' ? 'מציג התראות לכל הארץ' : 'מציג התראות עבור: ' + city), 3000);
   showScreen('screen-home');
+  // בדוק מחדש אם ההתראה הפעילה רלוונטית לעיר החדשה
+  checkOrefAlert();
 }
 
 function updateLocationBtn() {
@@ -2609,11 +2611,21 @@ function restoreAlertFromStorage() {
   try {
     const saved = localStorage.getItem('mamad_alert');
     if (!saved) return;
-    const { title, areas, timestamp, instruction } = JSON.parse(saved);
+    const { title, areas, timestamp, instruction, alertAreas } = JSON.parse(saved);
     const elapsed = Date.now() - timestamp;
     const tenMin = 10 * 60 * 1000;
     const sevenMin = 7 * 60 * 1000;
     if (elapsed >= tenMin) { localStorage.removeItem('mamad_alert'); return; }
+
+    // בדוק אם רלוונטי לעיר הנבחרת
+    if (selectedCity !== 'הכל' && alertAreas && Array.isArray(alertAreas)) {
+      const s = selectedCity.trim();
+      const relevant = alertAreas.some(area => {
+        const a = area.trim();
+        return a === s || a.startsWith(s + ' ') || a.startsWith(s + ' - ') || a.startsWith(s + '-');
+      });
+      if (!relevant) { localStorage.removeItem('mamad_alert'); return; }
+    }
 
     // שחזר התראה
     const chip = document.getElementById('alertChip');
@@ -2702,7 +2714,7 @@ async function checkOrefAlert() {
           areasDisplay = data.slice(0, 3).join(' • ') + ` ועוד ${data.length - 3}`;
         }
       }
-      showAlert(alert.title || '🚨 אזעקה', areasDisplay);
+      showAlert(alert.title || '🚨 אזעקה', areasDisplay, data);
     }
   } catch(e) {
     updateMonitorBadge(false, 'אין חיבור');
@@ -2761,7 +2773,7 @@ function updateLastAlertBadge() {
   } catch(e) {}
 }
 
-function showAlert(title, areas) {
+function showAlert(title, areas, rawAreas) {
   const chip = document.getElementById('alertChip');
   const inner = chip.querySelector('div');
   inner.innerHTML = `<span style="width:8px;height:8px;background:#ff6b6b;border-radius:50%;display:inline-block;animation:alertBlink 1.2s ease-in-out infinite"></span>
@@ -2774,7 +2786,7 @@ function showAlert(title, areas) {
   // שמור ב-localStorage
   try {
     localStorage.setItem('mamad_alert', JSON.stringify({
-      title, areas, timestamp: Date.now()
+      title, areas, timestamp: Date.now(), alertAreas: rawAreas || []
     }));
     // שמור גם כאזעקה אחרונה
     localStorage.setItem('mamad_last_alert', JSON.stringify({
