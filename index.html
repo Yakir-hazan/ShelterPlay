@@ -1549,11 +1549,7 @@ function playWin() {
   } catch(e){}
 }
 
-// Add click sounds to all interactive elements
-document.addEventListener('click', e => {
-  const el = e.target.closest('.grid-item, .game-btn, .sound-card, .timer-card, .sound-btn, .btn-back');
-  if (el) playNav();
-}, true);
+
 const triviaData = [
   { q: "מהי בירת צרפת?", a: ["פריז","לונדון","ברלין","מדריד"], c: 0 },
   { q: "כמה צבעים יש בקשת?", a: ["5","6","7","8"], c: 2 },
