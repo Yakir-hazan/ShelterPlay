@@ -2582,6 +2582,7 @@ function filterCities() {
 function selectCity(city) {
   selectedCity = city;
   localStorage.setItem('mamad_city', city);
+  localStorage.setItem('mamad_city_manual', city); // זכור שהמשתמש בחר ידנית
   updateLocationBtn();
   playSuccess();
   showToast('📍 ' + (city === 'הכל' ? 'מציג התראות לכל הארץ' : 'מציג התראות עבור: ' + city), 3000);
@@ -2886,9 +2887,10 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(() => {});
 }
 
-// בקש מיקום אם עיר לא נבחרה ספציפית
+// בקש מיקום רק אם לא נבחרה עיר בכלל (לא אם בחר "כל הארץ" ידנית)
 const savedCity = localStorage.getItem('mamad_city');
-if (!savedCity || savedCity === 'הכל') {
+const userChoseAll = localStorage.getItem('mamad_city_manual') === 'הכל';
+if (!savedCity && !userChoseAll) {
   setTimeout(() => askForLocation(), 1200);
 }
 
