@@ -2829,6 +2829,15 @@ function updateLastAlertBadge() {
 }
 
 function showAlert(title, areas, rawAreas) {
+  // אפס הודעת "האירוע הסתיים" אם קיימת
+  const instrEl = document.getElementById('alertInstruction');
+  const instrText = document.getElementById('alertInstructionText');
+  const instrLabel = document.getElementById('alertInstructionLabel');
+  instrEl.style.display = 'none';
+  instrText.style.background = '';
+  instrText.style.borderColor = '';
+  instrText.style.color = '';
+
   const chip = document.getElementById('alertChip');
   const inner = chip.querySelector('div');
   inner.innerHTML = `<span style="width:8px;height:8px;background:#ff6b6b;border-radius:50%;display:inline-block;animation:alertBlink 1.2s ease-in-out infinite"></span>
