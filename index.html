@@ -2793,7 +2793,7 @@ function updateLiveUsers() {
   el.textContent = '👥 ' + n.toLocaleString('he');
 }
 
-updateLiveUsers();
+setTimeout(updateLiveUsers, 100);
 setInterval(updateLiveUsers, 7000);
 
 function updateLastAlertBadge() {
@@ -2830,13 +2830,9 @@ function updateLastAlertBadge() {
 
 function showAlert(title, areas, rawAreas) {
   // אפס הודעת "האירוע הסתיים" אם קיימת
-  const instrEl = document.getElementById('alertInstruction');
-  const instrText = document.getElementById('alertInstructionText');
-  const instrLabel = document.getElementById('alertInstructionLabel');
-  instrEl.style.display = 'none';
-  instrText.style.background = '';
-  instrText.style.borderColor = '';
-  instrText.style.color = '';
+  document.getElementById('alertInstruction').style.display = 'none';
+  const _instrBox = document.getElementById('alertInstructionText');
+  if (_instrBox) { _instrBox.style.background = ''; _instrBox.style.borderColor = ''; _instrBox.style.color = ''; }
 
   const chip = document.getElementById('alertChip');
   const inner = chip.querySelector('div');
