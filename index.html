@@ -535,15 +535,14 @@
 
 <div class="toast" id="toast"></div>
 
+<!-- מונה משתמשים - פינה ימין עליונה -->
+<div id="liveUsersChip" style="position:fixed;top:12px;right:12px;z-index:999;display:inline-flex;align-items:center;gap:6px;background:rgba(38,222,129,0.1);border:1px solid rgba(38,222,129,0.25);border-radius:20px;padding:6px 14px;font-size:13px;color:#26de81;font-weight:700;backdrop-filter:blur(8px)">
+  <span style="width:7px;height:7px;background:#26de81;border-radius:50%;display:inline-block;animation:alertBlink 2s ease-in-out infinite;flex-shrink:0"></span>
+  <span id="liveUsersText">👥 ...</span>
+</div>
+
 <!-- HERO -->
 <div class="hero">
-  <!-- מונה משתמשים חי -->
-  <div style="margin-bottom:14px">
-    <span id="liveUsersChip" style="display:inline-flex;align-items:center;gap:8px;background:rgba(38,222,129,0.08);border:1px solid rgba(38,222,129,0.2);border-radius:20px;padding:7px 18px;font-size:14px;color:#26de81;font-weight:700">
-      <span style="width:8px;height:8px;background:#26de81;border-radius:50%;display:inline-block;animation:alertBlink 2s ease-in-out infinite;flex-shrink:0"></span>
-      <span id="liveUsersText">👥 ...</span>
-    </span>
-  </div>
   <div class="hero-icon">🛡️</div>
   <h1>הממ"ד שלנו</h1>
   <p>הממ"ד שלנו — פעילויות ובטיחות יחד</p>
@@ -2790,7 +2789,7 @@ function updateLiveUsers() {
   const el = document.getElementById('liveUsersText');
   if (!el) return;
   const n = getLiveUsers();
-  el.textContent = '👥 ' + n.toLocaleString('he') + ' באתר עכשיו';
+  el.textContent = '👥 ' + n.toLocaleString('he');
 }
 
 updateLiveUsers();
