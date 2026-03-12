@@ -2678,9 +2678,9 @@ async function checkOrefAlert() {
       const instrLabel2 = document.getElementById('alertInstructionLabel');
       if (instrEl2.style.display !== 'none') {
         instrLabel2.textContent = '✅ האירוע הסתיים — אפשר לצאת מהממ״ד';
-        instrEl2.style.background = 'rgba(38,222,129,0.1)';
-        instrEl2.style.borderColor = 'rgba(38,222,129,0.3)';
-        setTimeout(() => { instrEl2.style.display = 'none'; instrEl2.style.background = ''; instrEl2.style.borderColor = ''; }, 8000);
+        const instrBox2 = document.getElementById('alertInstructionText');
+        if (instrBox2) { instrBox2.style.background = 'rgba(38,222,129,0.1)'; instrBox2.style.borderColor = 'rgba(38,222,129,0.3)'; instrBox2.style.color = '#26de81'; }
+        setTimeout(() => { instrEl2.style.display = 'none'; if (instrBox2) { instrBox2.style.background = ''; instrBox2.style.borderColor = ''; instrBox2.style.color = ''; } }, 8000);
       }
       if (!alertHideTimeout) {
         const wasActive = document.getElementById('alertChip').style.display !== 'none';
@@ -2700,9 +2700,9 @@ async function checkOrefAlert() {
       const instrLabel3 = document.getElementById('alertInstructionLabel');
       if (instrEl3.style.display !== 'none') {
         instrLabel3.textContent = '✅ האירוע הסתיים — אפשר לצאת מהממ״ד';
-        instrEl3.style.background = 'rgba(38,222,129,0.1)';
-        instrEl3.style.borderColor = 'rgba(38,222,129,0.3)';
-        setTimeout(() => { instrEl3.style.display = 'none'; instrEl3.style.background = ''; instrEl3.style.borderColor = ''; }, 8000);
+        const instrBox3 = document.getElementById('alertInstructionText');
+        if (instrBox3) { instrBox3.style.background = 'rgba(38,222,129,0.1)'; instrBox3.style.borderColor = 'rgba(38,222,129,0.3)'; instrBox3.style.color = '#26de81'; }
+        setTimeout(() => { instrEl3.style.display = 'none'; if (instrBox3) { instrBox3.style.background = ''; instrBox3.style.borderColor = ''; instrBox3.style.color = ''; } }, 8000);
       }
       if (!alertHideTimeout) {
         const wasActive = document.getElementById('alertChip').style.display !== 'none';
