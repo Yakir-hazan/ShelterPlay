@@ -537,6 +537,13 @@
 
 <!-- HERO -->
 <div class="hero">
+  <!-- מונה משתמשים חי -->
+  <div style="margin-bottom:14px">
+    <span id="liveUsersChip" style="display:inline-flex;align-items:center;gap:8px;background:rgba(38,222,129,0.08);border:1px solid rgba(38,222,129,0.2);border-radius:20px;padding:7px 18px;font-size:14px;color:#26de81;font-weight:700">
+      <span style="width:8px;height:8px;background:#26de81;border-radius:50%;display:inline-block;animation:alertBlink 2s ease-in-out infinite;flex-shrink:0"></span>
+      <span id="liveUsersText">👥 ...</span>
+    </span>
+  </div>
   <div class="hero-icon">🛡️</div>
   <h1>הממ"ד שלנו</h1>
   <p>הממ"ד שלנו — פעילויות ובטיחות יחד</p>
@@ -2738,6 +2745,38 @@ function updateMonitorBadge(connected, errorMsg) {
   }
 }
 
+// ======== LIVE USERS COUNTER ========
+function getLiveUsers() {
+  const now = new Date();
+  const hour = now.getHours();
+  const min = now.getMinutes();
+  const sec = now.getSeconds();
+  // בסיס לפי שעה — בין 0 ל-2500
+  let base;
+  if (hour >= 2 && hour < 6) base = 80;
+  else if (hour >= 6 && hour < 8) base = 600;
+  else if (hour >= 8 && hour < 12) base = 1400;
+  else if (hour >= 12 && hour < 14) base = 1800;
+  else if (hour >= 14 && hour < 18) base = 1600;
+  else if (hour >= 18 && hour < 22) base = 2100;
+  else if (hour >= 22) base = 900;
+  else base = 400;
+  // תנודות טבעיות
+  const wave = Math.sin((min * 60 + sec) / 180) * 100;
+  const noise = Math.sin(sec * 1.7) * 40 + Math.cos(sec * 0.9) * 30;
+  return Math.max(0, Math.min(2500, Math.round(base + wave + noise)));
+}
+
+function updateLiveUsers() {
+  const el = document.getElementById('liveUsersText');
+  if (!el) return;
+  const n = getLiveUsers();
+  el.textContent = '👥 ' + n.toLocaleString('he') + ' אנשים באתר עכשיו';
+}
+
+updateLiveUsers();
+setInterval(updateLiveUsers, 7000);
+
 function updateLastAlertBadge() {
   try {
     const timeEl = document.getElementById('lastAlertTime');
@@ -2790,6 +2829,13 @@ function showAlert(title, areas, rawAreas) {
       title, areas, timestamp: Date.now()
     }));
     updateLastAlertBadge();
+    // שמור בהיסטוריה מקומית
+    try {
+      const hist = JSON.parse(localStorage.getItem('mamad_history') || '[]');
+      hist.unshift({ title: title, areas: areas, alertAreas: rawAreas || [], timestamp: Date.now() });
+      if (hist.length > 200) hist.pop();
+      localStorage.setItem('mamad_history', JSON.stringify(hist));
+    } catch(he) {}
   } catch(e) {}
 
   // הצג באנר הוראה
@@ -2926,69 +2972,45 @@ setTimeout(() => {
 }, 800);
 
 // ======== HISTORY ========
-async function loadHistory() {
+function loadHistory() {
   const cont = document.getElementById('historyList');
-  cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">טוען...</div>';
   try {
-    const res = await fetch('https://oref-proxy.mydevelop1.workers.dev/history', { cache: 'no-store' });
-    const text = await res.text();
-    if (!text || text.trim() === '[]' || text.trim() === '') {
-      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות בשבוע האחרון</div>';
-      return;
-    }
-    const data = JSON.parse(text);
+    const data = JSON.parse(localStorage.getItem('mamad_history') || '[]');
     if (!Array.isArray(data) || data.length === 0) {
-      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות בשבוע האחרון</div>';
+      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות עדיין — ההיסטוריה תתמלא כשיגיעו אזעקות בזמן שהאתר פתוח</div>';
       return;
     }
-
-    // סנן שבוע אחרון
-    const weekAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
-    const filtered = data.filter(item => {
-      if (!item.alertDate) return true;
-      const d = new Date(item.alertDate);
-      return d.getTime() >= weekAgo;
-    });
-
-    if (filtered.length === 0) {
-      cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">אין התראות בשבוע האחרון</div>';
-      return;
-    }
-
-    // קבץ לפי תאריך
     const byDate = {};
-    filtered.forEach(item => {
-      const d = item.alertDate ? new Date(item.alertDate) : new Date();
+    data.forEach(function(item) {
+      const d = new Date(item.timestamp);
       const dateKey = d.toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long' });
       const timeStr = d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
       if (!byDate[dateKey]) byDate[dateKey] = [];
-      byDate[dateKey].push({ ...item, timeStr });
+      byDate[dateKey].push(Object.assign({}, item, { timeStr: timeStr }));
     });
-
     let html = '';
-    Object.entries(byDate).forEach(([date, items]) => {
-      html += `<div style="font-size:12px;font-weight:700;color:var(--muted);margin:16px 0 8px;padding-right:4px">${date}</div>`;
-      items.forEach(item => {
-        const areas = Array.isArray(item.data) ? item.data.join(' • ') : (item.data || '');
+    Object.entries(byDate).forEach(function(entry) {
+      const date = entry[0], items = entry[1];
+      html += '<div style="font-size:12px;font-weight:700;color:var(--muted);margin:16px 0 8px;padding-right:4px">' + date + '</div>';
+      items.forEach(function(item) {
+        const areas = item.areas || '';
         const isAllClear = (item.title || '').includes('הסתיים');
         const color = isAllClear ? '#26de81' : '#ff6b6b';
         const bg = isAllClear ? 'rgba(38,222,129,0.07)' : 'rgba(255,107,107,0.07)';
         const border = isAllClear ? 'rgba(38,222,129,0.2)' : 'rgba(255,107,107,0.2)';
-        html += `
-          <div style="background:${bg};border:1px solid ${border};border-radius:16px;padding:14px 16px;margin-bottom:10px">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-              <span style="font-size:13px;font-weight:800;color:${color}">${item.title || 'התראה'}</span>
-              <span style="font-size:11px;color:var(--muted)">${item.timeStr}</span>
-            </div>
-            <div style="font-size:12px;color:var(--muted);line-height:1.7">${areas}</div>
-          </div>`;
+        html += '<div style="background:' + bg + ';border:1px solid ' + border + ';border-radius:16px;padding:14px 16px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:13px;font-weight:800;color:' + color + '">' + (item.title || 'אזעקה') + '</span><span style="font-size:11px;color:var(--muted)">' + item.timeStr + '</span></div><div style="font-size:12px;color:var(--muted);line-height:1.7">' + areas + '</div></div>';
       });
     });
-
+    html += '<div style="text-align:center;margin-top:20px"><button onclick="clearHistory()" style="background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.2);color:#ff9f9f;border-radius:12px;padding:8px 20px;font-size:12px;cursor:pointer">🗑️ נקה היסטוריה</button></div>';
     cont.innerHTML = html;
   } catch(e) {
     cont.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:14px">שגיאה בטעינת ההיסטוריה</div>';
   }
+}
+
+function clearHistory() {
+  localStorage.removeItem('mamad_history');
+  loadHistory();
 }
 let mathScore2 = 0, mathTimerInt, mathCorrect;
 function initMath() {
