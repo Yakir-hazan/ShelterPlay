@@ -3085,7 +3085,7 @@ const triviaAllQ = [
   { q: "כמה כוכבי לכת יש במערכת השמש?", answers: ["7", "8", "9", "10"], correct: 1, fact: "8 כוכבי לכת — פלוטו הורד מהרשימה ב-2006." },
   { q: "מהי הבירה של אוסטרליה?", answers: ["סידני", "מלבורן", "קנברה", "פרת'"], correct: 2, fact: "קנברה! רבים חושבים שזה סידני אבל הבירה היא קנברה." },
   { q: "כמה צבעים יש בקשת בענן?", answers: ["5", "6", "7", "8"], correct: 2, fact: "7 צבעים: אדום, כתום, צהוב, ירוק, כחול, אינדיגו, סגול." },
-  { q: "מהו האוקיינוס הגדול ביותר?", answers: ["הודי", "ארקטי", "אטלנטי", "שקט"], correct: 3, fact: "האוקיינוס השקט — יותר ממחצית מכל מי העולם!" },
+  { q: "מהו האוקיינוס הגדול ביותר בעולם?", answers: ["הודי", "ארקטי", "אטלנטי", "שקט"], correct: 3, fact: "האוקיינוס השקט — יותר ממחצית מכל מי העולם!" },
   { q: "איזה חיה ישנה הכי הרבה שעות ביום?", answers: ["אריה", "חתול", "עטלף", "קואלה"], correct: 3, fact: "קואלה ישן 18-22 שעות ביום בגלל המזון הדל בקלוריות." },
   { q: "מה צבע הדם של תמנון?", answers: ["אדום", "כחול", "ירוק", "שקוף"], correct: 1, fact: "כחול! הדם שלהם מכיל נחושת במקום ברזל." },
   { q: "כמה שיניים יש לאדם בוגר (כולל שיני בינה)?", answers: ["28", "30", "32", "36"], correct: 2, fact: "32 שיניים! בלי שיני בינה — 28." },
@@ -3153,7 +3153,7 @@ function selectTriviaAnswer(i) {
     btns[i].classList.add('trivia-ans-correct');
     triviaPopScore++;
     triviaFireConfetti();
-    if (triviaCur === triviaQuestions.length - 1 && triviaScore === triviaQuestions.length) {
+    if (triviaCur === triviaQuestions.length - 1 && triviaPopScore === triviaQuestions.length) {
       setTimeout(triviaFireConfetti, 500);
       setTimeout(triviaFireConfetti, 1000);
     }
@@ -4386,9 +4386,8 @@ function drawSolitaire(){
   <div class="trivia-overlay" id="triviaOverlay" style="display:none">
     <div class="trivia-card">
       <div class="trivia-header">
-        <div class="trivia-tag">אתגר <span class="orange">היום</span> 🔥</div>
+        <div class="trivia-tag">אתגר <span class="orange">היום</span> 🔥 <span id="trivDate" style="font-size:11px;color:#6b7a99;font-weight:400;margin-right:6px"></span></div>
         <span class="trivia-progress" id="trivProg">1 / 3</span>
-        <span id="trivDate" style="font-size:11px;color:#6b7a99"></span>
         <button class="trivia-close" onclick="closeTrivia()">✕</button>
       </div>
       <div id="triviaBody">
